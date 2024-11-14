@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 public class TextArchitect
 {
     private TextMeshProUGUI tmpro_ui; // for ui space text
@@ -14,7 +15,7 @@ public class TextArchitect
 
     public string fullTargetText => preText + targetText; // full target text i.e. what we want to fully display
 
-    public enum BuildMethod { instant, typewriter, fade }; // tracks the different text animation styles
+    public enum BuildMethod { instant, typewriter }; // tracks the different text animation styles
     public BuildMethod buildMethod = BuildMethod.typewriter; // set default build method to typewriter style
 
     /// <summary>
@@ -105,13 +106,10 @@ public class TextArchitect
     {
         Prepare();
 
-        switch(buildMethod)
+        switch (buildMethod)
         {
             case BuildMethod.typewriter:
                 yield return Build_Typewriter();
-                break;
-            case BuildMethod.fade:
-                yield return Build_Fade();
                 break;
             case BuildMethod.instant:
                 break;
@@ -121,6 +119,20 @@ public class TextArchitect
     private void OnComplete()
     {
         buildProcess = null;
+        hurryUp = false;
+    }
+
+    public void ForceComplete()
+    {
+        switch (buildMethod)
+        {
+            case BuildMethod.typewriter:
+                tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+                break;
+        }
+
+        Stop();
+        OnComplete();
     }
 
     private void Prepare()
@@ -132,9 +144,6 @@ public class TextArchitect
                 break;
             case BuildMethod.typewriter:
                 Prepare_Typewriter();
-                break;
-            case BuildMethod.fade:
-                Prepare_Fade();
                 break;
         }
     }
@@ -154,24 +163,28 @@ public class TextArchitect
     private void Prepare_Typewriter()
     {
         tmpro.color = tmpro.color;
-        tmpro.text = fullTargetText;
+        tmpro.maxVisibleCharacters = 0;
+        tmpro.text = preText;
+
+        if (preText != "")
+        {
+            tmpro.ForceMeshUpdate();
+            tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+        }
+
+        tmpro.text += targetText;
         tmpro.ForceMeshUpdate();
-        
-    }
-
-    private void Prepare_Fade()
-    {
-
     }
 
     private IEnumerator Build_Typewriter()
     {
-        yield return null;
+        while (tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
+        {
+            tmpro.maxVisibleCharacters += hurryUp ? charactersPerCycle * 5 : charactersPerCycle;
+
+            yield return new WaitForSeconds(0.015f / standardSpeed);
+        }
     }
 
-    private IEnumerator Build_Fade()
-    {
-        yield return null;
-    }
-
+    
 }
