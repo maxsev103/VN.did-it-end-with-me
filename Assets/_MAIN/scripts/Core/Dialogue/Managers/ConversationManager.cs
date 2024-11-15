@@ -11,10 +11,17 @@ namespace DIALOGUE
         public bool isRunning => process != null;
 
         private TextArchitect architect = null;
+        private bool userPrompt = false;
 
         public ConversationManager(TextArchitect architect)
         {
             this.architect = architect;
+            dialogueSystem.onUserPrompt_Next += OnUserPrompt_Next;
+        }
+
+        private void OnUserPrompt_Next()
+        {
+            userPrompt = true;
         }
         
         public void StartConversation(List<string> conversation)
@@ -49,8 +56,6 @@ namespace DIALOGUE
                 // run commands if any
                 if (line.hasCommands)
                     yield return Line_RunCommands(line);
-
-                yield return new WaitForSeconds(1);
             }
         }
 
@@ -62,16 +67,44 @@ namespace DIALOGUE
                 dialogueSystem.HideSpeakerName();
 
             // build the dialogue
-            architect.Build(line.dialogue);
+            yield return BuildDialogue(line.dialogue);
 
-            while (architect.isBuilding)
-                yield return null;
+            // wait for user input to proceed to the next line
+            yield return WaitForUserInput();
         }
 
         IEnumerator Line_RunCommands(DialogueLine line)
         {
             Debug.Log(line.commands);
             yield return null;
+        }
+
+        IEnumerator BuildDialogue(string dialogue)
+        {
+            architect.Build(dialogue);
+
+            while (architect.isBuilding)
+            {
+                if (userPrompt)
+                {
+                    if (!architect.hurryUp)
+                        architect.hurryUp = true;
+                    else
+                        architect.ForceComplete();
+
+                    userPrompt = false;
+                }
+
+                yield return null;
+            }
+        }
+
+        IEnumerator WaitForUserInput()
+        {
+            while (!userPrompt)
+                yield return null;
+
+            userPrompt = false;
         }
     }
 }
