@@ -2045,7 +2045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1055421776}
   m_Layer: 0
-  m_Name: TestingObject
+  m_Name: '[TESTING]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3247,7 +3247,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1055421776}
   - {fileID: 887613447}
   - {fileID: 111432951}
   - {fileID: 1063444208}
-  - {fileID: 1055421776}
