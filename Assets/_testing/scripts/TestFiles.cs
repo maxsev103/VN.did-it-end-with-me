@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestFiles : MonoBehaviour
+namespace TESTING
 {
-    private string fileName = "testFile.txt";
-
-    // Start is called before the first frame update
-    void Start()
+    public class TestFiles : MonoBehaviour
     {
-        StartCoroutine(Run());
-    }
+        [SerializeField] TextAsset fileName;
 
-    IEnumerator Run()
-    {
-        List<string> lines = FileManager.ReadTextFile(fileName, true);
+        // Start is called before the first frame update
+        void Start()
+        {
+            StartCoroutine(Run());
+        }
 
-        foreach (string line in lines)
-            Debug.Log(line);
+        IEnumerator Run()
+        {
+            List<string> lines = FileManager.ReadTextAsset(fileName, false);
 
-        yield return null;
+            foreach (string line in lines)
+                Debug.Log(line);
+
+            yield return null;
+        }
     }
 }

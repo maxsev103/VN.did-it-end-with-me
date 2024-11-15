@@ -1,0 +1,7 @@
+Johnkai "Why did you delete me Vita" list(items -f long), playSong("Intro Song" -v 1)
+
+setScene("Mars Supercomputer" -s 5.5)
+
+Vita "Sorry \"Johnkai\" women only."
+
+narrator "And thus Johnkai was unalived" playSong(Womp, -p 0.5), list(players), saveGame(1 -g all -f simple)
