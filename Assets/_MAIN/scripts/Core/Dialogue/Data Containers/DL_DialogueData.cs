@@ -9,8 +9,6 @@ namespace DIALOGUE {
         public List<DialogueSegment> segments;
         private const string segmentIdentifierPattern = @"\{[ca]\}|\{w[ca]\s\d*\.?\d*\}";
 
-        public bool hasDialogue => segments.Count > 0;
-
         public DL_DialogueData(string rawDialogue)
         {
             segments = RipSegments(rawDialogue);
@@ -29,8 +27,7 @@ namespace DIALOGUE {
             segment.startSignal = DialogueSegment.StartSignal.NONE;
             segment.signalDelay = 0;
 
-            if (!string.IsNullOrEmpty(rawDialogue))
-                segments.Add(segment);
+            segments.Add(segment);
 
             if (matches.Count == 0)
                 return segments;
