@@ -1,0 +1,17 @@
+Calyx "So you're calling me...{wa 0.5} a liar?"
+
+DisplayScene("Red Herring")
+
+Mom "That is NOT what I'm saying and you know it Calyx.{c}All I'm saying is that you're not giving me the full truth and I can see through it!{c}Don't take your mother for a fool Calyx."
+
+Calyx "And I already told you that that's all I know!{c}I'm not 'hiding' anything because there's nothing TO hide!"
+
+Mom "Then...{wc 0.7}Then tell me what I saw."
+
+Calyx "How can I tell you what you saw-"
+
+Mom "{wc 0.3}TELL ME THAT IT WASN'T YOU AT THAT STORE!{c}TELL ME THAT AT 8:00PM LAST NIGHT, YOU WERE AT YOUR FRIEND'S HOUSE LIKE YOU TOLD ME!"
+
+Calyx "Mom-"
+
+Mom "TELL ME, CALYX!{c}TELL ME THAT IT WASN'T YOU I SAW DRAGGING A MAN'S BODY FROM THE BACK OF THE CONVENIENCE STORE!{c}DENY IT!{c}Please...{wa 0.5} deny it."

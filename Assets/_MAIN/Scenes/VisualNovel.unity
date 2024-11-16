@@ -489,6 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eee210a76f7ef6489f021f19cf261f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileToRead: {fileID: 4900000, guid: 0ddb9890042510b469659d6fd07ba3b9, type: 3}
 --- !u!1 &228686400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: gago nasan ako
+  m_text: Gago nasan ako
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d535300a6352a3429ab1f6778fb1e32, type: 2}
   m_sharedMaterial: {fileID: -5461604007288372459, guid: 4d535300a6352a3429ab1f6778fb1e32,
@@ -1763,7 +1764,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 8
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
