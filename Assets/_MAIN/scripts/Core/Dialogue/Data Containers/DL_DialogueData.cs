@@ -69,7 +69,7 @@ namespace DIALOGUE {
             public string dialogue;
             public StartSignal startSignal;
             public float signalDelay;
-            public enum StartSignal { NONE, C, A, WA, WC, I }
+            public enum StartSignal { NONE, C, A, WA, WC }
 
             public bool appendText => (startSignal == DL_DialogueData.DialogueSegment.StartSignal.A || startSignal == DL_DialogueData.DialogueSegment.StartSignal.WA);
         }

@@ -101,8 +101,6 @@ namespace DIALOGUE
                 case DL_DialogueData.DialogueSegment.StartSignal.WA:
                     yield return new WaitForSeconds(segment.signalDelay);
                     break;
-                case DL_DialogueData.DialogueSegment.StartSignal.I:
-                    break;
                 default:
                     break;
             }
