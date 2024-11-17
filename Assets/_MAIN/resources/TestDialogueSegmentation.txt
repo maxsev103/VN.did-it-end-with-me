@@ -1,3 +1,8 @@
+
+Print_1p("This is a command running straight from our dialogue file!")
+
+Calyx "Move left then right" Print_1p("Start Moving thanks"), [wait]MoveChara(left), [wait]MoveChara(right), Print_1p("Stops")
+
 Calyx as ??? "Are you for real??" playMusic("Womp womp" -v 0.75 -p 1), setMood(dark)
 
 Ysella at 0:1 "Very for real." playVoice("hmm_vsfx" -v 1.54)
