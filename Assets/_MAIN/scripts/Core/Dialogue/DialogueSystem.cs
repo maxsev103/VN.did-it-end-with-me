@@ -7,6 +7,9 @@ namespace DIALOGUE
 {
     public class DialogueSystem : MonoBehaviour
     {
+        [SerializeField] private DialogueSystemConfiguration_SO _config;
+        public DialogueSystemConfiguration_SO config => _config;
+
         public DialogueContainer dialogueContainer = new DialogueContainer();
         private ConversationManager conversationManager;
         private TextArchitect architect;
