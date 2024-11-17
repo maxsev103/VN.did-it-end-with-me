@@ -114,6 +114,8 @@ public class TextArchitect
             case BuildMethod.instant:
                 break;
         }
+
+        OnComplete();
     }
 
     private void OnComplete()

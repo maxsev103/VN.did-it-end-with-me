@@ -1,0 +1,9 @@
+Calyx "Gago nasan ako???" list(items -f long), playSong("Intro Song" -v 1)
+
+setScene("Mars Supercomputer" -s 5.5)
+
+Cherubim "BE NOT AFRAID"
+
+Calyx "UMMM ????"
+
+narrator "And it was then Calyx knew that he was in a place he could not turn back from." playSong(Womp, -p 0.5), list(players), saveGame(1 -g all -f simple)
