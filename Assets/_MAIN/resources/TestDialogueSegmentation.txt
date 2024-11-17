@@ -1,7 +1,11 @@
 
-Print_1p("This is a command running straight from our dialogue file!")
+Calyx "(So i am thinking rn)"
 
-Calyx "Move left then right" Print_1p("Start Moving thanks"), [wait]MoveChara(left), [wait]MoveChara(right), Print_1p("Stops")
+Calyx "(omg bestie me too) command(yippee)"
+
+command(commandarg)
+
+yass slay
 
 Calyx as ??? "Are you for real??" playMusic("Womp womp" -v 0.75 -p 1), setMood(dark)
 

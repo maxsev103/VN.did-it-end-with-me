@@ -3,80 +3,83 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class DL_CommandData
+namespace DIALOGUE 
 {
-    public List<Command> commands;
-    private const char COMMANDSPLITTER_ID = ',';
-    private const char ARGUMENTSCONTAINER_ID = '(';
-    private const string WAITCOMMAND_ID = "[wait]";
-
-    public struct Command
+    public class DL_CommandData
     {
-        public string name;
-        public string[] arguments;
-        public bool waitForCompletion;
-    }
+        public List<Command> commands;
+        private const char COMMANDSPLITTER_ID = ',';
+        private const char ARGUMENTSCONTAINER_ID = '(';
+        private const string WAITCOMMAND_ID = "[wait]";
 
-    public DL_CommandData(string rawCommand)
-    {
-        commands = RipCommands(rawCommand);
-    }
-
-    private List<Command> RipCommands(string rawCommand)
-    {
-        string[] data = rawCommand.Split(COMMANDSPLITTER_ID, System.StringSplitOptions.RemoveEmptyEntries);
-        List<Command> result = new List<Command>();
-
-        foreach (string cmd in data)
+        public struct Command
         {
-            Command command = new Command();
-            int index = cmd.IndexOf(ARGUMENTSCONTAINER_ID);
-            command.name = cmd.Substring(0, index).Trim();
-
-            if (command.name.ToLower().StartsWith(WAITCOMMAND_ID))
-            {
-                command.waitForCompletion = true;
-                command.name = command.name.Substring(WAITCOMMAND_ID.Length);
-            }
-            else
-                command.waitForCompletion = false;
-
-            command.arguments = GetArgs(cmd.Substring(index + 1, cmd.Length - index - 2));
-            result.Add(command);
+            public string name;
+            public string[] arguments;
+            public bool waitForCompletion;
         }
 
-        return result;
-    }
-
-    private string[] GetArgs(string args)
-    {
-        List<string> argList= new List<string>();
-        StringBuilder currentArg = new StringBuilder();
-        bool inQuotes = false;
-
-        for (int i = 0; i < args.Length; i++)
+        public DL_CommandData(string rawCommand)
         {
-            if (args[i] == '"')
+            commands = RipCommands(rawCommand);
+        }
+
+        private List<Command> RipCommands(string rawCommand)
+        {
+            string[] data = rawCommand.Split(COMMANDSPLITTER_ID, System.StringSplitOptions.RemoveEmptyEntries);
+            List<Command> result = new List<Command>();
+
+            foreach (string cmd in data)
             {
-                inQuotes = !inQuotes;
-                continue;
+                Command command = new Command();
+                int index = cmd.IndexOf(ARGUMENTSCONTAINER_ID);
+                command.name = cmd.Substring(0, index).Trim();
+
+                if (command.name.ToLower().StartsWith(WAITCOMMAND_ID))
+                {
+                    command.waitForCompletion = true;
+                    command.name = command.name.Substring(WAITCOMMAND_ID.Length);
+                }
+                else
+                    command.waitForCompletion = false;
+
+                command.arguments = GetArgs(cmd.Substring(index + 1, cmd.Length - index - 2));
+                result.Add(command);
             }
 
-            if (!inQuotes && args[i] == ' ')
+            return result;
+        }
+
+        private string[] GetArgs(string args)
+        {
+            List<string> argList = new List<string>();
+            StringBuilder currentArg = new StringBuilder();
+            bool inQuotes = false;
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == '"')
+                {
+                    inQuotes = !inQuotes;
+                    continue;
+                }
+
+                if (!inQuotes && args[i] == ' ')
+                {
+                    argList.Add(currentArg.ToString());
+                    currentArg.Clear();
+                    continue;
+                }
+
+                currentArg.Append(args[i]);
+            }
+
+            if (currentArg.Length > 0)
             {
                 argList.Add(currentArg.ToString());
-                currentArg.Clear();
-                continue;
             }
 
-            currentArg.Append(args[i]);
+            return argList.ToArray();
         }
-
-        if (currentArg.Length > 0)
-        {
-            argList.Add(currentArg.ToString());
-        }
-
-        return argList.ToArray();
     }
 }
