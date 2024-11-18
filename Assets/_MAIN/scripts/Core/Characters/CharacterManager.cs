@@ -17,6 +17,11 @@ namespace CHARACTERS
             instance = this;
         }
 
+        public CharacterConfig_Data GetCharacterConfig(string characterName)
+        {
+            return config.GetConfig(characterName);
+        }
+
         public Character CreateCharacter(string characterName)
         {
             if (characters.ContainsKey(characterName.ToLower()))
@@ -32,6 +37,16 @@ namespace CHARACTERS
             characters.Add(characterName.ToLower(), character);
 
             return character;
+        }
+
+        public Character GetCharacter(string characterName, bool createIfNotExisting = false)
+        {
+            if (characters.ContainsKey(characterName.ToLower()))
+                return characters[characterName.ToLower()];
+            else if (createIfNotExisting)
+                return CreateCharacter(characterName);
+
+            return null;
         }
 
         private CHARACTER_INFO GetCharacterInfo(string characterName)
@@ -51,10 +66,10 @@ namespace CHARACTERS
             switch (info.config.characterType)
             {
                 case Character.CharacterType.Text:
-                    return new Character_Text(info.name);
+                    return new Character_Text(info.name, config);
                 case Character.CharacterType.Sprite:
                 case Character.CharacterType.SpriteSheet:
-                    return new Character_Sprite(info.name);
+                    return new Character_Sprite(info.name, config);
                 default:
                     return null;  
             }

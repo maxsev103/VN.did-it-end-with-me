@@ -1,5 +1,7 @@
+using DIALOGUE;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace CHARACTERS
@@ -7,7 +9,11 @@ namespace CHARACTERS
     public abstract class Character
     {
         public string name = "";
+        public string displayName = "";
         public RectTransform root = null;
+        public CharacterConfig_Data config;
+
+        public DialogueSystem dialogueSystem => DialogueSystem.instance;
 
         public enum CharacterType 
         {
@@ -16,9 +22,29 @@ namespace CHARACTERS
             SpriteSheet
         }
 
-        public Character(string name)
+        public Character(string name, CharacterConfig_Data config)
         {
             this.name = name;
+            displayName = name;
+            this.config = config;
         }
+
+        public Coroutine Say(string dialogue) => Say(new List<string> { dialogue });
+
+        public Coroutine Say(List<string> dialogue)
+        {
+            dialogueSystem.ShowSpeakerName(displayName);
+            UpdateTextCustomizationOnScreen();
+            return dialogueSystem.Say(dialogue);
+        }
+
+        public void SetNameColor(Color color) => config.nameColor = color;
+        public void SetDialogueColor(Color color) => config.dialogueColor = color;
+        public void SetNamefont(TMP_FontAsset font) => config.nameFont = font;
+        public void SetDialogueFont(TMP_FontAsset font) => config.dialogueFont = font;
+
+        public void UpdateTextCustomizationOnScreen() => dialogueSystem.ApplySpeakerDataToContainer(config);
+        public void ResetConfigurationData() => CharacterManager.instance.GetCharacterConfig(name);
+
     }
 }

@@ -18,19 +18,19 @@ MonoBehaviour:
     characterType: 1
     nameColor: {r: 0.78867924, g: 0.2111096, b: 0.1711284, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
-    nameFont: {fileID: 11400000, guid: 4d535300a6352a3429ab1f6778fb1e32, type: 2}
-    dialogueFont: {fileID: 11400000, guid: 4d535300a6352a3429ab1f6778fb1e32, type: 2}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
   - name: Agnes
     alias: A
     characterType: 0
     nameColor: {r: 0, g: 0, b: 0, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
-    nameFont: {fileID: 11400000, guid: 4d535300a6352a3429ab1f6778fb1e32, type: 2}
-    dialogueFont: {fileID: 11400000, guid: 4d535300a6352a3429ab1f6778fb1e32, type: 2}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
   - name: Zombie
     alias: Z
     characterType: 0
     nameColor: {r: 0.071192555, g: 0.381132, b: 0.14424828, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
-    nameFont: {fileID: 11400000, guid: 4d535300a6352a3429ab1f6778fb1e32, type: 2}
-    dialogueFont: {fileID: 11400000, guid: 4d535300a6352a3429ab1f6778fb1e32, type: 2}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}

@@ -13,6 +13,10 @@ namespace DIALOGUE
     {
         [SerializeField] private GameObject root;
         [SerializeField] private TextMeshProUGUI nameText;
+
+        public void SetNameColor(Color color) => nameText.color = color;
+        public void SetNameFont(TMP_FontAsset font) => nameText.font = font;
+
         public void Show(string nameToShow = "")
         {
             root.SetActive(true);
