@@ -2886,6 +2886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008e60615205c124fa6fbee4ac896214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterPanel: {fileID: 2113098426}
 --- !u!1 &1879282351
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,6 +3578,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character - [Ysella]
       objectReference: {fileID: 0}
+    - target: {fileID: 2029711193415651525, guid: ddbb637d067375947adc13b99c2a8f02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4609163316703706851, guid: ddbb637d067375947adc13b99c2a8f02,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3655,7 +3661,7 @@ PrefabInstance:
     - target: {fileID: 4609163316703706851, guid: ddbb637d067375947adc13b99c2a8f02,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -483
+      value: -482.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4609163316703706851, guid: ddbb637d067375947adc13b99c2a8f02,
         type: 3}
