@@ -25,9 +25,19 @@ namespace TESTING
             Character guard2 = CreateCharacter("Guard2 as Ysella");
             Character guard3 = CreateCharacter("Guard3 as Ysella");
 
+            guard1.SetPosition(Vector2.zero);
+            guard2.SetPosition(new Vector2(0.5f, 0.5f));
+            guard3.SetPosition(Vector2.one);
+
             guard1.Show();
             guard2.Show();
             guard3.Show();
+
+            yield return guard1.MoveToPosition(Vector2.one);
+            yield return guard1.MoveToPosition(Vector2.zero);
+
+            yield return guard3.MoveToPosition(Vector2.zero, smooth:true);
+            yield return guard3.MoveToPosition(Vector2.one, smooth:true);
 
             yield return null;
         }
