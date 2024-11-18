@@ -68,6 +68,8 @@ namespace CHARACTERS
             result.config = config.GetConfig(result.castingName);
             result.prefab = GetPrefabForCharacter(result.castingName);
 
+            result.rootCharacterFolder = FormatCharacterPath(characterRootPathFormat, result.castingName);
+
             return result;
         }
 
@@ -89,7 +91,7 @@ namespace CHARACTERS
                     return new Character_Text(info.name, config);
                 case Character.CharacterType.Sprite:
                 case Character.CharacterType.SpriteSheet:
-                    return new Character_Sprite(info.name, config, info.prefab);
+                    return new Character_Sprite(info.name, config, info.prefab, info.rootCharacterFolder);
                 default:
                     return null;  
             }
@@ -99,6 +101,8 @@ namespace CHARACTERS
         {
             public string name = "";
             public string castingName = "";
+
+            public string rootCharacterFolder = "";
 
             public CharacterConfig_Data config = null;
 
