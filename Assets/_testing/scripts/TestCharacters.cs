@@ -21,23 +21,40 @@ namespace TESTING
 
         IEnumerator Test()
         {
-            Character guard1 = CreateCharacter("Guard1 as Ysella");
-            Character guard2 = CreateCharacter("Guard2 as Ysella");
-            Character guard3 = CreateCharacter("Guard3 as Ysella");
+            Character_Sprite Ysella = CreateCharacter("Ysella") as Character_Sprite;
+            Character_Sprite Ysella2 = CreateCharacter("Clone as Ysella") as Character_Sprite;
 
-            guard1.SetPosition(Vector2.zero);
-            guard2.SetPosition(new Vector2(0.5f, 0.5f));
-            guard3.SetPosition(Vector2.one);
+            Sprite faceSprite = Ysella.GetSprite("Ysella_neutral");
+            Ysella.TransitionSprite(faceSprite, 1);
 
-            guard1.Show();
-            guard2.Show();
-            guard3.Show();
+            Ysella.SetPosition(Vector2.zero);
+            Ysella2.SetPosition(Vector2.one);
 
-            yield return guard1.MoveToPosition(Vector2.one);
-            yield return guard1.MoveToPosition(Vector2.zero);
+            Ysella.Unhighlight();
+            yield return Ysella2.Say("So....");
+            
+            Ysella2.Unhighlight();
+            Ysella.Highlight();
+            yield return Ysella.Say("So.........");
 
-            yield return guard3.MoveToPosition(Vector2.zero, smooth:true);
-            yield return guard3.MoveToPosition(Vector2.one, smooth:true);
+            faceSprite = Ysella.GetSprite("Ysella_happy");
+            Ysella.TransitionSprite(faceSprite, layer: 1);
+
+            yield return Ysella.MoveToPosition(new Vector2(0, 0.5f));
+            yield return Ysella.MoveToPosition(new Vector2(0, -0.5f));
+
+            Ysella2.TransitionSprite(Ysella.GetSprite("Ysella_neutral"), 1);
+
+            Ysella.Unhighlight();
+            Ysella2.Highlight();
+            yield return Ysella2.Say("Wtf girl why did u jump");
+
+            Ysella2.Unhighlight();
+            Ysella.Highlight();
+            yield return Ysella.Say("Girl idk");
+
+            Ysella.Unhighlight();
+            Ysella.TransitionSprite(Ysella.GetSprite("Ysella_neutral"), 1);
 
             yield return null;
         }

@@ -11,7 +11,6 @@ public class TextArchitect
     public string currentText => tmpro.text; // get the text from tmpro variable
     public string targetText { get; private set; } = ""; // initialize to empty
     public string preText { get; private set; } = ""; // initialize to empty
-    private int preTextLength = 0; // initialize to 0
 
     public string fullTargetText => preText + targetText; // full target text i.e. what we want to fully display
 
