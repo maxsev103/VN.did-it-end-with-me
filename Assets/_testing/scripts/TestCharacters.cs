@@ -22,39 +22,50 @@ namespace TESTING
         IEnumerator Test()
         {
             Character_Sprite Ysella = CreateCharacter("Ysella") as Character_Sprite;
-            Character_Sprite Ysella2 = CreateCharacter("Clone as Ysella") as Character_Sprite;
+            Character_Sprite YsellaAlter = CreateCharacter("Ysella(?) as Ysella") as Character_Sprite;
+            YsellaAlter.isVisible = false;
 
             Sprite faceSprite = Ysella.GetSprite("Ysella_neutral");
-            Ysella.TransitionSprite(faceSprite, 1);
+            Ysella.SetSprite(faceSprite, 1);
 
-            Ysella.SetPosition(Vector2.zero);
-            Ysella2.SetPosition(Vector2.one);
+            Ysella.SetPosition(new Vector2(0.30f, 0));
+            YsellaAlter.SetPosition(new Vector2(0.65f, 0));
+            YsellaAlter.SetColor(Color.black);
 
             Ysella.Unhighlight();
-            yield return Ysella2.Say("So....");
+            yield return Ysella.Flip();
+            yield return new WaitForSeconds(1);
+            yield return Ysella.Flip();
+            yield return new WaitForSeconds(1);
+
+            Ysella.Highlight();
+            yield return Ysella.Say(".{wa 0.2}.{wa 0.2}.{wa 0.2}And I'm lost.{c}Just my luck,{wa 0.5} I just HAD to get lost in some creepy place like this.{c}Ugh.");
+            Ysella.Unhighlight();
+
+            YsellaAlter.Flip();
+            yield return YsellaAlter.Say("...");
             
-            Ysella2.Unhighlight();
             Ysella.Highlight();
-            yield return Ysella.Say("So.........");
-
-            faceSprite = Ysella.GetSprite("Ysella_happy");
-            Ysella.TransitionSprite(faceSprite, layer: 1);
-
-            yield return Ysella.MoveToPosition(new Vector2(0, 0.5f));
-            yield return Ysella.MoveToPosition(new Vector2(0, -0.5f));
-
-            Ysella2.TransitionSprite(Ysella.GetSprite("Ysella_neutral"), 1);
-
+            Ysella.Animate("Hop");
+            yield return Ysella.Say("Who's there!?");
             Ysella.Unhighlight();
-            Ysella2.Highlight();
-            yield return Ysella2.Say("Wtf girl why did u jump");
 
-            Ysella2.Unhighlight();
+            YsellaAlter.Show();
+            YsellaAlter.Highlight();
+            yield return YsellaAlter.Say("Hello, Ysella.{c}It's nice of you to finally show up.");
+            YsellaAlter.Unhighlight();
+
             Ysella.Highlight();
-            yield return Ysella.Say("Girl idk");
-
+            Ysella.Animate("Shiver", true);
+            yield return Ysella.Say("W-{wa 0.1}who are you?");
             Ysella.Unhighlight();
-            Ysella.TransitionSprite(Ysella.GetSprite("Ysella_neutral"), 1);
+
+            YsellaAlter.Hide();
+            yield return new WaitForSeconds(1);
+            Ysella.Animate("Shiver", false);
+            Ysella.Highlight();
+            yield return Ysella.Say("What the hell was that?!");
+            Ysella.Unhighlight();
 
             yield return null;
         }
