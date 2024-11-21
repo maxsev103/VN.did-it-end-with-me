@@ -1,3 +1,4 @@
+using CHARACTERS;
 using COMMANDS;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,11 +26,13 @@ namespace DIALOGUE
             userPrompt = true;
         }
         
-        public void StartConversation(List<string> conversation)
+        public Coroutine StartConversation(List<string> conversation)
         {
             StopConversation();
 
             process = dialogueSystem.StartCoroutine(RunningConversation(conversation));
+            
+            return process;
         }
 
         public void StopConversation()
@@ -67,10 +70,40 @@ namespace DIALOGUE
         IEnumerator Line_RunDialogue(DialogueLine line)
         {
             if (line.hasSpeaker)
-                dialogueSystem.ShowSpeakerName(line.speakerData.displayName);
+                HandleSpeakerLogic(line.speakerData);
 
             // build the dialogue
             yield return BuildLineSegments(line.dialogueData);
+        }
+
+        private void HandleSpeakerLogic(DL_SpeakerData speakerData)
+        {
+            bool characterMustBeCreated = (speakerData.makeCharacterEnter || speakerData.isCastingPosition || speakerData.isCastingExpressions);
+
+            Character character = CharacterManager.instance.GetCharacter(speakerData.name, createIfNotExisting: characterMustBeCreated);
+
+            // if we are trying to make a character enter the scene, check if the character has been created or not
+            // if not, then create them. otherwise, just reveal them again
+            if (speakerData.makeCharacterEnter && (!character.isVisible && !character.isRevealing)) {
+                character.Show();
+            }
+
+            // add character name to UI
+            dialogueSystem.ShowSpeakerName(speakerData.displayName);
+
+            // customize dialogue look and feel according to the character config
+            DialogueSystem.instance.ApplySpeakerDataToContainer(speakerData.name);
+
+            if (speakerData.isCastingPosition)
+            {
+                character.MoveToPosition(speakerData.castPosition);
+            }
+
+            if (speakerData.isCastingExpressions)
+            {
+                foreach (var ce in speakerData.CastExpressions)
+                    character.OnReceiveCastingExpression(ce.layer, ce.expression);
+            }
         }
 
         IEnumerator Line_RunCommands(DialogueLine line)
