@@ -7,5 +7,7 @@ namespace COMMANDS
     public abstract class CMDDatabaseExtension
     {
         public static void Extend(CommandDatabase database) { }
+
+        public static CommandParameters ConvertDataToParameters(string[] data) => new CommandParameters(data);
     }
 }

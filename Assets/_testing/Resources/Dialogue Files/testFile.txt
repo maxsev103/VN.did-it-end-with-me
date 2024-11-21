@@ -1,3 +1,12 @@
+
+wait(1), createcharacter(Ysella -e true)
+
+movecharacter(Ysella 1 -2.5 0.75)
+
+Narrator "Our girlypop just moved from the dialogue commands!"
+
+hide(Ysella)
+
 Ysella "Heyyyy"
 
 enter Ysella as ??? at 1 "Girl it's been so long!!"
