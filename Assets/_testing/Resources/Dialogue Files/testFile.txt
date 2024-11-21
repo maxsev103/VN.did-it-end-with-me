@@ -1,9 +1,5 @@
-Calyx "Gago nasan ako???" list(items -f long), playSong("Intro Song" -v 1)
+Ysella "Heyyyy"
 
-setScene("Mars Supercomputer" -s 5.5)
+enter Ysella as ??? at 1 "Girl it's been so long!!"
 
-Cherubim "BE NOT AFRAID"
-
-Calyx "UMMM ????"
-
-narrator "And it was then Calyx knew that he was in a place he could not turn back from." playSong(Womp, -p 0.5), list(players), saveGame(1 -g all -f simple)
+Agnes "Hey girl, how's it going"
