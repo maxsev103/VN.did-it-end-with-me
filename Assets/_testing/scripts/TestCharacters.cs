@@ -23,7 +23,6 @@ namespace TESTING
         {
             Character_Sprite Ysella = CreateCharacter("Ysella") as Character_Sprite;
             Character_Sprite YsellaAlter = CreateCharacter("Ysella(?) as Ysella") as Character_Sprite;
-            YsellaAlter.isVisible = false;
 
             Sprite faceSprite = Ysella.GetSprite("Ysella_neutral");
             Ysella.SetSprite(faceSprite, 1);
@@ -31,6 +30,7 @@ namespace TESTING
             Ysella.SetPosition(new Vector2(0.30f, 0));
             YsellaAlter.SetPosition(new Vector2(0.65f, 0));
             YsellaAlter.SetColor(Color.black);
+            Ysella.isVisible = true;
 
             Ysella.Unhighlight();
             yield return Ysella.Flip();

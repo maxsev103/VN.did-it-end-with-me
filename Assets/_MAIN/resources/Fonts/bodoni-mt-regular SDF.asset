@@ -20,7 +20,7 @@ Texture2D:
   m_MipsStripped: 0
   m_TextureFormat: 1
   m_MipCount: 1
-  m_IsReadable: 1
+  m_IsReadable: 0
   m_IsPreProcessed: 0
   m_IgnoreMipmapLimit: 0
   m_MipmapLimitGroupName: 
@@ -64,11 +64,11 @@ MonoBehaviour:
   material: {fileID: 3625861914591187309}
   materialHashCode: 1020568531
   m_Version: 1.1.0
-  m_SourceFontFileGUID: 454bb2ddde4cc724f85c7a992b458bb9
-  m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 454bb2ddde4cc724f85c7a992b458bb9,
+  m_SourceFontFileGUID: f06de0a0d0592884694a1dbcb1575c23
+  m_SourceFontFile_EditorRef: {fileID: 12800000, guid: f06de0a0d0592884694a1dbcb1575c23,
     type: 3}
-  m_SourceFontFile: {fileID: 12800000, guid: 454bb2ddde4cc724f85c7a992b458bb9, type: 3}
-  m_AtlasPopulationMode: 1
+  m_SourceFontFile: {fileID: 0}
+  m_AtlasPopulationMode: 0
   m_FaceInfo:
     m_FaceIndex: 0
     m_FamilyName: Bodoni MT
@@ -5667,7 +5667,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: bodoni-mt-regular Atlas Material
-  m_Shader: {fileID: 4800000, guid: dd89cf5b9246416f84610a006f916af7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 14eb328de4b8eb245bb7cea29e4ac00b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:

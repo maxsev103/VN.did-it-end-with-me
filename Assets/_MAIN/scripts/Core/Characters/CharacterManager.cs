@@ -8,6 +8,8 @@ namespace CHARACTERS
     public class CharacterManager : MonoBehaviour
     {
         public static CharacterManager instance { get; private set; }
+
+        public Character[] allCharacters => characters.Values.ToArray();
         private Dictionary<string, Character> characters = new Dictionary<string, Character>();
         private CharacterConfig_SO config => DialogueSystem.instance.config.characterConfigurationAsset;
 
@@ -49,6 +51,8 @@ namespace CHARACTERS
 
             return character;
         }
+
+        public bool HasCharacter(string characterName) => characters.ContainsKey(characterName.ToLower());
 
         public Character GetCharacter(string characterName, bool createIfNotExisting = false)
         {

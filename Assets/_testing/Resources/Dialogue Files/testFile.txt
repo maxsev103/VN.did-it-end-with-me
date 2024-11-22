@@ -1,14 +1,26 @@
 
-wait(1), createcharacter(Ysella -e true)
+wait(5), createcharacter(Ysella -e true), createcharacter("Clone as Ysella" -e true)
 
-movecharacter(Ysella 1 -2.5 0.75)
+Ysella.SetPosition(0.45 0), Clone.SetPosition(0.65 0)
 
-Narrator "Our girlypop just moved from the dialogue commands!"
+Ysella.Show(), Clone.Show(), wait(2)
 
-hide(Ysella)
+unhighlight(Ysella Clone)
+
+Ysella.SetPriority(5), highlight(Ysella)
+
+[wait]Ysella.setsprite(Ysella_neutral -l 1 -i false)
+
+Narrator "lets wait"
+
+wait(1), [wait]highlight(Ysella Clone), wait(1)
+
+createcharacter("Other as Ysella" -e true), Other.SetPosition(0.25 0), wait(1)
+
+[wait]highlight(Ysella -o true), wait(1), [wait]unhighlight(Ysella -o true), wait(1)
 
 Ysella "Heyyyy"
 
-enter Ysella as ??? at 1 "Girl it's been so long!!"
+movecharacter(ysella 0 0.5)
 
-Agnes "Hey girl, how's it going"
+enter Ysella as ??? at 1 "Girl it's been so long!!"

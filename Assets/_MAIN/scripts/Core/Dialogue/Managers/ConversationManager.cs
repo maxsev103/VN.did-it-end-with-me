@@ -62,8 +62,12 @@ namespace DIALOGUE
                     yield return Line_RunCommands(line);
 
                 if (line.hasDialogue)
+                {
                     // wait for user input
                     yield return WaitForUserInput();
+
+                    CommandManager.instance.StopAllProcesses();
+                }
             }
         }
 
@@ -112,8 +116,20 @@ namespace DIALOGUE
 
             foreach (DL_CommandData.Command command in commands)
             {
-                if (command.waitForCompletion || command.name == "wait")
-                    yield return CommandManager.instance.Execute(command.name, command.arguments);
+                if (command.waitForCompletion || command.name == "wait") 
+                {
+                    CoroutineWrapper cw = CommandManager.instance.Execute(command.name, command.arguments);
+                    while (!cw.isDone)
+                    {
+                        if (userPrompt) 
+                        {
+                            CommandManager.instance.StopCurrentProcess();
+                            userPrompt = false;
+                        }
+
+                        yield return null;
+                    }
+                }
                 else
                     CommandManager.instance.Execute(command.name, command.arguments);
             }

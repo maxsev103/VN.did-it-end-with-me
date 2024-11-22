@@ -88,7 +88,7 @@ namespace CHARACTERS
         public void UpdateTextCustomizationOnScreen() => dialogueSystem.ApplySpeakerDataToContainer(config);
         public void ResetConfigurationData() => CharacterManager.instance.GetCharacterConfig(name);
 
-        public virtual Coroutine Show()
+        public virtual Coroutine Show(float speedMultiplier = 1f)
         {
             if (isRevealing)
                 return co_revealing;
@@ -96,11 +96,11 @@ namespace CHARACTERS
             if (isHiding)
                 manager.StopCoroutine(co_hiding);
 
-            co_revealing = manager.StartCoroutine(ShowingOrHiding(true));
+            co_revealing = manager.StartCoroutine(ShowingOrHiding(true, speedMultiplier));
             return co_revealing;
         }
 
-        public virtual Coroutine Hide()
+        public virtual Coroutine Hide(float speedMultiplier = 1f)
         {
             if (isHiding)
                 return co_hiding;
@@ -108,11 +108,11 @@ namespace CHARACTERS
             if (isRevealing)
                 manager.StopCoroutine(co_revealing);
 
-            co_hiding = manager.StartCoroutine(ShowingOrHiding(false));
+            co_hiding = manager.StartCoroutine(ShowingOrHiding(false, speedMultiplier));
             return co_hiding;
         }
 
-        public virtual IEnumerator ShowingOrHiding(bool show)
+        public virtual IEnumerator ShowingOrHiding(bool show, float speedMultiplier = 1f)
         {
             Debug.Log("Show/Hide cannot be called from the base Character class.");
             yield return null;
@@ -204,7 +204,7 @@ namespace CHARACTERS
             yield return null;
         }
 
-        public Coroutine Highlight(float speed = 1f)
+        public Coroutine Highlight(float speed = 1f, bool immediate = false)
         {
             if (isHighlighting)
                 return co_highlighting;
@@ -213,12 +213,12 @@ namespace CHARACTERS
                 manager.StopCoroutine(co_highlighting);
 
             highlighted = true;
-            co_highlighting = manager.StartCoroutine(Highlighting(highlighted, speed));
+            co_highlighting = manager.StartCoroutine(Highlighting(speed, immediate));
 
             return co_highlighting;
         }
 
-        public Coroutine Unhighlight(float speed = 1f)
+        public Coroutine Unhighlight(float speed = 1f, bool immediate = false)
         {
             if (isUnHighlighting)
                 return co_highlighting;
@@ -227,12 +227,12 @@ namespace CHARACTERS
                 manager.StopCoroutine(co_highlighting);
 
             highlighted = false;
-            co_highlighting = manager.StartCoroutine(Highlighting(highlighted, speed));
+            co_highlighting = manager.StartCoroutine(Highlighting(speed, immediate));
 
             return co_highlighting;
         }
 
-        public virtual IEnumerator Highlighting(bool highlight, float speedMultiplier)
+        public virtual IEnumerator Highlighting(float speedMultiplier, bool immediate = false)
         {
             Debug.Log("Highlighting is not available on this character type!");
             yield return null;
