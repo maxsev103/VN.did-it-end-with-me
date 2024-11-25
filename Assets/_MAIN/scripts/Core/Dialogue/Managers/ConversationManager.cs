@@ -89,6 +89,12 @@ namespace DIALOGUE
             // if we are trying to make a character enter the scene, check if the character has been created or not
             // if not, then create them. otherwise, just reveal them again
             if (speakerData.makeCharacterEnter && (!character.isVisible && !character.isRevealing)) {
+
+                if (speakerData.makeCharacterEnterLeft)
+                    character.SetPosition(new Vector2(0.5f, 0));
+                else if (speakerData.makeCharacterEnterRight)
+                    character.SetPosition(new Vector2(1.5f, 0));
+
                 character.Show();
             }
 

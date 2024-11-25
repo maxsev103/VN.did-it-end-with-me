@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class GraphicPanelManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GraphicPanelManager instance { get; private set; }
+
+    [SerializeField] private GraphicPanel[] allPanels;
+
+    public const float defaultTransitionSpeed = 1.5f;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public GraphicPanel GetPanel(string name)
     {
-        
+        name = name.ToLower(); 
+
+        foreach (var panel in allPanels)
+        {
+            if (panel.panelName.ToLower() == name)
+                return panel;
+        }
+
+        return null;
     }
 }

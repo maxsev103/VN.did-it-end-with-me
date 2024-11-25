@@ -1,26 +1,15 @@
 
-wait(5), createcharacter(Ysella -e true), createcharacter("Clone as Ysella" -e true)
+setlayermedia(background "4. GARAGE v2" -b fade4), wait(1)
 
-Ysella.SetPosition(0.45 0), Clone.SetPosition(0.65 0)
+playsong(Calm2 -v 0.3 -lp true)
 
-Ysella.Show(), Clone.Show(), wait(2)
+playambience(RainyMood -v 0.6 -lp true)
 
-unhighlight(Ysella Clone)
+narrator "Rain...{wa 1} thunder...{c}Both so beautiful"
 
-Ysella.SetPriority(5), highlight(Ysella)
+playsfx(thunder_strong_01 -v 0.2), wait(1.5)
 
-[wait]Ysella.setsprite(Ysella_neutral -l 1 -i false)
+stopsong()
+stopambience()
+narrator "And yet{c}So deadly."
 
-Narrator "lets wait"
-
-wait(1), [wait]highlight(Ysella Clone), wait(1)
-
-createcharacter("Other as Ysella" -e true), Other.SetPosition(0.25 0), wait(1)
-
-[wait]highlight(Ysella -o true), wait(1), [wait]unhighlight(Ysella -o true), wait(1)
-
-Ysella "Heyyyy"
-
-movecharacter(ysella 0 0.5)
-
-enter Ysella as ??? at 1 "Girl it's been so long!!"

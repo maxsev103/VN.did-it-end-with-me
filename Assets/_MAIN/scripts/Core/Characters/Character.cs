@@ -244,8 +244,7 @@ namespace CHARACTERS
                 return FaceLeft(speed, immediate);
             else
                 return FaceRight(speed, immediate);
-
-        }
+        } 
 
         public Coroutine FaceLeft(float speed = 1, bool immediate = false)
         {

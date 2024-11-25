@@ -3,34 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestDialogueFiles : MonoBehaviour
+namespace TESTING
 {
-    [SerializeField] private TextAsset fileToRead = null;
-
-    // Start is called before the first frame update
-    void Start()
+    public class TestDialogueFiles : MonoBehaviour
     {
-        StartConversation();
-    }
+        [SerializeField] private TextAsset fileToRead = null;
 
-    void StartConversation()
-    {
-        List<string> lines = FileManager.ReadTextAsset(fileToRead);
+        // Start is called before the first frame update
+        void Start()
+        {
+            StartConversation();
+        }
 
-        //foreach (string line in lines)
-        //{
-        //    if (string.IsNullOrWhiteSpace(line))
-        //        continue;
+        void StartConversation()
+        {
+            List<string> lines = FileManager.ReadTextAsset(fileToRead);
 
-        //    DialogueLine dl = DialogueParser.Parse(line);
+            //foreach (string line in lines)
+            //{
+            //    if (string.IsNullOrWhiteSpace(line))
+            //        continue;
 
-        //    for (int i = 0; i < dl.commandData.commands.Count; i++)
-        //    {
-        //        DL_CommandData.Command command = dl.commandData.commands[i];
-        //        Debug.Log($"Command [{i}] '{command.name}' has arguments [{string.Join(", ", command.arguments)}]'");
-        //    }
-        //}
+            //    DialogueLine dl = DialogueParser.Parse(line);
 
-        DialogueSystem.instance.Say(lines);
+            //    for (int i = 0; i < dl.commandData.commands.Count; i++)
+            //    {
+            //        DL_CommandData.Command command = dl.commandData.commands[i];
+            //        Debug.Log($"Command [{i}] '{command.name}' has arguments [{string.Join(", ", command.arguments)}]'");
+            //    }
+            //}
+
+            DialogueSystem.instance.Say(lines);
+        }
     }
 }

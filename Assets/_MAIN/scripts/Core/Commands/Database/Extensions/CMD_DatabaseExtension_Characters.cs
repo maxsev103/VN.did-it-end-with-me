@@ -27,6 +27,7 @@ namespace COMMANDS
             database.AddCommand("sort", new Action<string[]>(SortCharacters));
             database.AddCommand("highlight", new Func<string[], IEnumerator>(HighlightAll));
             database.AddCommand("unhighlight", new Func<string[], IEnumerator>(UnhighlightAll));
+            database.AddCommand("flip", new Func<string[], IEnumerator>(FlipAll));
 
             // add commands to characters
             CommandDatabase baseCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_BASE);
@@ -38,6 +39,7 @@ namespace COMMANDS
             baseCommands.AddCommand("setposition", new Action<string[]>(SetPosition));
             baseCommands.AddCommand("highlight", new Func<string[], IEnumerator>(Highlight));
             baseCommands.AddCommand("unhighlight", new Func<string[], IEnumerator>(Unhighlight));
+            baseCommands.AddCommand("flip", new Func<string[], IEnumerator>(Flip));
 
             // add character type specific commands
             CommandDatabase spriteCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_SPRITE);
@@ -333,6 +335,55 @@ namespace COMMANDS
             }
         }
 
+        public static IEnumerator FlipAll(string[] data)
+        {
+            List<Character> characters = new List<Character>();
+            float speed = 1f;
+            bool immediate = false;
+
+            foreach (string s in data)
+            {
+                Character character = CharacterManager.instance.GetCharacter(s);
+                if (character != null)
+                    characters.Add(character);
+            }
+
+            if (characters.Count == 0)
+                yield break;
+
+            var parameters = ConvertDataToParameters(data);
+
+            parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
+
+            if (!immediate)
+                parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
+
+            foreach (Character character in characters)
+            {
+                if (immediate)
+                    character.Flip(immediate: immediate);
+                else
+                    character.Flip(speed: speed);
+            }
+
+            if (!immediate)
+            {
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() =>
+                {
+                    foreach (var character in characters)
+                    {
+                        if(character.isFacingLeft)
+                            character.FaceDirection(faceLeft: true, speed, immediate: true);
+                        else
+                            character.FaceDirection(faceLeft: false, speed, immediate: true);
+                    }
+                });
+
+                while (characters.Any(c => c.isFlipping))
+                    yield return null;
+            }
+        }
+
         #region BASE CHARACTER COMMANDS
         public static IEnumerator Show(string[] data)
         {
@@ -496,6 +547,38 @@ namespace COMMANDS
                 CommandManager.instance.AddTerminationActionToCurrentProcess(() => { character?.Unhighlight(immediate: true); });
                 yield return character.Unhighlight();
             }
+        }
+
+        public static IEnumerator Flip(string[] data)
+        {
+            Character character = CharacterManager.instance.GetCharacter(data[0]) as Character;
+            float speed = 1f;
+            bool immediate = false;
+
+            if (character == null)
+                yield break;
+
+            var parameters = ConvertDataToParameters(data);
+
+            parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
+
+            if (!immediate)
+                parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
+
+            if (immediate)
+                character.Flip(immediate: immediate);
+            else
+            {
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() => {
+                    if (character.isFacingLeft)
+                        character.FaceDirection(faceLeft: true, speed, immediate: true);
+                    else
+                        character.FaceDirection(faceLeft:false, speed, immediate: true);
+                });
+
+                yield return character.Flip(speed);
+            }
+
         }
 
         #endregion
