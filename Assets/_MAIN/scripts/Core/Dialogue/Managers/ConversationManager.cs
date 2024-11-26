@@ -12,13 +12,17 @@ namespace DIALOGUE
         private Coroutine process = null;
         public bool isRunning => process != null;
 
-        private TextArchitect architect = null;
+        public TextArchitect architect = null;
         private bool userPrompt = false;
+
+        private TagManager tagManager;
 
         public ConversationManager(TextArchitect architect)
         {
             this.architect = architect;
             dialogueSystem.onUserPrompt_Next += OnUserPrompt_Next;
+
+            tagManager = new TagManager();
         }
 
         private void OnUserPrompt_Next()
@@ -61,6 +65,7 @@ namespace DIALOGUE
                 if (line.hasCommands)
                     yield return Line_RunCommands(line);
 
+                // wait for user input
                 if (line.hasDialogue)
                 {
                     // wait for user input
@@ -73,8 +78,13 @@ namespace DIALOGUE
 
         IEnumerator Line_RunDialogue(DialogueLine line)
         {
+            // handle the speaker logic from the txt files such as name and position casting
             if (line.hasSpeaker)
                 HandleSpeakerLogic(line.speakerData);
+
+            // show the dialogue box if it is currently hidden
+            if (!dialogueSystem.dialogueContainer.isVisible)
+                dialogueSystem.dialogueContainer.Show();
 
             // build the dialogue
             yield return BuildLineSegments(line.dialogueData);
@@ -91,7 +101,7 @@ namespace DIALOGUE
             if (speakerData.makeCharacterEnter && (!character.isVisible && !character.isRevealing)) {
 
                 if (speakerData.makeCharacterEnterLeft)
-                    character.SetPosition(new Vector2(0.5f, 0));
+                    character.SetPosition(new Vector2(-0.5f, 0));
                 else if (speakerData.makeCharacterEnterRight)
                     character.SetPosition(new Vector2(1.5f, 0));
 
@@ -99,7 +109,7 @@ namespace DIALOGUE
             }
 
             // add character name to UI
-            dialogueSystem.ShowSpeakerName(speakerData.displayName);
+            dialogueSystem.ShowSpeakerName(tagManager.Inject(speakerData.displayName));
 
             // customize dialogue look and feel according to the character config
             DialogueSystem.instance.ApplySpeakerDataToContainer(speakerData.name);
@@ -155,6 +165,7 @@ namespace DIALOGUE
             }
         }
 
+        public bool isWaitingOnAutoTimer { get; private set; } = false;
         IEnumerator WaitForDialogueSegmentSignalTrigger(DL_DialogueData.DialogueSegment segment)
         {
             switch (segment.startSignal)
@@ -165,7 +176,9 @@ namespace DIALOGUE
                     break;
                 case DL_DialogueData.DialogueSegment.StartSignal.WC:
                 case DL_DialogueData.DialogueSegment.StartSignal.WA:
+                    isWaitingOnAutoTimer = true;
                     yield return new WaitForSeconds(segment.signalDelay);
+                    isWaitingOnAutoTimer = false;
                     break;
                 default:
                     break;
@@ -174,6 +187,8 @@ namespace DIALOGUE
 
         IEnumerator BuildDialogue(string dialogue, bool append = false)
         {
+            dialogue = tagManager.Inject(dialogue);
+
             if (!append)
                 architect.Build(dialogue);
             else
@@ -194,11 +209,17 @@ namespace DIALOGUE
                 yield return null;
             }
         }
-
+        
         IEnumerator WaitForUserInput()
         {
+            yield return new WaitForSeconds(0.05f);
+
+            dialogueSystem.prompt.Show();
+
             while (!userPrompt)
                 yield return null;
+
+            dialogueSystem.prompt.Hide();
 
             userPrompt = false;
         }

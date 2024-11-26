@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using static UnityEngine.Rendering.HableCurve;
 
 namespace DIALOGUE {
     public class DL_DialogueData

@@ -86,12 +86,12 @@ namespace CHARACTERS
         public void SetDialogueFont(TMP_FontAsset font) => config.dialogueFont = font;
 
         public void UpdateTextCustomizationOnScreen() => dialogueSystem.ApplySpeakerDataToContainer(config);
-        public void ResetConfigurationData() => CharacterManager.instance.GetCharacterConfig(name);
+        public void ResetConfigurationData() => CharacterManager.instance.GetCharacterConfig(name, getOriginal: true);
 
         public virtual Coroutine Show(float speedMultiplier = 1f)
         {
             if (isRevealing)
-                return co_revealing;
+                manager.StopCoroutine(co_revealing);
 
             if (isHiding)
                 manager.StopCoroutine(co_hiding);
@@ -103,7 +103,7 @@ namespace CHARACTERS
         public virtual Coroutine Hide(float speedMultiplier = 1f)
         {
             if (isHiding)
-                return co_hiding;
+                manager.StopCoroutine(co_hiding);
 
             if (isRevealing)
                 manager.StopCoroutine(co_revealing);
@@ -206,10 +206,7 @@ namespace CHARACTERS
 
         public Coroutine Highlight(float speed = 1f, bool immediate = false)
         {
-            if (isHighlighting)
-                return co_highlighting;
-
-            if (isUnHighlighting)
+            if (isHighlighting || isUnHighlighting)
                 manager.StopCoroutine(co_highlighting);
 
             highlighted = true;
@@ -220,10 +217,7 @@ namespace CHARACTERS
 
         public Coroutine Unhighlight(float speed = 1f, bool immediate = false)
         {
-            if (isUnHighlighting)
-                return co_highlighting;
-
-            if (isHighlighting)
+            if (isHighlighting || isUnHighlighting)
                 manager.StopCoroutine(co_highlighting);
 
             highlighted = false;

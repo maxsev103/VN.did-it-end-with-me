@@ -1,3 +1,4 @@
+using DIALOGUE;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,9 @@ public class GraphicLayer
     public Transform panel;
 
     public GraphicObject currentGraphic = null;
-    private List<GraphicObject> oldGraphics = new List<GraphicObject>();
+    public List<GraphicObject> oldGraphics = new List<GraphicObject>();
+
+    private DialogueSystem dialogueSystem => DialogueSystem.instance;
 
     public Coroutine SetTexture(string filePath, float transitionSpeed = 1f, Texture blendingTexture = null, bool immediate = false)
     {
@@ -63,7 +66,10 @@ public class GraphicLayer
         currentGraphic = newGraphic;
 
         if (!immediate)
+        {
+            dialogueSystem.dialogueContainer.Hide();
             return currentGraphic.FadeIn(transitionSpeed, blendingTexture);
+        }
 
         // otherwise this is an immediate effect
         DestroyOldGraphics();
@@ -74,7 +80,8 @@ public class GraphicLayer
     {
         foreach (var g in oldGraphics)
         {
-            Object.Destroy(g.renderer.gameObject);
+            if (g.renderer != null)
+                Object.Destroy(g.renderer.gameObject);
         }
 
         oldGraphics.Clear();

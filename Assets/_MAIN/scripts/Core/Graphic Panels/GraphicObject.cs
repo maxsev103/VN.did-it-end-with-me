@@ -14,6 +14,7 @@ public class GraphicObject
     private const string MATERIAL_FIELD_BLENDTEX = "_BlendTex";
     private const string MATERIAL_FIELD_BLEND = "_Blend";
     private const string MATERIAL_FIELD_ALPHA = "_Alpha";
+    private const string DEFAULT_UI_MATERIAL = "Default UI Material";
 
     public RawImage renderer;
     private GraphicLayer layer;
@@ -144,11 +145,18 @@ public class GraphicObject
         
         return co_fadingOut;
     }
-
+    
     public IEnumerator Fading(float target, float speed, Texture blend)
     {
         bool isBlending = blend != null;
         bool fadingIn = target > 0;
+
+        if (renderer.material.name == DEFAULT_UI_MATERIAL)
+        {
+            Texture tex = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
+            renderer.material = GetTransitionalMaterial();
+            renderer.material.SetTexture(MATERIAL_FIELD_MAINTEX, tex);
+        }
 
         renderer.material.SetTexture(MATERIAL_FIELD_BLENDTEX, blend);
         renderer.material.SetFloat(MATERIAL_FIELD_ALPHA, isBlending ? 1f : fadingIn ? 0 : 1);
@@ -172,14 +180,20 @@ public class GraphicObject
 
         if (target == 0)
             Destroy();
-        else
+        else {
             DestroyBackgroundGraphicsOnLayer();
+            renderer.texture = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
+            renderer.material = null;
+        }
     }
 
     public void Destroy()
     {
         if (layer.currentGraphic != null && layer.currentGraphic.renderer == renderer)
             layer.currentGraphic = null;
+
+        if (layer.oldGraphics.Contains(this))
+            layer.oldGraphics.Remove(this);
 
         Object.Destroy(renderer.gameObject);
     }

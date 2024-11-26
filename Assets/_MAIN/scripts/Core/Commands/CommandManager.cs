@@ -92,7 +92,7 @@ namespace COMMANDS
             Debug.LogError($"No sub database called '{databaseName}' exists! Command '{subCommandName}' could not be run.");
             return null;
         }
-
+        
         private CoroutineWrapper ExecuteCharacterCommand(string commandName, params string[] args)
         {
             Delegate command = null;

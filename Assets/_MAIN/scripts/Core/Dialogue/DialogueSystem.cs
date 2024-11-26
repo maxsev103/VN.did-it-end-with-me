@@ -14,6 +14,8 @@ namespace DIALOGUE
         public DialogueContainer dialogueContainer = new DialogueContainer();
         private ConversationManager conversationManager;
         private TextArchitect architect;
+        private AutoReader autoReader;
+        [SerializeField] private CanvasGroup mainCanvas;
 
         public static DialogueSystem instance { get; private set; }
 
@@ -21,6 +23,9 @@ namespace DIALOGUE
         public event DialogueSystemEvent onUserPrompt_Next;
 
         public bool isRunningConversation => conversationManager.isRunning;
+
+        public DialogueContinuationPrompt prompt;
+        private CanvasGroupController cgController;
 
         private void Awake()
         {
@@ -41,9 +46,23 @@ namespace DIALOGUE
 
             architect = new TextArchitect(dialogueContainer.dialogueText);
             conversationManager = new ConversationManager(architect);
+
+            cgController = new CanvasGroupController(this, mainCanvas);
+            dialogueContainer.Initialize();
+
+            if (TryGetComponent(out autoReader))
+                autoReader.Initialize(conversationManager);
         }
 
         public void OnUserPromt_Next()
+        {
+            onUserPrompt_Next?.Invoke();
+
+            if (autoReader != null && autoReader.isOn)
+                autoReader.Disable();
+        }
+
+        public void OnSystemPrompt_Next()
         {
             onUserPrompt_Next?.Invoke();
         }
@@ -63,8 +82,11 @@ namespace DIALOGUE
         {
             dialogueContainer.SetDialogueColor(config.dialogueColor);
             dialogueContainer.SetDialogueFont(config.dialogueFont);
+            dialogueContainer.SetDialogueFontSize(config.dialoguefontSize * this.config.defaultFontScale);
             dialogueContainer.nameContainer.SetNameColor(config.nameColor);
             dialogueContainer.nameContainer.SetNameFont(config.nameFont);
+            dialogueContainer.nameContainer.SetNameFontSize(config.namefontSize);
+
         }
 
         public void ShowSpeakerName(string speakerName = "")
@@ -87,5 +109,9 @@ namespace DIALOGUE
         {
             return conversationManager.StartConversation(conversation);
         }
+
+        public bool isVisible => cgController.isVisible;
+        public Coroutine Show(float speed = 1f, bool immediate = false) => cgController.Show(speed, immediate);
+        public Coroutine Hide(float speed = 1f, bool immediate = false) => cgController.Hide(speed, immediate);
     }
 }

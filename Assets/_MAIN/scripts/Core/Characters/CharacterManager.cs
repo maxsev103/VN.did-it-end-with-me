@@ -27,8 +27,14 @@ namespace CHARACTERS
             instance = this;
         }
 
-        public CharacterConfig_Data GetCharacterConfig(string characterName)
+        public CharacterConfig_Data GetCharacterConfig(string characterName, bool getOriginal = false)
         {
+            if (!getOriginal) {
+                Character character = GetCharacter(characterName);
+                if (character != null)
+                    return character.config;
+            }
+
             return config.GetConfig(characterName);
         }
 
