@@ -6,6 +6,7 @@ namespace DIALOGUE
 {
     public class DialogueLine
     {
+        public string rawData { get; private set; } = string.Empty;
         public DL_SpeakerData speakerData;
         public DL_DialogueData dialogueData;
         public DL_CommandData commandData;
@@ -14,8 +15,9 @@ namespace DIALOGUE
         public bool hasCommands => commandData != null;
         public bool hasSpeaker => speakerData != null;
 
-        public DialogueLine(string speaker, string dialogue, string commands)
+        public DialogueLine(string rawLine, string speaker, string dialogue, string commands)
         {
+            rawData = rawLine;
             this.speakerData = (string.IsNullOrWhiteSpace(speaker) ? null : new DL_SpeakerData(speaker));
             this.dialogueData = (string.IsNullOrWhiteSpace(dialogue) ? null : new DL_DialogueData(dialogue));
             this.commandData = (string.IsNullOrWhiteSpace(commands) ? null : new DL_CommandData(commands));

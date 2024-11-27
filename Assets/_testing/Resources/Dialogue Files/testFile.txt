@@ -1,42 +1,22 @@
-setlayermedia(background "4. GARAGE v2" -b fade4), wait(1)
-
-playambience(RainyMood -v 0.4 -lp true)
-
-Ysella as Girl Who is Passing By "Rain{wa 0.2}.{wa 0.2}.{wa 0.2}.{wa 1} thunder{wa 0.2}.{wa 0.2}.{wa 0.2}.{c}Both so beautiful{wa 0.2}.{wa 0.2}.{wa 0.2}."
-hidedb()
-
-playsfx(thunder_strong_01 -v 0.2), wait(1)
-
-stopsong(), stopambience(), wait(1)
-narrator "And yet..."
-
-"...so deadly.", wait(1)
-
-stopsfx(thunder_strong_01)
-
-setlayermedia(background "1. DINING ROOM 1" -b fade4), wait(1)
-playsong(Calm2 -v 0.3 -lp true), playambience(RainyMood -v 0.1 -lp true)
-
-enter left Ysella at 0.25 "That was some rain! Hopefully the stuff in my bag is still fine."
-
-narrator "Ysella carefully placed her bag full of coursework and notebooks onto the dining room table, checking if everything was as dry as she hoped."
-"Finding that most of her notebooks and papers were fine barre a few that had the tops a little soaked, Ysella finally called out to her mother."
-
-Ysella "Mom? I'm home!"
-
-narrator "It was only then that the girl realized that the usual sounds of tinkering that could be heard from her mother's lab were strangely absent."
-"Fear gripped the girl's heart, but she knew better than to let panic take over."
-"It wasn't too unusual for Ysella's mother to still be out even on a rainy night;{wa 0.3} that, the girl knew well."
-stopsong()
-"But, on this particular night, Ysella had a nagging feeling; an inkling, a tingling at the back of her mind.{c}Call her dramatic, call her paranoid, but Ysella knew better than to doubt her gut feelings."
-"And right now, her gut feeling was telling her that something was horribly wrong about her mother's supposed absence in the house."
-
-Ysella.Move(0.4 -spd 0.3), Ysella.setsprite(Ysella_neutral -l 1)
-Ysella "...Mom?{c}...Are you home?"
-narrator "Ysella called out again, only to be answered by the pouring rain and that eery silence."
-
-Ysella.Move(0.6 -spd 0.15)
-Ysella ".....Mom, if this is a prank then you can come out now!"
 
 
+choice "Pick a name" 
+{
+	-Flying Fast General
+		narrator "...What?"
+		$name = "Flying Fast General"
+	-Ruthless_DivinationMachine
+		narrator "Hilarious but fitting"
+		$name = "Ruthless_DivinationMachine"
+	-Useless Drunkard
+		narrator "That's a little harsh now"
+		$name = "Useless Drunkard"
+}
 
+Professor Oak "Ah, so your name is $name, eh?"
+
+"Hm? What do you mean something's missing?"
+
+$name += " From The Xianzhou Luofu"
+
+Professor Oak "Ah, so your name's $name!"

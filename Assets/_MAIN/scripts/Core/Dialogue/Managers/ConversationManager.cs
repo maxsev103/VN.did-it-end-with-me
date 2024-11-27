@@ -3,6 +3,7 @@ using COMMANDS;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DIALOGUE.LogicalLines;
 
 namespace DIALOGUE
 {
@@ -15,26 +16,38 @@ namespace DIALOGUE
         public TextArchitect architect = null;
         private bool userPrompt = false;
 
-        private TagManager tagManager;
+        private LogicalLineManager logicalLineManager;
+
+        public Conversation conversation => (conversationQueue.IsEmpty() ? null : conversationQueue.top);
+        public int conversationProgress => (conversationQueue.IsEmpty() ? -1 : conversationQueue.top.GetProgress());
+        private ConversationQueue conversationQueue;
 
         public ConversationManager(TextArchitect architect)
         {
             this.architect = architect;
             dialogueSystem.onUserPrompt_Next += OnUserPrompt_Next;
 
-            tagManager = new TagManager();
+            logicalLineManager = new LogicalLineManager();
+
+            conversationQueue = new ConversationQueue();
         }
+
+        public void Enqueue(Conversation conversation) => conversationQueue.Enqueue(conversation);
+        public void EnqueuePriority(Conversation conversation) => conversationQueue.EnqueuePriority(conversation);
 
         private void OnUserPrompt_Next()
         {
             userPrompt = true;
         }
         
-        public Coroutine StartConversation(List<string> conversation)
+        public Coroutine StartConversation(Conversation conversation)
         {
             StopConversation();
+            conversationQueue.Clear();
 
-            process = dialogueSystem.StartCoroutine(RunningConversation(conversation));
+            Enqueue(conversation);
+
+            process = dialogueSystem.StartCoroutine(RunningConversation());
             
             return process;
         }
@@ -48,32 +61,67 @@ namespace DIALOGUE
             process = null;
         }
 
-        IEnumerator RunningConversation(List<string> conversation)
+        IEnumerator RunningConversation()
         {
-            for (int i = 0; i < conversation.Count; i++)
+            while (!conversationQueue.IsEmpty())
             {
-                if (string.IsNullOrWhiteSpace(conversation[i])) 
-                    continue;
+                Conversation currentConversation = conversation;
 
-                DialogueLine line = DialogueParser.Parse(conversation[i]);
-
-                // show dialogue
-                if (line.hasDialogue)
-                    yield return Line_RunDialogue(line);
-
-                // run commands if any
-                if (line.hasCommands)
-                    yield return Line_RunCommands(line);
-
-                // wait for user input
-                if (line.hasDialogue)
+                if (currentConversation.HasReachedEnd())
                 {
-                    // wait for user input
-                    yield return WaitForUserInput();
-
-                    CommandManager.instance.StopAllProcesses();
+                    conversationQueue.Dequeue();
+                    continue;
                 }
+
+                string rawLine = conversation.GetCurrentLine();
+
+                // dont show any blank lines or try to run logic on them
+                if (string.IsNullOrWhiteSpace(rawLine))
+                {
+                    TryAdvanceConversation(currentConversation);
+                    continue;
+                }
+
+                DialogueLine line = DialogueParser.Parse(rawLine);
+
+                if (logicalLineManager.TryGetLogic(line, out Coroutine logic))
+                {
+                    yield return logic;
+                }
+                else
+                {        // show dialogue
+                    if (line.hasDialogue)
+                        yield return Line_RunDialogue(line);
+
+                    // run commands if any
+                    if (line.hasCommands)
+                        yield return Line_RunCommands(line);
+
+                    // wait for user input
+                    if (line.hasDialogue)
+                    {
+                        // wait for user input
+                        yield return WaitForUserInput();
+
+                        CommandManager.instance.StopAllProcesses();
+                    }
+                }
+
+                TryAdvanceConversation(currentConversation);
             }
+
+            process = null;
+        }
+
+        private void TryAdvanceConversation(Conversation conversation)
+        {
+            conversation.IncrementProgress();
+
+            if (conversation != conversationQueue.top)
+                return;
+
+            if (conversation.HasReachedEnd())
+                conversationQueue.Dequeue();
         }
 
         IEnumerator Line_RunDialogue(DialogueLine line)
@@ -109,7 +157,7 @@ namespace DIALOGUE
             }
 
             // add character name to UI
-            dialogueSystem.ShowSpeakerName(tagManager.Inject(speakerData.displayName));
+            dialogueSystem.ShowSpeakerName(TagManager.Inject(speakerData.displayName));
 
             // customize dialogue look and feel according to the character config
             DialogueSystem.instance.ApplySpeakerDataToContainer(speakerData.name);
@@ -187,7 +235,7 @@ namespace DIALOGUE
 
         IEnumerator BuildDialogue(string dialogue, bool append = false)
         {
-            dialogue = tagManager.Inject(dialogue);
+            dialogue = TagManager.Inject(dialogue);
 
             if (!append)
                 architect.Build(dialogue);

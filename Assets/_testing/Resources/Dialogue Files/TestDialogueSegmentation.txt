@@ -1,16 +1,3 @@
+setlayermedia(background "10. HIGHWAY VIEW" -b fade6)
+playsong(Calm2 -v 0.2 -lp)
 
-Calyx "(So i am thinking rn)"
-
-Calyx "(omg bestie me too) command(yippee)"
-
-command(commandarg)
-
-yass slay
-
-Calyx as ??? "Are you for real??" playMusic("Womp womp" -v 0.75 -p 1), setMood(dark)
-
-Ysella at 0:1 "Very for real." playVoice("hmm_vsfx" -v 1.54)
-
-setAccomplishment("You did it!" true), setScene(Ysella 0:Angle1 1:serious -s 2.3 -l true)
-
-showScene(false), stopMusic(all -s 1.6)

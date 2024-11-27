@@ -24,6 +24,7 @@ namespace DIALOGUE
         public float speed { get; set; } = 1f;
 
         [SerializeField] private TextMeshProUGUI statusText;
+        [SerializeField] private Animator anim;
 
         public void Initialize(ConversationManager conversationManager)
         {
@@ -36,6 +37,7 @@ namespace DIALOGUE
             if (isOn)
                 return;
 
+            anim.gameObject.SetActive(true);
             co_running = StartCoroutine(AutoRead());
         }
         
@@ -47,6 +49,7 @@ namespace DIALOGUE
             StopCoroutine(co_running);
             skip = false;
             co_running = null;
+            anim.gameObject.SetActive(false);
             statusText.text = string.Empty;
         }
 
@@ -63,16 +66,37 @@ namespace DIALOGUE
 
             while (conversationManager.isRunning)
             {
+                bool shouldBreak = false;
                 // read and wait
                 if (!skip)
                 {
-                    while(!architect.isBuilding && !conversationManager.isWaitingOnAutoTimer)
+                    while (!architect.isBuilding && !conversationManager.isWaitingOnAutoTimer)
+                    {
+                        // Check if skip has been enabled
+                        if (skip)
+                        {
+                            shouldBreak = true;
+                            break;
+                        }
                         yield return null;
+                    }
+
+                    if (shouldBreak) continue;
 
                     float timeStarted = Time.time;
 
                     while (architect.isBuilding || conversationManager.isWaitingOnAutoTimer)
+                    {
+                        // Check if skip has been enabled
+                        if (skip)
+                        {
+                            shouldBreak = true;
+                            break;
+                        }
                         yield return null;
+                    }
+
+                    if (shouldBreak) continue;
 
                     float timeToRead = Mathf.Clamp(((float) architect.tmpro.textInfo.characterCount / DEFAULT_CHARACTERS_READ_PER_SECOND), MIN_READ_TIME, MAX_READ_TIME);
                     timeToRead = Mathf.Clamp((timeToRead - (Time.time - timeStarted)), MIN_READ_TIME, MAX_READ_TIME);

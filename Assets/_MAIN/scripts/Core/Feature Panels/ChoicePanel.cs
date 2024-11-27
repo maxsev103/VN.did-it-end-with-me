@@ -44,7 +44,11 @@ public class ChoicePanel : MonoBehaviour
         cg.SetInteractableState(active: true);
 
         dialogueSystem.dialogueContainer.nameContainer.Hide();
-        dialogueSystem.dialogueContainer.dialogueText.text = question;
+
+        if (!dialogueSystem.dialogueContainer.isVisible)
+            dialogueSystem.dialogueContainer.Show();
+
+        dialogueSystem.conversationManager.architect.Build(question);
         StartCoroutine(GenerateChoices(choices));
     }
 
@@ -100,6 +104,7 @@ public class ChoicePanel : MonoBehaviour
     public void Hide()
     {
         cg.Hide();
+        cg.SetInteractableState(false);
     }
     
     private void AcceptAnswer(int index)

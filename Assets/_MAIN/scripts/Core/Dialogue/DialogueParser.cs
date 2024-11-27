@@ -13,7 +13,7 @@ namespace DIALOGUE
         {
             (string speaker, string dialogue, string commands) = RipContent(rawLine);
             
-            return new DialogueLine(speaker, dialogue, commands);
+            return new DialogueLine(rawLine, speaker, dialogue, commands);
         }
 
         /// <summary>

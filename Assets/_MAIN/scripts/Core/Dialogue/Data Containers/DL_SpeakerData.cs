@@ -10,6 +10,7 @@ namespace DIALOGUE
 {
     public class DL_SpeakerData
     {
+        public string rawData { get; private set; } = string.Empty;
         public string name, castName;
         public string displayName => hasNameCasting ? castName : name;
         public Vector2 castPosition;
@@ -58,6 +59,7 @@ namespace DIALOGUE
 
         public DL_SpeakerData(string rawSpeaker)
         {
+            rawData = rawSpeaker;
             rawSpeaker = ProcessKeywords(rawSpeaker);
 
             string pattern = @$"{NAMECAST_ID}|{POSITIONCAST_ID}|{EXPRESSIONCAST_ID.Insert(EXPRESSIONCAST_ID.Length - 1, @"\")}";
