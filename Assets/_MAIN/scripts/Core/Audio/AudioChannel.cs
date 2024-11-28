@@ -35,7 +35,7 @@ public class AudioChannel
             return existingTrack;
         }
 
-        AudioTrack track = new AudioTrack(clip, loop, startingVolume, volumeCap, this, AudioManager.instance.musicMixer);
+        AudioTrack track = new AudioTrack(clip, loop, startingVolume, volumeCap, this, AudioManager.instance.musicMixer, filePath);
         track.Play();
 
         SetAsActiveTrack(track);
@@ -110,12 +110,20 @@ public class AudioChannel
         Object.Destroy(track.root);
     }
 
-    public void StopTrack()
+    public void StopTrack(bool immediate = false)
     {
         if (activeTrack == null)
             return;
 
-        activeTrack = null;
-        TryStartVolumeLeveling();
+        if (immediate)
+        {
+            DestroyTrack(activeTrack);
+            activeTrack = null;
+        }
+        else 
+        {        
+            activeTrack = null;
+            TryStartVolumeLeveling();
+        }
     }
 }

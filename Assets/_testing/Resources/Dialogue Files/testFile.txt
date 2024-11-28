@@ -1,22 +1,22 @@
+setlayermedia(background "1. DINING ROOM 1" -b fade6)
+playambience(RainyMood -v 0.1 -lp true)
+playsong(Calm2 -v 0.2 -lp true)
 
+showdb()
+enter left Ysella at 0.2 "Hi Calyx!"
+enter right Calyx at 0.8 "...Hi Ysella."
 
-choice "Pick a name" 
-{
-	-Flying Fast General
-		narrator "...What?"
-		$name = "Flying Fast General"
-	-Ruthless_DivinationMachine
-		narrator "Hilarious but fitting"
-		$name = "Ruthless_DivinationMachine"
-	-Useless Drunkard
-		narrator "That's a little harsh now"
-		$name = "Useless Drunkard"
-}
+Ysella "Mom will be home in a moment so you can make yourself at home here!"
+Calyx "Thanks..."
+Ysella "I'll get some snacks so be right back!"
 
-Professor Oak "Ah, so your name is $name, eh?"
+[wait]Ysella.Move(-0.5 -spd 1.5), Ysella.Hide()
 
-"Hm? What do you mean something's missing?"
+Calyx "..."
+"<i>Kinda awkward to be here after so long...</i>"
+[wait]Calyx.Move(0.76)
 
-$name += " From The Xianzhou Luofu"
+[wait]Calyx.Flip(-spd 1.5), [wait]Calyx.Flip(-spd 1.5)
 
-Professor Oak "Ah, so your name's $name!"
+"<i>Would it be rude to ask where her dad is....{wc 1}Probably.{c}I'll just sit here and wait 'til she comes back.</i>"
+

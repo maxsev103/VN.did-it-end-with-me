@@ -7,6 +7,7 @@ public class AudioTrack
 {
     private const string TRACK_NAME_FORMAT = "Track - {0}";
     public string name { get; private set; }
+    public string path { get; private set; }
 
     public GameObject root => source.gameObject;
 
@@ -18,11 +19,12 @@ public class AudioTrack
 
     public float volume { get { return source.volume; } set { source.volume = value; } }
 
-    public AudioTrack(AudioClip clip, bool loop, float startingVolume, float volumeCap, AudioChannel channel, AudioMixerGroup mixer)
+    public AudioTrack(AudioClip clip, bool loop, float startingVolume, float volumeCap, AudioChannel channel, AudioMixerGroup mixer, string filePath)
     {
         name = clip.name;
         this.channel = channel;
         this.volumeCap = volumeCap;
+        path = filePath;
 
         source = CreateSource();
         source.clip = clip;

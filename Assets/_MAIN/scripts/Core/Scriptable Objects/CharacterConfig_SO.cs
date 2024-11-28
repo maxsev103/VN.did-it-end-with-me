@@ -9,7 +9,7 @@ namespace CHARACTERS
     {
         public CharacterConfig_Data[] characters;
 
-        public CharacterConfig_Data GetConfig(string characterName)
+        public CharacterConfig_Data GetConfig(string characterName, bool safe = true)
         {
             characterName = characterName.ToLower();
 
@@ -18,7 +18,7 @@ namespace CHARACTERS
                 CharacterConfig_Data data = characters[i];
 
                 if (string.Equals(characterName, data.name.ToLower()) || string.Equals(characterName, data.alias.ToLower()))
-                    return data.Copy();
+                    return safe ? data.Copy() : data;
             }
 
             return CharacterConfig_Data.Default;

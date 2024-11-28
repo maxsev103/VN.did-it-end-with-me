@@ -59,13 +59,14 @@ namespace CHARACTERS
             layers[layer].SetSprite(sprite);
         }
 
-        /// <summary>
-        /// Gets the passed sprite name regardless of whether they are a sprite character or a spritesheet character
-        /// </summary>
-        /// <param name="spriteName"></param>
-        /// <returns></returns>
         public Sprite GetSprite(string spriteName)
         {
+            if (config.sprites.Count > 0)
+            {
+                if (config.sprites.TryGetValue(spriteName, out Sprite sprite))
+                    return sprite;
+            }
+
             // checks if the character is a spritesheet character
             if (config.characterType == CharacterType.SpriteSheet)
             {

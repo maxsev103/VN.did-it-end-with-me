@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DIALOGUE.LogicalLines
 {
@@ -12,6 +14,7 @@ namespace DIALOGUE.LogicalLines
         {
             public struct EncapsulatedData
             {
+                public bool isNull => lines == null;
                 public List<string> lines;
                 public int endingIndex;
                 public int startingIndex;
@@ -187,7 +190,111 @@ namespace DIALOGUE.LogicalLines
                         return floatValue;
                     else if (bool.TryParse(value, out bool boolValue))
                         return negate ? !boolValue : boolValue;
-                    else return value;
+                    else 
+                    {
+                        value = TagManager.Inject(value, injectTags: true, injectVariables: true);
+                        return value; 
+                    }
+                }
+            }
+        }
+
+        public static class Conditions
+        {
+            public static readonly string REGEX_CONDITIONAL_OPERATORS = @"(==|!=|<=|>=|<|>|&&|\|\|)";
+
+            public static bool EvaluateCondition(string condition)
+            {
+                condition = TagManager.Inject(condition, injectTags: true, injectVariables: true);
+
+                string[] parts = Regex.Split(condition, REGEX_CONDITIONAL_OPERATORS)
+                    .Select(p => p.Trim()).ToArray();
+
+                for (int i = 0 ; i < parts.Length; i++)
+                {
+                    if (parts[i].StartsWith("\"") && parts[i].EndsWith("\""))
+                        parts[i] = parts[i].Substring(1, parts[i].Length - 2);
+                }
+
+                // if there is only one part within the condition try to parse as a boolean
+                if (parts.Length == 1)
+                {
+                    if (bool.TryParse(parts[0], out bool result))
+                        return result;
+                    else
+                    {
+                        Debug.LogError($"Could not parse condition: {condition}");
+                        return false;
+                    }
+                }
+                // if there are 3 parts, then it is an expression
+                else if (parts.Length == 3)
+                {
+                    return EvaluateExpression(parts[0], parts[1], parts[2]);
+                }
+                // otherwise, it is an unsupported format and return an error
+                else
+                {
+                    Debug.LogError($"Unsupported condition format: {condition}");
+                    return false;
+                }
+            }
+
+            private delegate bool OperatorFunc<T>(T lhs, T rhs);
+
+            private static Dictionary<string, OperatorFunc<bool>> boolOperators = new Dictionary<string, OperatorFunc<bool>>()
+            {
+                { "&&", (lhs, rhs) => lhs && rhs },
+                { "||", (lhs, rhs) => lhs || rhs },
+                { "==", (lhs, rhs) => lhs == rhs },
+                { "!=", (lhs, rhs) => lhs != rhs }
+            };
+
+            private static Dictionary<string, OperatorFunc<float>> floatOperators = new Dictionary<string, OperatorFunc<float>>()
+            {
+                { "==", (lhs, rhs) => lhs == rhs },
+                { "!=", (lhs, rhs) => lhs != rhs },
+                { ">", (lhs, rhs) => lhs > rhs },
+                { ">=", (lhs, rhs) => lhs >= rhs },
+                { "<", (lhs, rhs) => lhs < rhs },
+                { "<=", (lhs, rhs) => lhs <= rhs },
+            };
+
+            private static Dictionary<string, OperatorFunc<int>> intOperators = new Dictionary<string, OperatorFunc<int>>()
+            {
+                { "==", (lhs, rhs) => lhs == rhs },
+                { "!=", (lhs, rhs) => lhs != rhs },
+                { ">", (lhs, rhs) => lhs > rhs },
+                { ">=", (lhs, rhs) => lhs >= rhs },
+                { "<", (lhs, rhs) => lhs < rhs },
+                { "<=", (lhs, rhs) => lhs <= rhs },
+            };
+
+            private static bool EvaluateExpression(string lhs, string op, string rhs)
+            {
+                // try to evaluate it as a boolean expression
+                if (bool.TryParse(lhs, out bool leftBool) && bool.TryParse(rhs, out bool rightBool))
+                {
+                    if (boolOperators.ContainsKey(op))
+                        return boolOperators[op](leftBool, rightBool);
+                    else
+                        throw new InvalidOperationException($"Unsupported operation for boolean expression: {op}");
+                }
+
+                // or try to evaluate it as a float expression
+                if (float.TryParse(lhs, out float leftFloat) &&  float.TryParse(rhs, out float rightFloat))
+                    return floatOperators[op](leftFloat, rightFloat);
+                
+                // or try to evaluate it as an integer expressions
+                if (int.TryParse(lhs, out int leftInt) &&  int.TryParse(rhs, out int rightInt))
+                    return intOperators[op](leftInt, rightInt);
+
+                // otherwise, assume it's a string and switch the operator between == or !=
+                switch (op)
+                {
+                    case "==": return lhs == rhs;
+                    case "!=": return lhs != rhs;
+                    default: throw new InvalidOperationException($"Unsupported operation: {op}");
                 }
             }
         }
