@@ -21,6 +21,7 @@ namespace DIALOGUE
 
         public delegate void DialogueSystemEvent();
         public event DialogueSystemEvent onUserPrompt_Next;
+        public event DialogueSystemEvent onClear;
 
         public bool isRunningConversation => conversationManager.isRunning;
 
@@ -67,6 +68,32 @@ namespace DIALOGUE
             onUserPrompt_Next?.Invoke();
         }
 
+        public void OnSystemPrompt_Clear()
+        {
+            onClear?.Invoke();
+        }
+
+        public void OnStartViewingHistory()
+        {
+            prompt.Hide();
+            autoReader.allowToggle = false;
+            autoReader.autoButton.interactable = false;
+            autoReader.skipButton.interactable = false;
+            conversationManager.allowUserPrompts = false;
+
+            if (autoReader.isOn)
+                autoReader.Disable();
+        }
+
+        public void OnStopViewingHistory()
+        {
+            prompt.Show();
+            autoReader.allowToggle = true;
+            autoReader.autoButton.interactable = true;
+            autoReader.skipButton.interactable= true;
+            conversationManager.allowUserPrompts = true;
+        }
+
         public void ApplySpeakerDataToContainer(string speakerName)
         {
             Character character = CharacterManager.instance.GetCharacter(speakerName);
@@ -108,9 +135,9 @@ namespace DIALOGUE
             return Say(conversation);
         }
 
-        public Coroutine Say(List<string> lines)
+        public Coroutine Say(List<string> lines, string filePath = "")
         {
-            Conversation conversation = new Conversation(lines);
+            Conversation conversation = new Conversation(lines, file: filePath);
             return conversationManager.StartConversation(conversation);
         }
 

@@ -47,11 +47,16 @@ namespace HISTORY
             var dialogueText = ds.dialogueContainer.dialogueText;
             var nameText = ds.dialogueContainer.nameContainer.nameText;
 
-            dialogueText.text = data.currentDialogue;
+            ds.conversationManager.architect.SetText(data.currentDialogue);
             dialogueText.color = data.dialogueColor;
             dialogueText.fontSize = data.dialogueFontSize;
 
             nameText.text = data.currentSpeaker;
+            if (nameText.text != string.Empty)
+                ds.dialogueContainer.nameContainer.Show();
+            else
+                ds.dialogueContainer.nameContainer.Hide();
+
             nameText.color = data.speakerNameColor;
             nameText.fontSize = data.speakerFontSize;
 

@@ -1,22 +1,46 @@
 setlayermedia(background "1. DINING ROOM 1" -b fade6)
 playambience(RainyMood -v 0.1 -lp true)
-playsong(Calm2 -v 0.2 -lp true)
 
-showdb()
+showdb(), playsong(Calm2 -v 0.2 -lp true)
 enter left Ysella at 0.2 "Hi Calyx!"
 enter right Calyx at 0.8 "...Hi Ysella."
 
 Ysella "Mom will be home in a moment so you can make yourself at home here!"
 Calyx "Thanks..."
+
 Ysella "I'll get some snacks so be right back!"
 
+[wait]Ysella.Flip()
 [wait]Ysella.Move(-0.5 -spd 1.5), Ysella.Hide()
 
 Calyx "..."
 "<i>Kinda awkward to be here after so long...</i>"
+
 [wait]Calyx.Move(0.76)
 
-[wait]Calyx.Flip(-spd 1.5), [wait]Calyx.Flip(-spd 1.5)
+[wait]Calyx.Flip(-spd 1.5), wait(1), [wait]Calyx.Flip(-spd 1.5)
+Calyx.Animate(Shiver -state true)
 
-"<i>Would it be rude to ask where her dad is....{wc 1}Probably.{c}I'll just sit here and wait 'til she comes back.</i>"
+"<i>Would it be rude to ask where her dad is...{c}Probably.{c}I'll just sit here and wait 'til she comes back.</i>"
+
+Calyx.Animate(Shiver -state false)
+Ysella.Show(), [wait]Ysella.Flip(), Ysella.Move(0.2), Calyx.Move(0.8)
+Ysella "I'm back!"
+
+Calyx "Welcome back Ysella."
+
+Ysella "I didn't really know if you still liked these but I got us your favorite when we were kids!"
+
+choice "Do you still remember?"
+{
+	-...Snickers?
+		Calyx "...Snickers?"
+		Ysella "Well, yeah, they were pretty good.{c}Actually, probably second to the correct answer!"
+		Calyx "Oh um sorry, I don't remember."
+		Ysella "It's fine, it's fine, it's just a small thing!{c}No need to get yourself worked up about it."
+	-Poptarts
+		Calyx "...Poptarts?"
+		Ysella "Yeah! Do you still like them?"
+		Calyx "I do. There's just something about them that makes it so delicious I can't stop eating."
+}
 

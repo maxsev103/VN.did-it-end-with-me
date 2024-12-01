@@ -18,6 +18,7 @@ namespace HISTORY
         public Vector2 position;
         public CharacterConfigCache characterConfigCache;
 
+        public string animationJSON;
         public string dataJSON;
 
         [System.Serializable]
@@ -73,26 +74,162 @@ namespace HISTORY
                 entry.isFacingLeft = character.isFacingLeft;
                 entry.position = character.targetPosition;
                 entry.characterConfigCache = new CharacterConfigCache(character.config);
+                entry.animationJSON = GetAnimationData(character);
 
                 // get the sprite info
-                SpriteData sdata = new SpriteData();
-                sdata.layers = new List<SpriteData.LayerData>();
+                if (character.config.characterType == Character.CharacterType.Sprite || 
+                    character.config.characterType == Character.CharacterType.SpriteSheet)
+                {    
+                    SpriteData sdata = new SpriteData();
+                    sdata.layers = new List<SpriteData.LayerData>();
 
-                Character_Sprite sc = character as Character_Sprite;
-                foreach (var layer in sc.layers)
-                {
-                    var layerData = new SpriteData.LayerData();
-                    layerData.color = layer.renderer.color;
-                    layerData.spriteName = layer.renderer.sprite.name;
-                    sdata.layers.Add(layerData);
+                    Character_Sprite sc = character as Character_Sprite;
+                    foreach (var layer in sc.layers)
+                    {
+                        var layerData = new SpriteData.LayerData();
+                        layerData.color = layer.renderer.color;
+                        layerData.spriteName = layer.renderer.sprite.name;
+                        sdata.layers.Add(layerData);
+                    }
+
+                    entry.dataJSON = JsonUtility.ToJson(sdata);
                 }
-
-                entry.dataJSON = JsonUtility.ToJson(sdata);
 
                 characters.Add(entry);
             }
 
             return characters;
+        }
+
+        public static void Apply(List<CharacterData> data)
+        {
+            List<string> cache = new List<string>();
+
+            foreach (CharacterData characterData in data)
+            {
+                Character character = CharacterManager.instance.GetCharacter(characterData.characterName, createIfNotExisting: true);
+                character.displayName = characterData.displayName;
+                character.SetColor(characterData.color);
+
+                if (characterData.isHighlighted)
+                    character.Highlight(immediate: true);
+                else
+                    character.Unhighlight(immediate: true);
+
+                character.SetPriority(characterData.priority);
+
+                if (characterData.isFacingLeft)
+                    character.FaceLeft();
+                else
+                    character.FaceRight();
+
+                character.SetPosition(characterData.position);
+
+                character.isVisible = characterData.enabled;
+
+                AnimationData animationData = JsonUtility.FromJson<AnimationData>(characterData.animationJSON);
+                ApplyAnimationData(character, animationData);
+
+                if (character.config.characterType == Character.CharacterType.Sprite ||
+                    character.config.characterType == Character.CharacterType.SpriteSheet)
+                {
+                        SpriteData sdata = JsonUtility.FromJson<SpriteData>(characterData.dataJSON);
+                    Character_Sprite sc = character as Character_Sprite;
+
+                    for (int i = 0; i < sdata.layers.Count; i++)
+                    {
+                        var layer = sdata.layers[i];
+                        if (sc.layers[i].renderer.sprite != null && sc.layers[i].renderer.sprite.name != layer.spriteName)
+                        {
+                            Sprite sprite = sc.GetSprite(layer.spriteName);
+                            if (sprite != null)
+                                sc.SetSprite(sprite, i);
+                            else
+                                Debug.LogWarning($"History State: Could not load sprite '{layer.spriteName}'");
+                        }
+                    }
+                }
+
+                cache.Add(character.name);
+            }
+
+            foreach (Character character in CharacterManager.instance.allCharacters)
+            {
+                if (!cache.Contains(character.name))
+                    character.isVisible = false; 
+            }
+        }
+
+        private static string GetAnimationData(Character character)
+        {
+            Animator animator = character.animator;
+            AnimationData data = new AnimationData();
+
+            foreach (var param in animator.parameters)
+            {
+                if (param.type == AnimatorControllerParameterType.Trigger)
+                    continue;
+
+                AnimationParameter pData = new AnimationParameter { name = param.name };
+
+                switch(param.type)
+                {
+                    case AnimatorControllerParameterType.Bool:
+                        pData.type = "Bool";
+                        pData.value = animator.GetBool(param.name).ToString();
+                        break;
+                    case AnimatorControllerParameterType.Float:
+                        pData.type = "Float";
+                        pData.value = animator.GetFloat(param.name).ToString();
+                        break;
+                    case AnimatorControllerParameterType.Int:
+                        pData.type = "Int";
+                        pData.value = animator.GetInteger(param.name).ToString();
+                        break;
+                }
+
+                data.parameters.Add(pData);
+            }
+
+            return JsonUtility.ToJson(data);
+        }
+
+        private static void ApplyAnimationData(Character character, AnimationData data)
+        {
+            Animator animator = character.animator;
+
+            foreach (var param in data.parameters)
+            {
+
+                switch (param.type)
+                {
+                    case "Bool":
+                        animator.SetBool(param.name, bool.Parse(param.value)); 
+                        break;
+                    case "Float":
+                        animator.SetFloat(param.name, float.Parse(param.value));
+                        break;
+                    case "Int":
+                        animator.SetInteger(param.name, int.Parse(param.value));
+                        break;
+                }
+            }
+
+            animator.SetTrigger(Character.ANIMATION_REFRESH_TRIGGER);
+        }
+
+        [System.Serializable]
+        public class AnimationData
+        {
+            public List<AnimationParameter> parameters = new List<AnimationParameter>();
+        }
+
+        [System.Serializable]
+        public class AnimationParameter
+        {
+            public string name;
+            public string type;
+            public string value;
         }
 
         [System.Serializable]

@@ -27,9 +27,9 @@ namespace HISTORY
         public void Load()
         {
             DialogueData.Apply(dialogue);
-            //characters.Apply();
+            CharacterData.Apply(characters);
             AudioData.Apply(audio);
-            //graphics.Apply();
+            GraphicData.Apply(graphics);
         }
     }
 }

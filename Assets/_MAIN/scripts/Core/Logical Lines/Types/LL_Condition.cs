@@ -21,7 +21,7 @@ namespace DIALOGUE.LogicalLines
             Conversation currentConversation = DialogueSystem.instance.conversationManager.conversation;
             int currentProgress = DialogueSystem.instance.conversationManager.conversationProgress;
 
-            EncapsulatedData ifData = RipEncapsulatedData(currentConversation, currentProgress, ripHeaderAndEncapsulators: false);
+            EncapsulatedData ifData = RipEncapsulatedData(currentConversation, currentProgress, ripHeaderAndEncapsulators: false, parentStartingIndex: currentConversation.fileStartIndex);
             EncapsulatedData elseData = new EncapsulatedData();
 
             if (ifData.endingIndex + 1 < currentConversation.Count)
@@ -29,11 +29,9 @@ namespace DIALOGUE.LogicalLines
                 string nextLine = currentConversation.GetLines()[ifData.endingIndex + 1].Trim();
                 if (nextLine == ELSE)
                 {
-                    elseData = RipEncapsulatedData(currentConversation, ifData.endingIndex + 1, ripHeaderAndEncapsulators: false);
+                    elseData = RipEncapsulatedData(currentConversation, ifData.endingIndex + 1, ripHeaderAndEncapsulators: false, parentStartingIndex: currentConversation.fileStartIndex);
                     ifData.endingIndex = elseData.endingIndex;
                 }
-                else
-                    currentConversation.SetProgress(ifData.endingIndex);
             }
 
             currentConversation.SetProgress(ifData.endingIndex);
@@ -41,7 +39,7 @@ namespace DIALOGUE.LogicalLines
 
             if (!selectedData.isNull && selectedData.lines.Count > 0)
             {
-                Conversation newConversation = new Conversation(selectedData.lines);
+                Conversation newConversation = new Conversation(selectedData.lines, file: currentConversation.file, fileStartIndex: currentConversation.fileStartIndex, fileEndIndex: currentConversation.fileEndIndex);
                 DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
             }
 

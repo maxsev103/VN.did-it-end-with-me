@@ -53,11 +53,6 @@ public class TextArchitect
         this.tmpro_world = tmpro_world;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="text"></param>
-    /// <returns></returns>
     public Coroutine Build(string text)
     {
         preText = "";
@@ -101,6 +96,17 @@ public class TextArchitect
         buildProcess = null;
     }
 
+    public void SetText(string text)
+    {
+        preText = "";
+        targetText = text;
+
+        Stop();
+
+        tmpro.text = targetText;
+        ForceComplete();
+    }
+
     IEnumerator Building()
     {
         Prepare();
@@ -128,6 +134,7 @@ public class TextArchitect
         switch (buildMethod)
         {
             case BuildMethod.typewriter:
+                tmpro.ForceMeshUpdate();
                 tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
                 break;
         }

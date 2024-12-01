@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace DIALOGUE
 {
@@ -25,6 +26,10 @@ namespace DIALOGUE
 
         [SerializeField] private TextMeshProUGUI statusText;
         [SerializeField] private Animator anim;
+        [SerializeField] public Button autoButton;
+        [SerializeField] public Button skipButton;
+
+        [HideInInspector] public bool allowToggle = true;
 
         public void Initialize(ConversationManager conversationManager)
         {
@@ -37,6 +42,8 @@ namespace DIALOGUE
             if (isOn)
                 return;
 
+            autoButton.interactable = true;
+            skipButton.interactable = true;
             anim.gameObject.SetActive(true);
             co_running = StartCoroutine(AutoRead());
         }
@@ -120,22 +127,32 @@ namespace DIALOGUE
 
         public void ToggleAuto()
         {
+            if (!allowToggle)
+                return;
+
             if (skip)
                 Enable();
             else
             {
                 if (!isOn)
                     Enable();
-                else
+                else 
+                {
+                    autoButton.OnDeselect(null);
                     Disable();
+                }
             }
 
             skip = false;
-            statusText.text = STATUS_TEXT_AUTO;
+            if (isOn)
+                statusText.text = STATUS_TEXT_AUTO;
         }
 
         public void ToggleSkip()
         {
+            if (!allowToggle)
+                return;
+
             if (!skip)
                 Enable();
             else
@@ -143,11 +160,15 @@ namespace DIALOGUE
                 if (!isOn)
                     Enable();
                 else
+                {
+                    skipButton.OnDeselect(null);
                     Disable();
+                }
             }
 
             skip = true;
-            statusText.text = STATUS_TEXT_SKIP;
+            if (isOn)
+                statusText.text = STATUS_TEXT_SKIP;
         }
     }
 }

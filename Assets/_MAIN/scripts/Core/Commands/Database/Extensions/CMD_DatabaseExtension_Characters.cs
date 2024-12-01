@@ -16,6 +16,8 @@ namespace COMMANDS
         private static string PARAM_YPOS => "-y";
         private static string[] PARAM_SPEED => new string[] { "-spd", "-speed" };
         private static string[] PARAM_SMOOTH => new string[] { "-sm", "-smooth" };
+        private static string[] PARAM_ANIMATION => new string[] { "-anim", "-animation" };
+        private static string[] PARAM_ANIMATION_STATE => new string[] { "-st", "-state" };
 
         new public static void Extend(CommandDatabase database)
         {
@@ -40,6 +42,7 @@ namespace COMMANDS
             baseCommands.AddCommand("highlight", new Func<string[], IEnumerator>(Highlight));
             baseCommands.AddCommand("unhighlight", new Func<string[], IEnumerator>(Unhighlight));
             baseCommands.AddCommand("flip", new Func<string[], IEnumerator>(Flip));
+            baseCommands.AddCommand("animate", new Action<string[]>(Animate));
 
             // add character type specific commands
             CommandDatabase spriteCommands = CommandManager.instance.CreateSubDatabase(CommandManager.DATABASE_CHARACTERS_SPRITE);
@@ -579,6 +582,42 @@ namespace COMMANDS
                 yield return character.Flip(speed);
             }
 
+        }
+
+        public static void SingleAnimation(string[] data)
+        {
+            Character character = CharacterManager.instance.GetCharacter(data[0]) as Character;
+            string animation;
+
+            var parameters = ConvertDataToParameters(data, startingIndex: 1);
+
+            parameters.TryGetValue(PARAM_ANIMATION, out animation);
+
+            if (animation != string.Empty)
+                character.Animate(animation);
+        }
+
+        public static void ContinuousAnimation(string[] data)
+        {
+            Character character = CharacterManager.instance.GetCharacter(data[0]) as Character;
+            string animation;
+            bool state;
+
+            var parameters = ConvertDataToParameters(data, startingIndex: 1);
+
+            parameters.TryGetValue(PARAM_ANIMATION, out animation);
+            parameters.TryGetValue(PARAM_ANIMATION_STATE, out state, defaultValue: true);
+
+            if (animation != string.Empty)
+                character.Animate(animation, state);
+        }
+
+        public static void Animate(string[] data)
+        {
+            if (data.Length == 1)
+                SingleAnimation(data);
+            else
+                ContinuousAnimation(data);
         }
 
         #endregion
