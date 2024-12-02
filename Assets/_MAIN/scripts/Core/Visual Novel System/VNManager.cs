@@ -3,30 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VNManager : MonoBehaviour
+namespace VISUALNOVEL
 {
-    public static VNManager instance { get; private set; }
-
-    private void Awake()
+    public class VNManager : MonoBehaviour
     {
-        instance = this;
-    }
+        public static VNManager instance { get; private set; }
 
-    public void LoadFile(string filePath)
-    {
-        List<string> lines = new List<string>();
-        TextAsset file = Resources.Load<TextAsset>(filePath);
+        private void Awake()
+        {
+            instance = this;
 
-        try
-        {
-            lines = FileManager.ReadTextAsset(file);
-        }
-        catch
-        {
-            Debug.LogError($"Dialogue file at path 'Resources/{filePath}' does not exist!");
-            return;
+            VNDatabaseLinkSetup linkSetup = GetComponent<VNDatabaseLinkSetup>();
+            linkSetup.SetupExternalLinks();
         }
 
-        DialogueSystem.instance.Say(lines, filePath);
+        public void LoadFile(string filePath)
+        {
+            List<string> lines = new List<string>();
+            TextAsset file = Resources.Load<TextAsset>(filePath);
+
+            try
+            {
+                lines = FileManager.ReadTextAsset(file);
+            }
+            catch
+            {
+                Debug.LogError($"Dialogue file at path 'Resources/{filePath}' does not exist!");
+                return;
+            }
+
+            DialogueSystem.instance.Say(lines, filePath);
+        }
     }
 }

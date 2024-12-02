@@ -190,7 +190,7 @@ namespace DIALOGUE.LogicalLines
                         return floatValue;
                     else if (bool.TryParse(value, out bool boolValue))
                         return negate ? !boolValue : boolValue;
-                    else 
+                    else
                     {
                         value = TagManager.Inject(value, injectTags: true, injectVariables: true);
                         return value; 

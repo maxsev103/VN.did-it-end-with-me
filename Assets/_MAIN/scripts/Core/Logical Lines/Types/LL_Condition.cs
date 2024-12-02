@@ -30,16 +30,20 @@ namespace DIALOGUE.LogicalLines
                 if (nextLine == ELSE)
                 {
                     elseData = RipEncapsulatedData(currentConversation, ifData.endingIndex + 1, ripHeaderAndEncapsulators: false, parentStartingIndex: currentConversation.fileStartIndex);
-                    ifData.endingIndex = elseData.endingIndex;
                 }
             }
 
-            currentConversation.SetProgress(ifData.endingIndex);
+            currentConversation.SetProgress(elseData.isNull ? ifData.endingIndex : elseData.endingIndex);
+
             EncapsulatedData selectedData = conditionResult ? ifData : elseData;
 
             if (!selectedData.isNull && selectedData.lines.Count > 0)
             {
-                Conversation newConversation = new Conversation(selectedData.lines, file: currentConversation.file, fileStartIndex: currentConversation.fileStartIndex, fileEndIndex: currentConversation.fileEndIndex);
+                // remove the header and encapsulator lines from the conversation indices
+                selectedData.startingIndex += 2; // remove header and starting encapsulator
+                selectedData.endingIndex -= 1; // remove the ending encapsulator
+
+                Conversation newConversation = new Conversation(selectedData.lines, file: currentConversation.file, fileStartIndex: selectedData.startingIndex, fileEndIndex: selectedData.endingIndex);
                 DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
             }
 

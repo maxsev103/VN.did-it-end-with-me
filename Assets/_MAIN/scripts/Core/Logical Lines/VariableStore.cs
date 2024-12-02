@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Text;
 
 public class VariableStore
 {
@@ -54,7 +55,7 @@ public class VariableStore
         public override void Set(object newValue) => setter((T)newValue);
     }
 
-    private static Dictionary<string, Database> databases = new Dictionary<string, Database>() { { DEFAULT_DATABASE_NAME, new Database(DEFAULT_DATABASE_NAME) } };
+    public static Dictionary<string, Database> databases = new Dictionary<string, Database>() { { DEFAULT_DATABASE_NAME, new Database(DEFAULT_DATABASE_NAME) } };
     private static Database defaultDatabase => databases[DEFAULT_DATABASE_NAME];
 
     public static bool CreateDatabase(string name)
@@ -153,7 +154,7 @@ public class VariableStore
     {
         foreach (KeyValuePair<string, Database> dbEntry in databases)
         {
-            Debug.Log($"Database: '{dbEntry.Key}'");
+            Debug.Log($"Database: '<color=#FFB145>{dbEntry.Key}</color>'");
         }
     }
 
@@ -173,11 +174,17 @@ public class VariableStore
 
     public static void PrintAllDatabaseVariables(Database database)
     {
+        StringBuilder sb = new StringBuilder();
+
+        sb.AppendLine($"Database: <color=#F38544>{database.name}</color>");
+
         foreach (KeyValuePair<string, Variable> variablePair in database.variables)
         {
             string variableName = variablePair.Key;
             object variableValue = variablePair.Value.Get();
-            Debug.Log($"Database: {database.name} - Variable name: {variableName}, Value: {variableValue}");
+            sb.AppendLine($"\t<color=#FFB145>Variable [{variableName}]</color> = <color=#FFD22D>{variableValue}</color>");
         }
+
+        Debug.Log(sb.ToString());
     }
 }

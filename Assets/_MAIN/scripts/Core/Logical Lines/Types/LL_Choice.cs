@@ -33,9 +33,9 @@ namespace DIALOGUE.LogicalLines
             Choice selectedChoice = choices[panel.lastDecision.answerIndex];
 
             Conversation newConversation = new Conversation(selectedChoice.resultLines, file: currentConversation.file, fileStartIndex: selectedChoice.startIndex, fileEndIndex: selectedChoice.endIndex);
-            DialogueSystem.instance.conversationManager.conversation.SetProgress(data.endingIndex);
+            DialogueSystem.instance.conversationManager.conversation.SetProgress(data.endingIndex - currentConversation.fileStartIndex);
             DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
-        }
+        } 
 
         public bool Matches(DialogueLine line)
         {
@@ -55,7 +55,7 @@ namespace DIALOGUE.LogicalLines
             };
 
             int choiceIndex = 0, i = 0;
-            for (i = 0; i < data.lines.Count; i++)
+            for (i = 1; i < data.lines.Count; i++)
             {
                 var line = data.lines[i];
                 if (isChoiceStart(line) && encapsulationDepth == 1)

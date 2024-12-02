@@ -38,7 +38,7 @@ public class FilePaths
         get
         {
             #if UNITY_EDITOR
-                return "Assets/appdata";
+                return "Assets/appdata/";
             #else
                 return Application.persistentDataPath + "/appdata";
             #endif

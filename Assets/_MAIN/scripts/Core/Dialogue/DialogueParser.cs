@@ -12,6 +12,8 @@ namespace DIALOGUE
         public static DialogueLine Parse(string rawLine)
         {
             (string speaker, string dialogue, string commands) = RipContent(rawLine);
+
+            commands = TagManager.Inject(commands);
             
             return new DialogueLine(rawLine, speaker, dialogue, commands);
         }
