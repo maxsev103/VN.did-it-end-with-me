@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: bodoni-mt-regular SDF UI
   m_EditorClassIdentifier: 
-  hashCode: 1633391123
+  hashCode: -141280273
   material: {fileID: 3625861914591187309}
-  materialHashCode: 1020568531
+  materialHashCode: -202981137
   m_Version: 1.1.0
   m_SourceFontFileGUID: f06de0a0d0592884694a1dbcb1575c23
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: f06de0a0d0592884694a1dbcb1575c23,
@@ -5718,7 +5718,7 @@ Material:
     - _CullMode: 0
     - _Diffuse: 0.5
     - _DiffusePower: 1
-    - _FaceDilate: 0.25
+    - _FaceDilate: 0.06
     - _FaceShininess: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
@@ -5734,12 +5734,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.26
+    - _OutlineWidth: 0.05
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9
-    - _ScaleRatioB: 0.50625
-    - _ScaleRatioC: 0.27409312
+    - _ScaleRatioB: 0.67725
+    - _ScaleRatioC: 0.36568576
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -5752,10 +5752,10 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 1024
     - _TextureWidth: 1024
-    - _UnderlayDilate: 0.61
-    - _UnderlayOffsetX: -0.32
-    - _UnderlayOffsetY: -1
-    - _UnderlaySoftness: 0.237
+    - _UnderlayDilate: 0.7
+    - _UnderlayOffsetX: -0.34
+    - _UnderlayOffsetY: -0.38
+    - _UnderlaySoftness: 0.772
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -5767,10 +5767,10 @@ Material:
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0, g: 0, b: 0, a: 0.47058824}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0.9137255}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0.44705883}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.79607844}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.7764706}
   m_BuildTextureStacks: []
