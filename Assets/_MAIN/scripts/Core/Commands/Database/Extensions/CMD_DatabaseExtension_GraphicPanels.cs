@@ -98,12 +98,18 @@ namespace COMMANDS
             // try to get the layer to apply the media to
             GraphicLayer graphicLayer = panel.GetLayer(layer, createIfNotExisting: true);
 
-            if (media as Texture)
+            if (media is Texture)
             {
+                if (!immediate)
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(() => { graphicLayer?.SetTexture(media as Texture, filePath: pathToMedia, immediate: true); });
+
                 yield return graphicLayer.SetTexture(media as Texture, transitionSpeed, blendtex, pathToMedia, immediate);
             }
             else
             {
+                if (!immediate)
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(() => { graphicLayer?.SetVideo(media as VideoClip, filePath: pathToMedia, immediate: true); });
+
                 yield return graphicLayer.SetVideo(media as VideoClip, transitionSpeed, useAudio, blendtex, pathToMedia, immediate);
             }
         }

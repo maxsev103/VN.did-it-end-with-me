@@ -9,12 +9,16 @@ namespace VISUALNOVEL
     {
         public static VNManager instance { get; private set; }
 
+        public Camera mainCamera;
+
         private void Awake()
         {
             instance = this;
 
             VNDatabaseLinkSetup linkSetup = GetComponent<VNDatabaseLinkSetup>();
             linkSetup.SetupExternalLinks();
+
+            VNGameSave.activeFile = new VNGameSave();
         }
 
         public void LoadFile(string filePath)

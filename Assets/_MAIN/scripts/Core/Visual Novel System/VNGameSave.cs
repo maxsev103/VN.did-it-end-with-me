@@ -1,5 +1,6 @@
 using DIALOGUE;
 using HISTORY;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace VISUALNOVEL
         public const string FILE_TYPE = ".vns";
         public const string SCREENSHOT_FILE_TYPE = ".jpg";
         public const bool ENCRYPT_FILES = true;
+        public const float SCREENSHOT_DOWNSCALE_AMOUNT = 0.25f;
 
         public string filePath => $"{FilePaths.gameSaves}{slotNumber}{FILE_TYPE}";
         public string screenshotPath => $"{FilePaths.gameSaves}{slotNumber}{SCREENSHOT_FILE_TYPE}";
@@ -27,6 +29,9 @@ namespace VISUALNOVEL
         public HistoryState activeState;
         public HistoryState[] historyLog;
         public VN_VariableData[] variables;
+
+        public string chapter;
+        public string timestamp;
 
         public static VNGameSave Load(string filePath, bool activateOnLoad = false)
         {
@@ -47,8 +52,20 @@ namespace VISUALNOVEL
             activeConversations = GetConversationData();
             variables = GetVariableData();
 
+            timestamp = DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
+            // this expects all the chapter files to be written in this format "Chapter N - <Title>" and splits it by the '-' sign
+            chapter = DialogueSystem.instance.conversationManager.conversation.file.Split('-')[1].Trim();
+
+            ScreenshotMaster.CaptureScreenshot(VNManager.instance.mainCamera, Screen.width, Screen.height, SCREENSHOT_DOWNSCALE_AMOUNT, screenshotPath);
+
             string saveJSON = JsonUtility.ToJson(this);
             FileManager.Save(filePath, saveJSON, ENCRYPT_FILES);
+        }
+
+        public void AutoSave()
+        {
+            slotNumber = 1;
+            Save();
         }
 
         public void Activate()
@@ -71,7 +88,7 @@ namespace VISUALNOVEL
         {
             List<string> returnData = new List<string>();
             var conversations = DialogueSystem.instance.conversationManager.GetConversationQueue();
-
+            
             for (int i = 0; i < conversations.Length; i++)
             {
                 var conversation = conversations[i];
