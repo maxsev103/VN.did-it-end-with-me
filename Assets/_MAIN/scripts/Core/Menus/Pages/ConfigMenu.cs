@@ -75,8 +75,11 @@ public class ConfigMenu : MenuPage
 
     private void OnApplicationQuit()
     {
-        VN_Configuration.activeConfig.Save();
-        VN_Configuration.activeConfig = null;
+        if (VN_Configuration.activeConfig != null)
+        {
+            VN_Configuration.activeConfig.Save();
+            VN_Configuration.activeConfig = null;
+        }
     }
 
     private void SetAvailableResolutions()
@@ -187,16 +190,21 @@ public class ConfigMenu : MenuPage
     public void SetTextArchitectSpeed()
     {
         config.dialogueTextSpeed = ui.architectSpeed.value;
-        DialogueSystem.instance.conversationManager.architect.standardSpeed = config.dialogueTextSpeed;
+
+        if (DialogueSystem.instance != null)
+            DialogueSystem.instance.conversationManager.architect.standardSpeed = config.dialogueTextSpeed;
     }
 
     public void SetAutoReadSpeed()
     {
         config.dialogueAutoReadSpeed = ui.autoReaderSpeed.value;
 
-        AutoReader autoReader = DialogueSystem.instance.autoReader;
-        if (autoReader != null)
-            autoReader.speed = config.dialogueAutoReadSpeed;
+        if (DialogueSystem.instance != null)
+        {
+            AutoReader autoReader = DialogueSystem.instance.autoReader;
+            if (autoReader != null)
+                autoReader.speed = config.dialogueAutoReadSpeed;
+        }
     }
 
     public void SetMusicVolume()

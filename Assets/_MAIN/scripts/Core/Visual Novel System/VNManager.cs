@@ -1,6 +1,7 @@
 using DIALOGUE;
 using System.Collections;
 using System.Collections.Generic;
+using TESTING;
 using UnityEngine;
 
 namespace VISUALNOVEL
@@ -8,35 +9,38 @@ namespace VISUALNOVEL
     public class VNManager : MonoBehaviour
     {
         public static VNManager instance { get; private set; }
-
+        [SerializeField] private VisualNovelSO config;
         public Camera mainCamera;
 
         private void Awake()
         {
             instance = this;
-
+            Debug.Log($"Starting file is called: {config.startingFile.name}");
             VNDatabaseLinkSetup linkSetup = GetComponent<VNDatabaseLinkSetup>();
             linkSetup.SetupExternalLinks();
 
-            VNGameSave.activeFile = new VNGameSave();
+            if (VNGameSave.activeFile == null)
+                VNGameSave.activeFile = new VNGameSave();
         }
 
-        public void LoadFile(string filePath)
+        private void Start()
         {
-            List<string> lines = new List<string>();
-            TextAsset file = Resources.Load<TextAsset>(filePath);
+            
+            LoadGame();
+        } 
 
-            try
+        private void LoadGame()
+        {
+            if (VNGameSave.activeFile.newGame)
             {
-                lines = FileManager.ReadTextAsset(file);
+                List<string> lines = FileManager.ReadTextAsset(config.startingFile);
+                Conversation start = new Conversation(lines, file: config.startingFile.name);
+                DialogueSystem.instance.Say(start);
             }
-            catch
+            else
             {
-                Debug.LogError($"Dialogue file at path 'Resources/{filePath}' does not exist!");
-                return;
+                VNGameSave.activeFile.Activate();
             }
-
-            DialogueSystem.instance.Say(lines, filePath);
         }
     }
 }

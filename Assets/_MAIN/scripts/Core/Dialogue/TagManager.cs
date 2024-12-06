@@ -3,15 +3,14 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using System;
 using System.Linq;
+using VISUALNOVEL;
 
 public class TagManager
 {
     private static readonly Dictionary<string, Func<string>> tags = new Dictionary<string, Func<string>>()
     {
-        { "<mainChar>",     () => "You" },
         { "<time>",         () => DateTime.Now.ToString("hh:mm tt") },
-        { "<playerLvl>",    () => "15" },
-        { "<tempVal1>",     () => "42" }
+        { "<SP>",           () =>  VNGameSave.activeFile.SPValue.ToString() }
     };
     private static readonly Regex tagRegex = new Regex("<\\w+>");
 

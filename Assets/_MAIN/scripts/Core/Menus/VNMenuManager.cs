@@ -13,6 +13,8 @@ public class VNMenuManager : MonoBehaviour
     [SerializeField] private CanvasGroup root;
     [SerializeField] private MenuPage[] pages;
 
+    private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
+
     private CanvasGroupController rootCG;
 
     private void Awake()
@@ -90,11 +92,13 @@ public class VNMenuManager : MonoBehaviour
 
     public void Click_Home()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+        AudioManager.instance.StopTrack(0);
+        AudioManager.instance.StopTrack(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(MainMenu.MAIN_MENU_SCENE);
     }
 
     public void Click_Quit()
     {
-        Application.Quit();
+        uiChoiceMenu.Show("Do you want to quit?", new UIConfirmationMenu.ConfirmationButton("Yes", () => Application.Quit()), new UIConfirmationMenu.ConfirmationButton("No", null));
     }
 }

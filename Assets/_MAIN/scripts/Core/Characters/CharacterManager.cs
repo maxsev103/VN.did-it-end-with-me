@@ -13,7 +13,7 @@ namespace CHARACTERS
         private Dictionary<string, Character> characters = new Dictionary<string, Character>();
         private CharacterConfig_SO config => DialogueSystem.instance.config.characterConfigurationAsset;
 
-        private const string CHARACTER_CASTING_ID = " as ";
+        public const string CHARACTER_CASTING_ID = " as ";
         private const string CHARACTER_NAME_ID = "<charname>";
         public string characterRootPathFormat => $"Character Sprites/{CHARACTER_NAME_ID}";
         public string characterPrefabNameFormat => $"Character - [{CHARACTER_NAME_ID}]";
@@ -49,6 +49,9 @@ namespace CHARACTERS
             CHARACTER_INFO info = GetCharacterInfo(characterName);
 
             Character character = CreateCharacterFromInfo(info);
+
+            if (info.castingName != info.name)
+                character.castingName = info.castingName;
 
             characters.Add(info.name.ToLower(), character);
 

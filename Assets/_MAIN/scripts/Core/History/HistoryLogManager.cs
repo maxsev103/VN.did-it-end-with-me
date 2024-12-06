@@ -131,6 +131,9 @@ namespace HISTORY
 
         public void SetLogScaling()
         {
+            if (instance == null)
+                return;
+
             logScaling = logScaleSlider.value;
 
             foreach (HistoryLog log in logs)

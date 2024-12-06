@@ -18,6 +18,8 @@ public class SaveLoadSlot : MonoBehaviour
     [HideInInspector] public int fileNumber = 0;
     [HideInInspector] public string filePath = "";
 
+    private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
+
     private bool isAutoSaveSlot => fileNumber == 1;
 
     public void PopulateDetails(SaveandLoadMenu.MenuFunction function)
@@ -43,6 +45,9 @@ public class SaveLoadSlot : MonoBehaviour
                 return;
             }
 
+            ColorBlock colors = saveSlotButton.colors;
+            colors.highlightedColor = new Color(234, 234, 234, 216);
+            saveSlotButton.colors = colors;
             statusTitle.text = $"{fileNumber - 1}. Empty Slot";
             statusDateTime.text = "";
             deleteButton.gameObject.SetActive(false);
@@ -57,6 +62,9 @@ public class SaveLoadSlot : MonoBehaviour
                 return;
             }
 
+            ColorBlock colors = saveSlotButton.colors;
+            colors.highlightedColor = new Color(234, 234, 234, 216);
+            saveSlotButton.colors = colors;
             statusTitle.text = $"{fileNumber - 1}. {file.chapter}";
             statusDateTime.text = $"{file.timestamp}";
             deleteButton.gameObject.SetActive(true);
@@ -87,7 +95,7 @@ public class SaveLoadSlot : MonoBehaviour
 
     private void SetAutoSaveSlot(SaveandLoadMenu.MenuFunction function, VNGameSave file)
     {
-        statusTitle.text = file == null ? "Auto Save." : $"Auto. {file.chapter}";
+        statusTitle.text = file == null ? "Auto Save." : $"Auto. from Save {VNGameSave.activeFile.slotNumber} - {file.chapter}";
         statusDateTime.text = file == null ? "" : file.timestamp;
         deleteButton.gameObject.SetActive(false);
         saveSlotButton.onClick.RemoveAllListeners();
@@ -122,6 +130,13 @@ public class SaveLoadSlot : MonoBehaviour
 
     public void Delete()
     {
+        uiChoiceMenu.Show("Do you want to delete this save? (This action cannot be undone)", 
+            new UIConfirmationMenu.ConfirmationButton("Yes", OnConfirmDelete), 
+            new UIConfirmationMenu.ConfirmationButton("No", null));
+    }
+
+    private void OnConfirmDelete()
+    {
         var activeSave = VNGameSave.activeFile;
         File.Delete(activeSave.screenshotPath);
         File.Delete(filePath);
@@ -131,15 +146,35 @@ public class SaveLoadSlot : MonoBehaviour
     public void Save()
     {
         var activeSave = VNGameSave.activeFile;
-        activeSave.slotNumber = fileNumber;
 
+        string expectedFilePath = $"{FilePaths.gameSaves}{fileNumber}{VNGameSave.FILE_TYPE}";
+
+        bool fileExists = File.Exists(expectedFilePath);
+
+        uiChoiceMenu.Show(fileExists ? "Do you want to overwrite this save file?" : "Do you want to save?", 
+            new UIConfirmationMenu.ConfirmationButton("Yes", () => OnConfirmSave(activeSave)), 
+            new UIConfirmationMenu.ConfirmationButton("No", null));
+    }
+
+    private void OnConfirmSave(VNGameSave activeSave)
+    {
+        activeSave.slotNumber = fileNumber;
         activeSave.Save();
         PopulateDetailsFromFile(SaveandLoadMenu.instance.menuFunction, activeSave);
     }
 
     public void Load()
     {
-        VNGameSave file = VNGameSave.Load(filePath, activateOnLoad: true);
+        VNGameSave file = VNGameSave.Load(filePath, activateOnLoad: false);
         SaveandLoadMenu.instance.Close(closeAllMenus: true);
+
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == MainMenu.MAIN_MENU_SCENE)
+        {
+            MainMenu.instance.LoadGame(file);
+        }
+        else
+        {
+            file.Activate();
+        }
     }
 }

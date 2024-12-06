@@ -49,6 +49,12 @@ public class FileManager
     public static List<string> ReadTextAsset(TextAsset asset, bool includeBlankLines = true)
     {
         List<string> lines = new List<string>();
+        if (asset == null)
+        {
+            Debug.LogError($"Could not find file called '{asset.name}'!");
+            return lines;
+        }
+
         using (StringReader sr = new StringReader(asset.text))
         {
             while (sr.Peek() > -1)

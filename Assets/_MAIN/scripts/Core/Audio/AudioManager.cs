@@ -122,7 +122,7 @@ public class AudioManager : MonoBehaviour
 
         return PlayTrack(clip, filePath, channel, loop, startingVolume, volumeCap);
     }
-    public AudioTrack PlayTrack(AudioClip clip, string filePath, int channel = 0, bool loop = true, float startingVolume = 0f, float volumeCap = 1)
+    public AudioTrack PlayTrack(AudioClip clip, string filePath = "", int channel = 0, bool loop = true, float startingVolume = 0f, float volumeCap = 1)
     {
         AudioChannel audioChannel = TryGetChannel(channel, createIfNotExisting: true);
         AudioTrack track = audioChannel.PlayTrack(clip, loop, startingVolume, volumeCap, filePath);

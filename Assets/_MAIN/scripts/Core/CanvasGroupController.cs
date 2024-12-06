@@ -28,14 +28,14 @@ public class CanvasGroupController
     public Coroutine Show(float speed = 1f, bool immediate = false)
     {
         if (isShowing)
-            DialogueSystem.instance.StopCoroutine(co_showing);
+            owner.StopCoroutine(co_showing);
         else if (isHiding)
         {
-            DialogueSystem.instance.StopCoroutine(co_hiding);
+            owner.StopCoroutine(co_hiding);
             co_hiding = null;
         }
 
-        co_showing = DialogueSystem.instance.StartCoroutine(Fading(1, speed, immediate));
+        co_showing = owner.StartCoroutine(Fading(1, speed, immediate));
 
         return co_showing;
     }
@@ -43,14 +43,14 @@ public class CanvasGroupController
     public Coroutine Hide(float speed = 1f, bool immediate = false)
     {
         if (isHiding)
-            DialogueSystem.instance.StopCoroutine(co_hiding);
+            owner.StopCoroutine(co_hiding);
         else if (isShowing)
         {
-            DialogueSystem.instance.StopCoroutine(co_showing);
+            owner.StopCoroutine(co_showing);
             co_showing = null;
         }
 
-        co_hiding = DialogueSystem.instance.StartCoroutine(Fading(0, speed, immediate));
+        co_hiding = owner.StartCoroutine(Fading(0, speed, immediate));
 
         return co_hiding;
     }

@@ -25,6 +25,7 @@ namespace VISUALNOVEL
         public string playerName;
         public int SPValue;
 
+        public bool newGame = true;
         public string[] activeConversations;
         public HistoryState activeState;
         public HistoryState[] historyLog;
@@ -47,6 +48,8 @@ namespace VISUALNOVEL
 
         public void Save()
         {
+            newGame = false;
+
             activeState = HistoryState.Capture();
             historyLog = HistoryManager.instance.history.ToArray();
             activeConversations = GetConversationData();
@@ -136,7 +139,7 @@ namespace VISUALNOVEL
                         var compressedData = JsonUtility.FromJson<VN_ConversationDataCompressed>(data);
                         if (compressedData != null && compressedData.fileName != string.Empty)
                         {
-                            TextAsset file = Resources.Load<TextAsset>(compressedData.fileName);
+                            TextAsset file = Resources.Load<TextAsset>(FilePaths.GetPathToResources(FilePaths.resources_dialogueFiles, compressedData.fileName));
 
                             int count = compressedData.endIndex - compressedData.startIndex;
 

@@ -63,12 +63,13 @@ public class VN_Configuration
         ui.autoReaderSpeed.value = dialogueAutoReadSpeed;
 
         // set the log scaling
-        ui.logScaling.value = historyLogScale;
+        if (ui.logScaling != null)
+            ui.logScaling.value = historyLogScale;
 
         // set audio mixer volumes
         ui.musicVolume.value = musicVolume;
         ui.sfxVolume.value = sfxVolume;
-        ui.voiceVolume.value = sfxVolume;
+        ui.voiceVolume.value = voiceVolume;
     }
 
     public void Save()
