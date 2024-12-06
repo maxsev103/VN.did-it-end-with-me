@@ -87,4 +87,14 @@ public class VNMenuManager : MonoBehaviour
         rootCG.SetInteractableState(false);
         isOpen = false;
     }
+
+    public void Click_Home()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+    }
+
+    public void Click_Quit()
+    {
+        Application.Quit();
+    }
 }

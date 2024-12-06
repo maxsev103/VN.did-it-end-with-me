@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DIALOGUE;
 
 namespace HISTORY
 {
     public class HistoryLogManager : MonoBehaviour
     {
+        public static HistoryLogManager instance { get; private set; }
+
         private const float LOG_STARTING_HEIGHT = 2f;
         private const float LOG_HEIGHT_PER_LINE = 1f;
         private const float DEFAULT_HEIGHT = 1f;
@@ -19,11 +22,12 @@ namespace HISTORY
 
         private const float DEFAULT_LOG_FONT_SIZE = 35f;
 
-        private float logScaling = 1f;
+        public float logScaling = 1f;
 
         [SerializeField] private Animator anim;
         [SerializeField] private GameObject logPrefab;
 
+        [SerializeField] private AutoReader autoReader;
         HistoryManager manager => HistoryManager.instance;
         private List<HistoryLog> logs = new List<HistoryLog>();
 
@@ -33,6 +37,11 @@ namespace HISTORY
 
         private float textScaling => logScaling * 3f;
 
+        private void Awake()
+        {
+            instance = this;
+        }
+
         public void Open()
         {
             if (isOpen) 
@@ -40,6 +49,9 @@ namespace HISTORY
 
             anim.Play("Open");
             isOpen = true;
+
+            if (autoReader.isOn)
+                autoReader.Disable();
         }
 
         public void Close()

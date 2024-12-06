@@ -7,6 +7,10 @@ using UnityEngine.Rendering;
 
 public class AudioManager : MonoBehaviour
 {
+    public const string MUSIC_VOLUME_PARAMETER_NAME = "MusicVolume";
+    public const string SFX_VOLUME_PARAMETER_NAME = "SFXVolume";
+    public const string VOICE_VOLUME_PARAMETER_NAME = "VoiceVolume";
+
     private const string SFX_PARENT_NAME = "SFX";
     private const string SFX_NAME_FORMAT = "SFX - {0}";
     public const float TRACK_TRANSITION_SPEED = 1;
@@ -18,6 +22,8 @@ public class AudioManager : MonoBehaviour
     public AudioMixerGroup musicMixer;
     public AudioMixerGroup sfxMixer;
     public AudioMixerGroup voiceMixer;
+
+    public AnimationCurve audioFallOffCurve;
 
     private Transform sfxRoot;
 
