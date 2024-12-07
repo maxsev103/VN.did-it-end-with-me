@@ -16,21 +16,128 @@ MonoBehaviour:
   - name: Ysella
     alias: Y
     characterType: 1
-    nameColor: {r: 0.78867924, g: 0.2111096, b: 0.1711284, a: 1}
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
     dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList:
+      - Key: ysella_base
+        Value: {fileID: 21300000, guid: df883e4f4dccc594f90ef8d0ae900362, type: 3}
+      - Key: ysella_base2
+        Value: {fileID: 21300000, guid: e39da88335b50a64da211bf2df79e70e, type: 3}
+      - Key: ysella_calm
+        Value: {fileID: 21300000, guid: 7c8c5af1ef04b224391301bbe03852d1, type: 3}
+      - Key: ysella_cry
+        Value: {fileID: 21300000, guid: e103cb062330ae0498eb75199f4089c3, type: 3}
+      - Key: ysella_happy
+        Value: {fileID: 21300000, guid: 153cf718755f3f649a6d58c6a5203f7f, type: 3}
+      - Key: ysella_mad
+        Value: {fileID: 21300000, guid: af95c18afca9bce46b35bbe6aa51aebc, type: 3}
+      - Key: ysella_neutral
+        Value: {fileID: 21300000, guid: 3efdfaf3f13c30442a9648fedd8120af, type: 3}
+      - Key: ysella_neutralopenmouth
+        Value: {fileID: 21300000, guid: 4d04650069c157f41abdc0d706e5802e, type: 3}
+      - Key: ysella_sad
+        Value: {fileID: 21300000, guid: 73353198955648f459fae6ac4cd12c44, type: 3}
+      - Key: ysella_scared
+        Value: {fileID: 21300000, guid: 983c54b5f097c824eb4f5b1876d5d9df, type: 3}
+      - Key: ysella_scaredshock
+        Value: {fileID: 21300000, guid: ee464fae8a830dc43803445bd38fb841, type: 3}
+      - Key: ysella_shocked
+        Value: {fileID: 21300000, guid: fbe4b4c453627dd4d81ef2691670b444, type: 3}
+      - Key: ysella_slightsurprise
+        Value: {fileID: 21300000, guid: 539693904bebd4f4bb2f64f863955ceb, type: 3}
+      - Key: ysella_tears
+        Value: {fileID: 21300000, guid: d9498825a46a61f42aa6c406f89fd8bb, type: 3}
+      - Key: ysella_unreadableespression
+        Value: {fileID: 21300000, guid: 2c2f1f6e95e45da4c93e0da4fd01cbdf, type: 3}
+  - name: Calyx
+    alias: C
+    characterType: 1
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList:
+      - Key: calyx_base
+        Value: {fileID: 21300000, guid: 60b51aed179ea0e4b8cf8fa35f1c8286, type: 3}
+      - Key: calyx_default
+        Value: {fileID: 21300000, guid: 8f8bc462802e0734297cad7ab4963377, type: 3}
+      - Key: calyx_happy
+        Value: {fileID: 21300000, guid: ce4dd167f5750454a8fcb3177f9a4673, type: 3}
+      - Key: calyx_sad
+        Value: {fileID: 21300000, guid: da15c6c605b41384f959a364fa1f9557, type: 3}
+      - Key: calyx_shock
+        Value: {fileID: 21300000, guid: b96a08057b24d1746bbd533bf1bc9aa8, type: 3}
+  - name: Lyon
+    alias: L
+    characterType: 1
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList: []
+  - name: Lyon
+    alias: L
+    characterType: 1
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList: []
+  - name: Ashley
+    alias: As
+    characterType: 1
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList: []
   - name: Agnes
-    alias: A
-    characterType: 0
-    nameColor: {r: 0, g: 0, b: 0, a: 1}
+    alias: Ag
+    characterType: 1
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
     dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
-  - name: Zombie
-    alias: Z
-    characterType: 0
-    nameColor: {r: 0.071192555, g: 0.381132, b: 0.14424828, a: 1}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList: []
+  - name: Coal
+    alias: Co
+    characterType: 1
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
     dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList: []
+  - name: Dr. Curie
+    alias: DC
+    characterType: 1
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList: []

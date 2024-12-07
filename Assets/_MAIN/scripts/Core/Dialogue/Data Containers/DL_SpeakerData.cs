@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DIALOGUE
 {
     public class DL_SpeakerData
     {
+        public string rawData { get; private set; } = string.Empty;
         public string name, castName;
         public string displayName => hasNameCasting ? castName : name;
         public Vector2 castPosition;
@@ -19,6 +21,8 @@ namespace DIALOGUE
         public bool isCastingExpressions => CastExpressions.Count > 0;
 
         public bool makeCharacterEnter = false;
+        public bool makeCharacterEnterLeft = false;
+        public bool makeCharacterEnterRight = false;
 
         private const string NAMECAST_ID = " as ";
         private const string POSITIONCAST_ID = " at ";
@@ -28,6 +32,8 @@ namespace DIALOGUE
         private const char EXPRESSIONLAYER_DELIM = ':';
 
         private const string ENTER_KEYWORD = "enter ";
+        private const string ENTER_STAGE_LEFT = "left ";
+        private const string ENTER_STAGE_RIGHT = "right ";
 
         private string ProcessKeywords(string rawSpeaker)
         {
@@ -35,6 +41,17 @@ namespace DIALOGUE
             {
                 rawSpeaker = rawSpeaker.Substring(ENTER_KEYWORD.Length);
                 makeCharacterEnter = true;
+
+                if (rawSpeaker.StartsWith(ENTER_STAGE_LEFT)) { 
+                    rawSpeaker = rawSpeaker.Substring(ENTER_STAGE_LEFT.Length);
+                    makeCharacterEnterLeft = true;
+                    makeCharacterEnterRight = false;
+                }
+                else if (rawSpeaker.StartsWith(ENTER_STAGE_RIGHT)) {
+                    rawSpeaker = rawSpeaker.Substring(ENTER_STAGE_RIGHT.Length);
+                    makeCharacterEnterRight = true;
+                    makeCharacterEnterLeft = false;
+                }
             }
 
             return rawSpeaker;
@@ -42,6 +59,7 @@ namespace DIALOGUE
 
         public DL_SpeakerData(string rawSpeaker)
         {
+            rawData = rawSpeaker;
             rawSpeaker = ProcessKeywords(rawSpeaker);
 
             string pattern = @$"{NAMECAST_ID}|{POSITIONCAST_ID}|{EXPRESSIONCAST_ID.Insert(EXPRESSIONCAST_ID.Length - 1, @"\")}";

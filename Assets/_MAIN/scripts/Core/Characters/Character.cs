@@ -15,6 +15,7 @@ namespace CHARACTERS
 
         public string name = "";
         public string displayName = "";
+        public string castingName = "";
         public RectTransform root = null;
         public CharacterConfig_Data config;
         public Animator animator;
@@ -25,7 +26,7 @@ namespace CHARACTERS
         public bool highlighted { get; protected set; } = true;
         protected bool facingLeft = DEFAULT_ORIENTATION_IS_FACING_LEFT;
         public int priority { get; protected set; }
-
+        public Vector2 targetPosition { get; private set; }
         protected CharacterManager manager => CharacterManager.instance;
         public DialogueSystem dialogueSystem => DialogueSystem.instance;
 
@@ -86,33 +87,33 @@ namespace CHARACTERS
         public void SetDialogueFont(TMP_FontAsset font) => config.dialogueFont = font;
 
         public void UpdateTextCustomizationOnScreen() => dialogueSystem.ApplySpeakerDataToContainer(config);
-        public void ResetConfigurationData() => CharacterManager.instance.GetCharacterConfig(name);
+        public void ResetConfigurationData() => CharacterManager.instance.GetCharacterConfig(name, getOriginal: true);
 
-        public virtual Coroutine Show()
+        public virtual Coroutine Show(float speedMultiplier = 1f)
         {
             if (isRevealing)
-                return co_revealing;
+                manager.StopCoroutine(co_revealing);
 
             if (isHiding)
                 manager.StopCoroutine(co_hiding);
 
-            co_revealing = manager.StartCoroutine(ShowingOrHiding(true));
+            co_revealing = manager.StartCoroutine(ShowingOrHiding(true, speedMultiplier));
             return co_revealing;
         }
 
-        public virtual Coroutine Hide()
+        public virtual Coroutine Hide(float speedMultiplier = 1f)
         {
             if (isHiding)
-                return co_hiding;
+                manager.StopCoroutine(co_hiding);
 
             if (isRevealing)
                 manager.StopCoroutine(co_revealing);
 
-            co_hiding = manager.StartCoroutine(ShowingOrHiding(false));
+            co_hiding = manager.StartCoroutine(ShowingOrHiding(false, speedMultiplier));
             return co_hiding;
         }
 
-        public virtual IEnumerator ShowingOrHiding(bool show)
+        public virtual IEnumerator ShowingOrHiding(bool show, float speedMultiplier = 1f)
         {
             Debug.Log("Show/Hide cannot be called from the base Character class.");
             yield return null;
@@ -127,6 +128,8 @@ namespace CHARACTERS
 
             root.anchorMin = minAnchorTarget;
             root.anchorMax = maxAnchorTarget;
+
+            targetPosition = position;
         }
 
         public virtual Coroutine MoveToPosition(Vector2 position, float speed = 2f, bool smooth = false)
@@ -138,6 +141,8 @@ namespace CHARACTERS
                 manager.StopCoroutine(co_moving);
 
             co_moving = manager.StartCoroutine(MovingToPosition(position, speed, smooth));
+
+            targetPosition = position;
 
             return co_moving;
         }
@@ -204,35 +209,29 @@ namespace CHARACTERS
             yield return null;
         }
 
-        public Coroutine Highlight(float speed = 1f)
+        public Coroutine Highlight(float speed = 1f, bool immediate = false)
         {
-            if (isHighlighting)
-                return co_highlighting;
-
-            if (isUnHighlighting)
+            if (isHighlighting || isUnHighlighting)
                 manager.StopCoroutine(co_highlighting);
 
             highlighted = true;
-            co_highlighting = manager.StartCoroutine(Highlighting(highlighted, speed));
+            co_highlighting = manager.StartCoroutine(Highlighting(speed, immediate));
 
             return co_highlighting;
         }
 
-        public Coroutine Unhighlight(float speed = 1f)
+        public Coroutine Unhighlight(float speed = 1f, bool immediate = false)
         {
-            if (isUnHighlighting)
-                return co_highlighting;
-
-            if (isHighlighting)
+            if (isHighlighting || isUnHighlighting)
                 manager.StopCoroutine(co_highlighting);
 
             highlighted = false;
-            co_highlighting = manager.StartCoroutine(Highlighting(highlighted, speed));
+            co_highlighting = manager.StartCoroutine(Highlighting(speed, immediate));
 
             return co_highlighting;
         }
 
-        public virtual IEnumerator Highlighting(bool highlight, float speedMultiplier)
+        public virtual IEnumerator Highlighting(float speedMultiplier, bool immediate = false)
         {
             Debug.Log("Highlighting is not available on this character type!");
             yield return null;
@@ -244,8 +243,7 @@ namespace CHARACTERS
                 return FaceLeft(speed, immediate);
             else
                 return FaceRight(speed, immediate);
-
-        }
+        } 
 
         public Coroutine FaceLeft(float speed = 1, bool immediate = false)
         {

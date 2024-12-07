@@ -12,10 +12,11 @@ namespace DIALOGUE
     public class NameContainer
     {
         [SerializeField] private GameObject root;
-        [SerializeField] private TextMeshProUGUI nameText;
+        [field:SerializeField] public TextMeshProUGUI nameText { get; private set; }
 
         public void SetNameColor(Color color) => nameText.color = color;
         public void SetNameFont(TMP_FontAsset font) => nameText.font = font;
+        public void SetNameFontSize(float size) => nameText.fontSize = size;
 
         public void Show(string nameToShow = "")
         {

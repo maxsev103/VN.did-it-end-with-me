@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using static UnityEngine.Rendering.HableCurve;
 
 namespace DIALOGUE {
     public class DL_DialogueData
     {
+        public string rawData { get; private set; } = string.Empty;
         public List<DialogueSegment> segments;
         private const string segmentIdentifierPattern = @"\{[ca]\}|\{w[ca]\s\d*\.?\d*\}";
 
         public DL_DialogueData(string rawDialogue)
         {
+            this.rawData = rawDialogue;
             segments = RipSegments(rawDialogue);
         }
 

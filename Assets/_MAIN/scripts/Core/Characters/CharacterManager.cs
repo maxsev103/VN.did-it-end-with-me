@@ -8,10 +8,12 @@ namespace CHARACTERS
     public class CharacterManager : MonoBehaviour
     {
         public static CharacterManager instance { get; private set; }
+
+        public Character[] allCharacters => characters.Values.ToArray();
         private Dictionary<string, Character> characters = new Dictionary<string, Character>();
         private CharacterConfig_SO config => DialogueSystem.instance.config.characterConfigurationAsset;
 
-        private const string CHARACTER_CASTING_ID = " as ";
+        public const string CHARACTER_CASTING_ID = " as ";
         private const string CHARACTER_NAME_ID = "<charname>";
         public string characterRootPathFormat => $"Character Sprites/{CHARACTER_NAME_ID}";
         public string characterPrefabNameFormat => $"Character - [{CHARACTER_NAME_ID}]";
@@ -25,8 +27,14 @@ namespace CHARACTERS
             instance = this;
         }
 
-        public CharacterConfig_Data GetCharacterConfig(string characterName)
+        public CharacterConfig_Data GetCharacterConfig(string characterName, bool getOriginal = false)
         {
+            if (!getOriginal) {
+                Character character = GetCharacter(characterName);
+                if (character != null)
+                    return character.config;
+            }
+
             return config.GetConfig(characterName);
         }
 
@@ -42,6 +50,9 @@ namespace CHARACTERS
 
             Character character = CreateCharacterFromInfo(info);
 
+            if (info.castingName != info.name)
+                character.castingName = info.castingName;
+
             characters.Add(info.name.ToLower(), character);
 
             if (revealAfterCreation)
@@ -49,6 +60,8 @@ namespace CHARACTERS
 
             return character;
         }
+
+        public bool HasCharacter(string characterName) => characters.ContainsKey(characterName.ToLower());
 
         public Character GetCharacter(string characterName, bool createIfNotExisting = false)
         {
@@ -143,7 +156,6 @@ namespace CHARACTERS
             int i = 0;
             foreach (Character character in characterSortingOrder)
             {
-                Debug.Log($"{character.name} priority is {character.priority}");
                 character.root.SetSiblingIndex(i++);
             }
         }

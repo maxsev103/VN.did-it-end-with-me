@@ -59,13 +59,14 @@ namespace CHARACTERS
             layers[layer].SetSprite(sprite);
         }
 
-        /// <summary>
-        /// Gets the passed sprite name regardless of whether they are a sprite character or a spritesheet character
-        /// </summary>
-        /// <param name="spriteName"></param>
-        /// <returns></returns>
         public Sprite GetSprite(string spriteName)
         {
+            if (config.sprites.Count > 0)
+            {
+                if (config.sprites.TryGetValue(spriteName, out Sprite sprite))
+                    return sprite;
+            }
+
             // checks if the character is a spritesheet character
             if (config.characterType == CharacterType.SpriteSheet)
             {
@@ -107,14 +108,14 @@ namespace CHARACTERS
         }
 
         // Fades a character in or out
-        public override IEnumerator ShowingOrHiding(bool show)
+        public override IEnumerator ShowingOrHiding(bool show, float speedMultiplier)
         {
             float targetAlpha = show ? 1.0f : 0.0f;
             CanvasGroup self = rootCG;
 
             while (self.alpha != targetAlpha)
             {
-                self.alpha = Mathf.MoveTowards(self.alpha, targetAlpha, 3f * Time.deltaTime);
+                self.alpha = Mathf.MoveTowards(self.alpha, targetAlpha, 3f * Time.deltaTime * speedMultiplier);
                 yield return null;
             }
 
@@ -150,12 +151,17 @@ namespace CHARACTERS
             co_changingColor = null;
         }
 
-        public override IEnumerator Highlighting(bool highlight, float speedMultiplier)
+        public override IEnumerator Highlighting(float speedMultiplier, bool immediate = false)
         {
             Color targetColor = displayColor;
 
-            foreach (CharacterSpriteLayer layer in layers)
-                layer.TransitionColor(targetColor, speedMultiplier);
+            foreach (CharacterSpriteLayer layer in layers) 
+            {
+                if (immediate)
+                    layer.SetColor(displayColor);
+                else
+                    layer.TransitionColor(targetColor, speedMultiplier);
+            }
 
             yield return null;
 

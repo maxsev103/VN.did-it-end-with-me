@@ -12,15 +12,21 @@ namespace DIALOGUE
         public DialogueSystemConfiguration_SO config => _config;
 
         public DialogueContainer dialogueContainer = new DialogueContainer();
-        private ConversationManager conversationManager;
+        public ConversationManager conversationManager { get; private set; }
         private TextArchitect architect;
+        public AutoReader autoReader { get; private set; }
+        [SerializeField] private CanvasGroup mainCanvas;
 
         public static DialogueSystem instance { get; private set; }
 
         public delegate void DialogueSystemEvent();
         public event DialogueSystemEvent onUserPrompt_Next;
+        public event DialogueSystemEvent onClear;
 
         public bool isRunningConversation => conversationManager.isRunning;
+
+        public DialogueContinuationPrompt prompt;
+        private CanvasGroupController cgController;
 
         private void Awake()
         {
@@ -41,11 +47,52 @@ namespace DIALOGUE
 
             architect = new TextArchitect(dialogueContainer.dialogueText);
             conversationManager = new ConversationManager(architect);
+
+            cgController = new CanvasGroupController(this, mainCanvas);
+            dialogueContainer.Initialize();
+
+            autoReader = GetComponent<AutoReader>();
+            if (autoReader != null)
+                autoReader.Initialize(conversationManager);
         }
 
         public void OnUserPromt_Next()
         {
             onUserPrompt_Next?.Invoke();
+
+            if (autoReader != null && autoReader.isOn)
+                autoReader.Disable();
+        }
+
+        public void OnSystemPrompt_Next()
+        {
+            onUserPrompt_Next?.Invoke();
+        }
+
+        public void OnSystemPrompt_Clear()
+        {
+            onClear?.Invoke();
+        }
+
+        public void OnStartViewingHistory()
+        {
+            prompt.Hide();
+            autoReader.allowToggle = false;
+            autoReader.autoButton.interactable = false;
+            autoReader.skipButton.interactable = false;
+            conversationManager.allowUserPrompts = false;
+
+            if (autoReader.isOn)
+                autoReader.Disable();
+        }
+
+        public void OnStopViewingHistory()
+        {
+            prompt.Show();
+            autoReader.allowToggle = true;
+            autoReader.autoButton.interactable = true;
+            autoReader.skipButton.interactable= true;
+            conversationManager.allowUserPrompts = true;
         }
 
         public void ApplySpeakerDataToContainer(string speakerName)
@@ -63,8 +110,11 @@ namespace DIALOGUE
         {
             dialogueContainer.SetDialogueColor(config.dialogueColor);
             dialogueContainer.SetDialogueFont(config.dialogueFont);
+            dialogueContainer.SetDialogueFontSize(config.dialoguefontSize * this.config.defaultFontScale);
             dialogueContainer.nameContainer.SetNameColor(config.nameColor);
             dialogueContainer.nameContainer.SetNameFont(config.nameFont);
+            dialogueContainer.nameContainer.SetNameFontSize(config.namefontSize);
+
         }
 
         public void ShowSpeakerName(string speakerName = "")
@@ -72,7 +122,10 @@ namespace DIALOGUE
             if (speakerName.ToLower() != "narrator")
                 dialogueContainer.nameContainer.Show(speakerName);
             else
+            {
                 HideSpeakerName();
+                dialogueContainer.nameContainer.nameText.text = "";
+            }
         }
 
         public void HideSpeakerName() => dialogueContainer.nameContainer.Hide();
@@ -83,9 +136,19 @@ namespace DIALOGUE
             return Say(conversation);
         }
 
-        public Coroutine Say(List<string> conversation)
+        public Coroutine Say(List<string> lines, string filePath = "")
+        {
+            Conversation conversation = new Conversation(lines, file: filePath);
+            return conversationManager.StartConversation(conversation);
+        }
+
+        public Coroutine Say(Conversation conversation)
         {
             return conversationManager.StartConversation(conversation);
         }
+
+        public bool isVisible => cgController.isVisible;
+        public Coroutine Show(float speed = 1f, bool immediate = false) => cgController.Show(speed, immediate);
+        public Coroutine Hide(float speed = 1f, bool immediate = false) => cgController.Hide(speed, immediate);
     }
 }
