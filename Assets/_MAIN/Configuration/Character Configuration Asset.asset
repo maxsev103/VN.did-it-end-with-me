@@ -54,6 +54,22 @@ MonoBehaviour:
         Value: {fileID: 21300000, guid: d9498825a46a61f42aa6c406f89fd8bb, type: 3}
       - Key: ysella_unreadableespression
         Value: {fileID: 21300000, guid: 2c2f1f6e95e45da4c93e0da4fd01cbdf, type: 3}
+      - Key: ysella_disbelief
+        Value: {fileID: 21300000, guid: 4dc3714219cc63a4e813bb084c925669, type: 3}
+      - Key: ysella_halflidded
+        Value: {fileID: 21300000, guid: 47adbae6572eefb48adbb37890710e89, type: 3}
+      - Key: ysella_pissed
+        Value: {fileID: 21300000, guid: 9a83d73cc5f5edd4187b52de8f5f2733, type: 3}
+      - Key: ysella_resigned
+        Value: {fileID: 21300000, guid: 0a5332ce1dd8ed34a8af8ec453f271b0, type: 3}
+      - Key: ysella_shout
+        Value: {fileID: 21300000, guid: 36fb6b421e259ca419aeec0fc8cbe226, type: 3}
+      - Key: ysella_troubled
+        Value: {fileID: 21300000, guid: 5cf65628e4627ba488d9a67a6753b3e4, type: 3}
+      - Key: ysella_unsure
+        Value: {fileID: 21300000, guid: b26f1bd08bb13ae4e964d8b91feae578, type: 3}
+      - Key: ysella_urging
+        Value: {fileID: 21300000, guid: 9ecc53c322d6c474fb0f0a960ac091c9, type: 3}
   - name: Calyx
     alias: C
     characterType: 1
@@ -75,6 +91,42 @@ MonoBehaviour:
         Value: {fileID: 21300000, guid: da15c6c605b41384f959a364fa1f9557, type: 3}
       - Key: calyx_shock
         Value: {fileID: 21300000, guid: b96a08057b24d1746bbd533bf1bc9aa8, type: 3}
+      - Key: calyx_base2
+        Value: {fileID: 21300000, guid: e99e118a9ccfae343b1081674bce5ecc, type: 3}
+      - Key: calyx_calm
+        Value: {fileID: 21300000, guid: 13a4315f61d292a41bfa7baaeadae30a, type: 3}
+      - Key: calyx_cry
+        Value: {fileID: 21300000, guid: 073e82fd5c4889b46a72d69724c1f6d2, type: 3}
+      - Key: calyx_default_openmouth
+        Value: {fileID: 21300000, guid: 12bb066c7ce518e4b836aec27d689646, type: 3}
+      - Key: calyx_disbelief
+        Value: {fileID: 21300000, guid: 3d356c5ff8000ea4fb89e78a4447843f, type: 3}
+      - Key: calyx_halflidded_eyes
+        Value: {fileID: 21300000, guid: 23ffbeb0ad2f7d24f8d9bd43f49d74f5, type: 3}
+      - Key: calyx_inpain
+        Value: {fileID: 21300000, guid: 0f59146b7393ea44c9d07b742c18a54b, type: 3}
+      - Key: calyx_mad
+        Value: {fileID: 21300000, guid: 8c46b558f62f0e2409d4a041540c362e, type: 3}
+      - Key: calyx_pissed
+        Value: {fileID: 21300000, guid: ed31bac487c004941911106d2c801482, type: 3}
+      - Key: calyx_resigned
+        Value: {fileID: 21300000, guid: ddd73078337c4434ebb466de014fabe2, type: 3}
+      - Key: calyx_scared
+        Value: {fileID: 21300000, guid: bcfa97854cd4b0e4e9bfcfdd182bf580, type: 3}
+      - Key: calyx_scaredshock
+        Value: {fileID: 21300000, guid: d3ff35c78f76f4a489d1ef492b424b5d, type: 3}
+      - Key: calyx_shout
+        Value: {fileID: 21300000, guid: ebd435be19b333043ac504b00005e9af, type: 3}
+      - Key: calyx_slightsurprise
+        Value: {fileID: 21300000, guid: e008985b6cca1df43ae69d6bb13ba573, type: 3}
+      - Key: calyx_teary
+        Value: {fileID: 21300000, guid: 74c3dc9cc600bca45b5d6eb47f1d44d9, type: 3}
+      - Key: calyx_unreadable
+        Value: {fileID: 21300000, guid: 5c2edfb15f8904e42812054ec9fa201c, type: 3}
+      - Key: calyx_unsure
+        Value: {fileID: 21300000, guid: 5ec2ff39b9bf13242adf83f291db376d, type: 3}
+      - Key: calyx_urging
+        Value: {fileID: 21300000, guid: fe68d297ebe72b547978190656206bf5, type: 3}
   - name: Lyon
     alias: L
     characterType: 1
@@ -85,32 +137,38 @@ MonoBehaviour:
     namefontSize: 0
     dialoguefontSize: 0
     sprites:
-      _serializedList: []
-  - name: Lyon
-    alias: L
-    characterType: 1
-    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
-    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
-    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
-    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
-    namefontSize: 0
-    dialoguefontSize: 0
-    sprites:
-      _serializedList: []
-  - name: Ashley
-    alias: As
-    characterType: 1
-    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
-    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
-    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
-    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
-    namefontSize: 0
-    dialoguefontSize: 0
-    sprites:
-      _serializedList: []
-  - name: Agnes
-    alias: Ag
-    characterType: 1
+      _serializedList:
+      - Key: lyon_alarmed
+        Value: {fileID: 21300000, guid: a9b618d8185b6644c9d029a8f4b7dfa0, type: 3}
+      - Key: lyon_base
+        Value: {fileID: 21300000, guid: e6d39cafc4444984ebc635e0ad5f083d, type: 3}
+      - Key: lyon_calm
+        Value: {fileID: 21300000, guid: 8393e308800981c42b49d8f620235a24, type: 3}
+      - Key: lyon_default
+        Value: {fileID: 21300000, guid: 9e342c07737587441b9f8f4f86604765, type: 3}
+      - Key: lyon_default_openmouth
+        Value: {fileID: 21300000, guid: 5b9fdecd05b9b2541a93428f6b931650, type: 3}
+      - Key: lyon_halflidded
+        Value: {fileID: 21300000, guid: db5735e412222a84e9ac529d527bcb45, type: 3}
+      - Key: lyon_happy
+        Value: {fileID: 21300000, guid: 4a6f90d7d78666a4fb9eb2550563f882, type: 3}
+      - Key: lyon_mad
+        Value: {fileID: 21300000, guid: 7795709ac2295154b84b42e0c414df50, type: 3}
+      - Key: lyon_resigned
+        Value: {fileID: 21300000, guid: e576404f24ed6b14ca97861a9ef3cafa, type: 3}
+      - Key: lyon_scared
+        Value: {fileID: 21300000, guid: f152190b4b0fe7f4a97950e52635658c, type: 3}
+      - Key: lyon_scaredshock
+        Value: {fileID: 21300000, guid: 473d56c2d33943744885f27a4de1b63a, type: 3}
+      - Key: lyon_serious
+        Value: {fileID: 21300000, guid: 1cda7c3ecbbe4b241bd0ed57ab74fc57, type: 3}
+      - Key: lyon_troubled
+        Value: {fileID: 21300000, guid: daff6fa5eb8085b46bee27a3af398f76, type: 3}
+      - Key: lyon_urgent
+        Value: {fileID: 21300000, guid: df80c22ab11b8844eb8fbdc7d851cd4a, type: 3}
+  - name: Ema
+    alias: E
+    characterType: 0
     nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
@@ -129,10 +187,36 @@ MonoBehaviour:
     namefontSize: 0
     dialoguefontSize: 0
     sprites:
+      _serializedList:
+      - Key: coal default
+        Value: {fileID: 21300000, guid: abad57a9a61272640a567bb81726eec9, type: 3}
+      - Key: coal_closed mouth
+        Value: {fileID: 21300000, guid: c7b80e95a89dba6498ad22103c1991dc, type: 3}
+  - name: Ashley
+    alias: As
+    characterType: 0
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
+      _serializedList: []
+  - name: Agnes
+    alias: Ag
+    characterType: 0
+    nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    dialogueFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}
+    namefontSize: 0
+    dialoguefontSize: 0
+    sprites:
       _serializedList: []
   - name: Dr. Curie
     alias: DC
-    characterType: 1
+    characterType: 0
     nameColor: {r: 0.9607844, g: 0.9490197, b: 0.93725497, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
     nameFont: {fileID: 11400000, guid: a1b838292f0a06a4abe51b4799ae8e2d, type: 2}

@@ -27,6 +27,9 @@ namespace COMMANDS
 
             // file loading for branching paths
             database.AddCommand("load", new Action<string[]>(LoadNewDialogueFile));
+
+            // system navigation
+            database.AddCommand("returntomainmenu", new Action<string[]>(ReturnToMainMenu));
         }
 
         private static void LoadNewDialogueFile(string[] data)
@@ -115,6 +118,11 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
 
             yield return DialogueSystem.instance.Hide(speed, immediate);
+        }
+
+        private static void ReturnToMainMenu(string[] data)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         }
     }
 }

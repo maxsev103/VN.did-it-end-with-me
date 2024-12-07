@@ -1,8 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -25,7 +22,7 @@ namespace COMMANDS
             database.AddCommand("setlayermedia", new Func<string[], IEnumerator>(SetLayerMedia));
             database.AddCommand("clearlayermedia", new Func<string[], IEnumerator>(ClearLayerMedia));
         }
-
+        
         private static IEnumerator SetLayerMedia(string[] data)
         {
             string panelName = "";

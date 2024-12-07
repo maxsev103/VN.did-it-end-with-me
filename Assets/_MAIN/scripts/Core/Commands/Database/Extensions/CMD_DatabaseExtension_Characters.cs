@@ -554,7 +554,7 @@ namespace COMMANDS
 
         public static IEnumerator Flip(string[] data)
         {
-            Character character = CharacterManager.instance.GetCharacter(data[0]) as Character;
+            Character_Sprite character = CharacterManager.instance.GetCharacter(data[0]) as Character_Sprite;
             float speed = 1f;
             bool immediate = false;
 

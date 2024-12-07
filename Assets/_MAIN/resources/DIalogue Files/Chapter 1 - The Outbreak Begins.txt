@@ -1,6 +1,7 @@
-playtrack()
+SetSPValue(0)
+PlaySong("SAD BGM 2" -v 0.5 -lp true)
 
-Ysella as ??? "Mom! What's going on? I don't understand!" 
+Ysella as ??? "Mom! What's going on? I don't understand!"
 
 narrator "I cried, my heart racing as I watched her hastily pull out vial after vial from a cooler she had brought from work."
 "Sweat trickled down her forehead, and her hands shook with urgency."
@@ -9,7 +10,7 @@ Ema as Mom "You will soon, my Mira. Sit, please,"
 
 narrator "She urged, her voice strained as she uncapped the vials, preparing her syringe."
 
-Ysella as Mira(?) "Mom, what's that? Please, tell me!"
+Ysella as ??? "Mom, what's that? Please, tell me!"
 
 narrator "I pleaded, my voice trembling as I sank into the dining chair.{c}I felt a chill run down my spine, sensing something was terribly wrong."
 
@@ -26,7 +27,7 @@ Ema as Mom "You have to trust me."
 narrator "Tears streamed down my cheeks as I nodded, my heart pounding in my chest.{c}I had a sinking feeling about what was going to happen next."
 "Suddenly, I saw her grimace in pain, clutching her arm."
 
-Ysella as Mira(?) "Mom, what's going on? Please!" 
+Ysella as ??? "Mom, what's going on? Please!" 
 
 narrator "I rushed to her side, panic surging through me."
 
@@ -34,7 +35,7 @@ Ema as Mom "Just hold on, Mira. You know how to drive my car, right? Take this a
 
 narrator "Her shaking hands reached into her pocket, and she handed me an envelope along with the keys to her Toyota Vios."
 
-Ysella as Mira(?) "Mom, no! I can't leave you!" 
+Ysella as ??? "Mom, no! I can't leave you!" 
 
 narrator "I cried, my voice cracking, but she shook her head, urgency etched on her face."
 
@@ -44,7 +45,7 @@ narrator "Her voice was firm, but I saw the fear in her eyes."
 
 Ema as Mom "Promise me you'll go."
 
-Ysella as Mira(?) "I promise, but—"
+Ysella as ??? "I promise, but—"
 
 Ema as Mom "Go!" 
 
@@ -53,32 +54,84 @@ narrator "She shouted, her voice cutting through my hesitation like a knife."
 "My breath caught in my throat as I stood frozen,{wa 0.3} heart racing,{wa 0.3} until her scream faded into silence."
 
 narrator "With blurry vision from my tears, I stumbled toward the garage, adrenaline propelling me as I drove to the address on the piece of paper inside the envelope."
+hidedb()
 
-////////
+StopSong()
 
-Lyon "Ysella, wake up. We need to leave!" 
+wait(1.5)
+SetLayerMedia(background BEDROOM -spd 0.8)
+wait(1)
 
+[wait]CreateCharacter(Lyon), [wait]CreateCharacter(Ysella)
+Ysella.SetPosition(0.2), Lyon.SetPosition(0.4)
+Ysella.SetSprite(Ysella_halflidded -l 1 -i true), Lyon.SetSprite(Lyon_urgent -l 1 -i true)
+Show(Ysella Lyon)
+
+Ysella.Animate(Shake -st true)
+Lyon "Ysella, wake up. We need to leave!"
+
+Ysella.Animate(Shake -st false)
 narrator "A hand shook me awake, and I blinked, disoriented."
 
-Ysella "Dad—what's happening?" I stammered, my heart pounding."
+Ysella.SetSprite(Ysella_scaredshock -l 1), Ysella.Move(0.22), Lyon.Move(0.65)
+Ysella "Dad—what's happening?" 
 
-Lyon "The virus is spreading!" he shouted, urgency in his voice. I felt a jolt of fear shoot through me."
+narrator "I stammered, my heart pounding."
 
-narrator "I scrambled out of bed, gathering my emergency bag, strapping it on my back as I rushed outside. I saw my dad ushering his wife and my little siblings to the car."
+Lyon.SetSprite(Lyon_alarmed -l 1)
+Lyon "The virus is spreading!" 
 
-Lyon "Get in, now!" he commanded, his eyes wild with fear."
+narrator "He shouted, urgency in his voice.{c}I felt a jolt of fear shoot through me."
 
-Ysella "Where are we heading?" I asked, breathless, as I climbed into the backseat."
+Hide(Ysella Lyon -spd 1.5)
+SetLayerMedia(cg "~/Graphics/Item Assets/Ysella_bag_with_glow"), wait(0.3), [wait]ClearLayerMedia(cg)
+narrator "I scrambled out of bed, gathering my emergency bag, strapping it on my back as I rushed outside."
 
-Lyon "To the evacuation site. It's up north," he replied, determination etched into his features."
+wait(1)
 
+SetLayerMedia(background "GARAGE WITH A SICK ASS VIOS" -b fade4)
+showdb()
+narrator "I saw my dad ushering his wife and my little siblings to the car."
+
+Lyon.SetPosition(0.25), Lyon.Flip(), Lyon.Show()
+Lyon "Get in, now!" 
+
+narrator "He commanded, his eyes wild with fear."
+
+Hide(Lyon)
+SetLayerMedia(background "14. CAR SEAT BACK" -b fade4)
+[wait]Ysella.SetPosition(0.2), [wait]Ysella.SetSprite(Ysella_neutralopenmouth -l 1), Ysella.Show()
+PlaySFX(closing-car-door -v 0.1), wait(0.5)
+Ysella "Where are we heading?" 
+
+narrator "I asked, breathless, as I climbed into the backseat."
+
+Lyon "To the evacuation site. It's up north," 
+
+narrator "He replied, determination etched into his features."
+
+PlayAmbience("Car Driving Ambience" -v 0.2 -lp true), Ysella.Hide()
+SetLayerMedia(background "8. ROAD OUTSIDE HOUSE" -spd 0.8 -b fade4)
+wait(1)
+
+PlaySFX("tuning-radio" -v 0.2)
 narrator "As we drove, my aunt turned on the radio, and the panicked voice of the disc jockey filled the car."
-"There have been hundreds of reported cases of this unnamed virus quickly spreading in our town."
-"This is not an ordinary cough and cold virus; this may be one of the ones we are all dreading. It can turn the infected into the living dead.
-"The scientists are working on creating a cure fast. For now, we encourage all residents to evacuate and move up north. The government has set up a relocation site—"
-"Suddenly, the radio crackled with static, and the DJ's scream pierced the air, prompting my aunt to quickly turn it off."
+[wait]SetLayerMedia(background "9. CAR RADIO"), wait(0.5)
+StopSFX(tuning-radio)
 
-Lyon "Shit!" Dad muttered, gripping the steering wheel tighter. "We need to find fuel. This isn't good."
+DJ "There have been hundreds of reported cases of this unnamed virus quickly spreading in our town."
+"This is not an ordinary cough and cold virus; this may be one of the ones we are all dreading.{c}It can turn the infected into the living dead."
+"The scientists are working on creating a cure fast. For now, we encourage all residents to evacuate and move up north.{c}The government has set up a relocation site—"
+
+PlaySFX(Static -v 0.2)
+narrator "Suddenly, the radio crackled with static, and the DJ's scream pierced the air, prompting my aunt to quickly turn it off."
+StopSFX(Static)
+
+Lyon "Shit!" 
+
+narrator "Dad muttered, gripping the steering wheel tighter." 
+
+Lyon "We need to find fuel. This isn't good."
 
 Samantha "What? What's going on?" 
 

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -139,7 +138,7 @@ public class GraphicObject
     public Coroutine FadeOut(float speed = 1f, Texture blend = null)
     {
         if (co_fadingIn != null)
-            panelManager.StopCoroutine(co_fadingOut);
+            panelManager.StopCoroutine(co_fadingIn);
 
         if (co_fadingOut != null)
             return co_fadingIn;
