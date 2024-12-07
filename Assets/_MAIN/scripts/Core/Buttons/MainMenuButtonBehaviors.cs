@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonBehaviors : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonBehaviors : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private static ButtonBehaviors selectedButton = null;
     public Animator anim;
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResources(FilePaths.resources_sfx, "switch sound 3"));
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -16,6 +19,7 @@ public class ButtonBehaviors : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
 
         anim.Play("Enter");
+        AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResources(FilePaths.resources_sfx, "switch sound 1"));
         selectedButton = this;
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
-public class GalleryConfig : MonoBehaviour
+public class GalleryConfig
 {
     public static GalleryConfig activeConfig;
 

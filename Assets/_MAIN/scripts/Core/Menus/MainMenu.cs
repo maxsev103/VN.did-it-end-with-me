@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         mainCG = new CanvasGroupController(this, mainPanel);
+
+        AudioManager.instance.StopAllTracks();
+        AudioManager.instance.StopAllSoundEffects();
         AudioManager.instance.PlayTrack(menuMusic, channel: 0, startingVolume: 0.7f);
     }
 
@@ -52,6 +55,7 @@ public class MainMenu : MonoBehaviour
         while (mainCG.isVisible)
             yield return null;
 
+        VN_Configuration.activeConfig.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene("VisualNovel");
     }
 }

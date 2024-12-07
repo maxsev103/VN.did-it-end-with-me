@@ -1,23 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class ButtonAnimatorOnMousEvent : MonoBehaviour
 {
-    [SerializeField] private SaveandLoadPageNavbar navbar;
+    [SerializeField] private SaveandLoadPageNavbar saveLoadNavbar = null;
+    [SerializeField] private GalleryMenu galleryNavBar = null;
     public Animator prevAnim;
     public Animator nextAnim;
 
     public void PlayPrevButtonAnimation()
     {
-        if (navbar.selectedPage > 1)
+        if (saveLoadNavbar.selectedPage > 1 || galleryNavBar?.selectedPage > 1)
             prevAnim.SetTrigger("PrevBounce");
     }
 
     public void PlayNextButtonAnimation()
     {
-        if (navbar.selectedPage < navbar.maxPages)
+        if (saveLoadNavbar.selectedPage < saveLoadNavbar.maxPages || galleryNavBar?.selectedPage < galleryNavBar?.maxPages)
             nextAnim.SetTrigger("NextBounce");
     }
 }

@@ -63,6 +63,10 @@ public class UIConfirmationMenu : MonoBehaviour
             TextMeshProUGUI txt = ob.GetComponentInChildren<TextMeshProUGUI>();
             txt.text = option.title;
 
+            var buttonBehavior = button.GetComponent<UIButtonBehaviors>();
+            if (option.title.ToLower() == "no")
+                buttonBehavior.buttonType = UIButtonBehaviors.UIButtonType.Reject;
+
             activeOptions[i] = ob;
         }
     }

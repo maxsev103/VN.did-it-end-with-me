@@ -13,7 +13,7 @@ public class VN_Configuration
 
     public static string filePath => $"{FilePaths.root}vnconfig.cfg";
 
-    public const bool ENCRYPT = false;
+    public const bool ENCRYPT = true;
 
     // general settings
     public bool display_fullscreen = true;

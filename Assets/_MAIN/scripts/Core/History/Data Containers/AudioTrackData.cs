@@ -5,7 +5,7 @@ using UnityEngine;
 namespace HISTORY
 {
     [System.Serializable]
-    public class AudioData
+    public class AudioTrackData
     {
         public int channel = 0;
         public string trackName;
@@ -13,7 +13,7 @@ namespace HISTORY
         public float trackVolume = 1;
         public bool loop;
 
-        public AudioData(AudioChannel channel)
+        public AudioTrackData(AudioChannel channel)
         {
             this.channel = channel.channelIndex;
 
@@ -27,23 +27,23 @@ namespace HISTORY
             loop = track.loop;
         }
 
-        public static List<AudioData> Capture()
+        public static List<AudioTrackData> Capture()
         {
-            List<AudioData> audioChannels = new List<AudioData>();
+            List<AudioTrackData> audioChannels = new List<AudioTrackData>();
 
             foreach (var channel in AudioManager.instance.channels)
             {
                 if (channel.Value.activeTrack == null)
                     continue;
 
-                AudioData data = new AudioData(channel.Value);
+                AudioTrackData data = new AudioTrackData(channel.Value);
                 audioChannels.Add(data);
             }
 
             return audioChannels;
         }
 
-        public static void Apply(List<AudioData> data)
+        public static void Apply(List<AudioTrackData> data)
         {
             List<int> cache = new List<int>();
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -92,9 +90,14 @@ public class VNMenuManager : MonoBehaviour
 
     public void Click_Home()
     {
-        AudioManager.instance.StopTrack(0);
-        AudioManager.instance.StopTrack(1);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(MainMenu.MAIN_MENU_SCENE);
+        uiChoiceMenu.Show("Return to the main menu?",
+            new UIConfirmationMenu.ConfirmationButton("Yes", () => 
+            {
+                VN_Configuration.activeConfig.Save();
+                UnityEngine.SceneManagement.SceneManager.LoadScene(MainMenu.MAIN_MENU_SCENE);
+            }), 
+            new UIConfirmationMenu.ConfirmationButton("No", null));
+
     }
 
     public void Click_Quit()

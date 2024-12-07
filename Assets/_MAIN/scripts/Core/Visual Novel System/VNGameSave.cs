@@ -1,7 +1,6 @@
 using DIALOGUE;
 using HISTORY;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -59,10 +58,9 @@ namespace VISUALNOVEL
             // this expects all the chapter files to be written in this format "Chapter N - <Title>" and splits it by the '-' sign
             chapter = DialogueSystem.instance.conversationManager.conversation.file.Split('-')[1].Trim();
 
-            ScreenshotMaster.CaptureScreenshot(VNManager.instance.mainCamera, Screen.width, Screen.height, SCREENSHOT_DOWNSCALE_AMOUNT, screenshotPath);
-
             string saveJSON = JsonUtility.ToJson(this);
             FileManager.Save(filePath, saveJSON, ENCRYPT_FILES);
+            ScreenshotMaster.CaptureScreenshot(VNManager.instance.mainCamera, Screen.width, Screen.height, SCREENSHOT_DOWNSCALE_AMOUNT, screenshotPath);
         }
 
         public void AutoSave()

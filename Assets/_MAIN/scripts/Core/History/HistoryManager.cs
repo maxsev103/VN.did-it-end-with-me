@@ -14,6 +14,7 @@ namespace HISTORY
         public List<HistoryState> history = new List<HistoryState>();
 
         private HistoryNavigation navigation;
+        public bool isViewingHistory => navigation.isViewingHistory;
         public HistoryLogManager logManager { get; private set; }
 
         private void Awake()

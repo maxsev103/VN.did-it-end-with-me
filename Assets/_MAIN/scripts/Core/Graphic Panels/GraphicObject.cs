@@ -31,6 +31,7 @@ public class GraphicObject
 
     private Coroutine co_fadingIn = null;
     private Coroutine co_fadingOut = null;
+    public bool isFading => (co_fadingIn != null || co_fadingOut != null);
 
     public GraphicObject(GraphicLayer layer, string graphicPath, Texture tex, bool immediate)
     {

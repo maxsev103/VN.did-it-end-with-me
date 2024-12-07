@@ -13,6 +13,7 @@ public class SaveandLoadPageNavbar : MonoBehaviour
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private GameObject prev;
     [SerializeField] private GameObject next;
+    [SerializeField] private List<GameObject> pageNavigationButtons;
 
     private const int MAX_BUTTONS = 7;
 
@@ -41,22 +42,46 @@ public class SaveandLoadPageNavbar : MonoBehaviour
             ob.SetActive(true);
             Button button = ob.GetComponent<Button>();
 
-            ob.name = $"Page {i.ToString()}";
+            ob.name = $"Page {i}";
             TextMeshProUGUI txt = button.GetComponentInChildren<TextMeshProUGUI>();
             txt.text = i.ToString();
             int closureIndex = i;
             button.onClick.AddListener(() => SelectSaveFilePage(closureIndex));
+
+            pageNavigationButtons.Add(ob);
         }
 
-        prev.SetActive(pageButtonLimit < maxPages);
-        next.SetActive(pageButtonLimit < maxPages);
+        prev.SetActive(pageButtonLimit <= maxPages);
+        next.SetActive(pageButtonLimit <= maxPages);
 
         next.transform.SetAsLastSibling();
+
+        UpdateNavbarPageButtons();
+    }
+
+    private void UpdateNavbarPageButtons()
+    {
+        ColorUtility.TryParseHtmlString("#8A4F1C", out Color textSelectedColor);
+
+        for (int i = 0; i < pageNavigationButtons.Count; i++)
+        {
+            var pageButton = pageNavigationButtons[i];
+            var text = pageButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            if ((i + 1) == selectedPage)
+            {
+                text.color = textSelectedColor;
+                continue;
+            }
+
+            text.color = Color.white;
+        }
     }
 
     private void SelectSaveFilePage(int pageNumber)
     {
         selectedPage = pageNumber;
+        UpdateNavbarPageButtons();
         menu.PopulateSaveSlotsForPage(selectedPage);
     }
 

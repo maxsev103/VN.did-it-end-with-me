@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using VISUALNOVEL;
+using HISTORY;
 
 public class SaveLoadSlot : MonoBehaviour
 {
@@ -45,13 +44,13 @@ public class SaveLoadSlot : MonoBehaviour
                 return;
             }
 
-            ColorBlock colors = saveSlotButton.colors;
-            colors.highlightedColor = new Color(234, 234, 234, 216);
-            saveSlotButton.colors = colors;
+            saveSlotButton.interactable = true;
             statusTitle.text = $"{fileNumber - 1}. Empty Slot";
             statusDateTime.text = "";
             deleteButton.gameObject.SetActive(false);
             DisableCurrentOnClickAndSetNewOnClick(function, file);
+
+            // set the preview image as the empty file image
             previewImage.texture = SaveandLoadMenu.instance.emptyFileImage;
         }
         else
@@ -62,14 +61,13 @@ public class SaveLoadSlot : MonoBehaviour
                 return;
             }
 
-            ColorBlock colors = saveSlotButton.colors;
-            colors.highlightedColor = new Color(234, 234, 234, 216);
-            saveSlotButton.colors = colors;
+            saveSlotButton.interactable = true;
             statusTitle.text = $"{fileNumber - 1}. {file.chapter}";
             statusDateTime.text = $"{file.timestamp}";
             deleteButton.gameObject.SetActive(true);
             DisableCurrentOnClickAndSetNewOnClick(function, file);
 
+            // set the preview image as the screenshot
             byte[] imageData = File.ReadAllBytes(file.screenshotPath);
             Texture2D screenshotPreview = new Texture2D(1, 1);
             ImageConversion.LoadImage(screenshotPreview, imageData);
@@ -103,16 +101,13 @@ public class SaveLoadSlot : MonoBehaviour
         // never add the onClick Save listener so that players cant overwrite the autosave
         if (function == SaveandLoadMenu.MenuFunction.Save)
         {
-            ColorBlock colors = saveSlotButton.colors;
-            colors.highlightedColor = Color.white;
-            saveSlotButton.colors = colors;
+            saveSlotButton.interactable = false;
         }
 
         if (function == SaveandLoadMenu.MenuFunction.Load)
         {
-            ColorBlock colors = saveSlotButton.colors;
-            colors.highlightedColor = new Color(234, 234, 234, 216);
-            saveSlotButton.colors = colors;
+            saveSlotButton.interactable = true;
+
             // add the listener for loading
             saveSlotButton.onClick.AddListener(Load);
         }
@@ -145,6 +140,12 @@ public class SaveLoadSlot : MonoBehaviour
 
     public void Save()
     {
+        if (HistoryManager.instance.isViewingHistory)
+        {
+            uiChoiceMenu.Show("Can't save while viewing history.", new UIConfirmationMenu.ConfirmationButton("Back", null));
+            return;
+        }
+
         var activeSave = VNGameSave.activeFile;
 
         string expectedFilePath = $"{FilePaths.gameSaves}{fileNumber}{VNGameSave.FILE_TYPE}";
@@ -164,6 +165,13 @@ public class SaveLoadSlot : MonoBehaviour
     }
 
     public void Load()
+    {
+        uiChoiceMenu.Show("Do you want to load this save file?", 
+            new UIConfirmationMenu.ConfirmationButton("Yes", OnConfirmLoad), 
+            new UIConfirmationMenu.ConfirmationButton("No", null));
+    }
+
+    public void OnConfirmLoad()
     {
         VNGameSave file = VNGameSave.Load(filePath, activateOnLoad: false);
         SaveandLoadMenu.instance.Close(closeAllMenus: true);

@@ -491,6 +491,7 @@ GameObject:
   - component: {fileID: 6389608332470563678}
   - component: {fileID: 3896714759007583433}
   - component: {fileID: 4767933227358884698}
+  - component: {fileID: 939200203037622213}
   - component: {fileID: 1221545900172572197}
   m_Layer: 5
   m_Name: Choice
@@ -601,6 +602,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &939200203037622213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488570380674474111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90eb5af343b58a84c9f209e53420cfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonType: 0
+  type: 1
 --- !u!114 &1221545900172572197
 MonoBehaviour:
   m_ObjectHideFlags: 0

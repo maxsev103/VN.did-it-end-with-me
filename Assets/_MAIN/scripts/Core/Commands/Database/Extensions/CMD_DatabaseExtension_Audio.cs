@@ -51,12 +51,13 @@ namespace COMMANDS
             // try to get if the sfx will loop or not
             parameters.TryGetValue(PARAM_LOOP, out loop, defaultValue: false);
 
-            AudioClip sound = Resources.Load<AudioClip>(FilePaths.GetPathToResources(FilePaths.resources_sfx, filePath));
+            string resourcesPath = FilePaths.GetPathToResources(FilePaths.resources_sfx, filePath);
+            AudioClip sound = Resources.Load<AudioClip>(resourcesPath);
 
             if (sound == null)
                 return;
 
-            AudioManager.instance.PlaySoundEffect(sound, volume: volume, loop: loop);
+            AudioManager.instance.PlaySoundEffect(sound, filePath: resourcesPath, volume: volume, loop: loop);
         }
 
         private static void StopSFX(string data)
@@ -81,14 +82,15 @@ namespace COMMANDS
             // try to get if the sfx will loop or not
             parameters.TryGetValue(PARAM_LOOP, out loop, defaultValue: false);
 
-            AudioClip sound = Resources.Load<AudioClip>(FilePaths.GetPathToResources(FilePaths.resources_voice, filePath));
+            string resourcesPath = FilePaths.GetPathToResources(FilePaths.resources_voice, filePath);
+            AudioClip sound = Resources.Load<AudioClip>(resourcesPath);
 
             if (sound == null) {
                 Debug.LogError($"Was not able to load voice '{filePath}'");
                 return;
             }
 
-            AudioManager.instance.PlayVoice(sound, volume: volume, loop: loop);
+            AudioManager.instance.PlayVoice(sound, filePath: resourcesPath, volume: volume, loop: loop);
 
         }
 
