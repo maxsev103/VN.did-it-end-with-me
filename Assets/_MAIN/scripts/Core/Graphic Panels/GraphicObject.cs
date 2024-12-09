@@ -158,9 +158,9 @@ public class GraphicObject
             Texture tex = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
             renderer.material = GetTransitionalMaterial();
             renderer.material.SetTexture(MATERIAL_FIELD_MAINTEX, tex);
-        }
+        } else
+            renderer.material.SetTexture(MATERIAL_FIELD_BLENDTEX, blend);
 
-        renderer.material.SetTexture(MATERIAL_FIELD_BLENDTEX, blend);
         renderer.material.SetFloat(MATERIAL_FIELD_ALPHA, isBlending ? 1f : fadingIn ? 0 : 1);
         renderer.material.SetFloat(MATERIAL_FIELD_BLEND, isBlending ? fadingIn ? 0: 1 : 1);
 
@@ -181,7 +181,9 @@ public class GraphicObject
         co_fadingOut = null;
 
         if (target == 0)
+        {
             Destroy();
+        } 
         else {
             DestroyBackgroundGraphicsOnLayer();
             renderer.texture = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
@@ -197,7 +199,8 @@ public class GraphicObject
         if (layer.oldGraphics.Contains(this))
             layer.oldGraphics.Remove(this);
 
-        Object.Destroy(renderer.gameObject);
+        if (renderer.gameObject != null)
+            Object.Destroy(renderer.gameObject);
     }
 
     private void DestroyBackgroundGraphicsOnLayer()

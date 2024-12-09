@@ -154,7 +154,13 @@ namespace COMMANDS
                 blendTex = Resources.Load<Texture>(FilePaths.resources_blendTextures + blendTexName);
 
             if (layer == -1)
+            {
+                if (!immediate)
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(() => { panel.Clear(transitionSpeed, blendTex, immediate: true); });
+
                 panel.Clear(transitionSpeed, blendTex, immediate);
+                    
+            }  
             else
             {
                 GraphicLayer graphicLayer = panel.GetLayer(layer);
@@ -164,6 +170,9 @@ namespace COMMANDS
                     Debug.LogError($"Could not clear layer [{layer}] on panel '{panel.panelName}'");
                     yield break;
                 }
+
+                if (!immediate)
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(() => { graphicLayer.Clear(transitionSpeed, blendTex, immediate: true); });
 
                 graphicLayer.Clear(transitionSpeed, blendTex, immediate);
             }

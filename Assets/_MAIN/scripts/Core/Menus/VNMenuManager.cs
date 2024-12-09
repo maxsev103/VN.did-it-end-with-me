@@ -1,3 +1,4 @@
+using DIALOGUE;
 using System.Linq;
 using UnityEngine;
 
@@ -37,6 +38,12 @@ public class VNMenuManager : MonoBehaviour
         var slm = page.anim.GetComponentInParent<SaveandLoadMenu>();
         slm.menuFunction = SaveandLoadMenu.MenuFunction.Save;
         OpenPage(page);
+
+        if (GameObject.Find("DialogueSystem Controller") == null)
+            return;
+
+        if (DialogueSystem.instance.autoReader.isOn)
+            DialogueSystem.instance.autoReader.Disable();
     }
 
     public void Open_LoadPage()
@@ -45,12 +52,24 @@ public class VNMenuManager : MonoBehaviour
         var slm = page.anim.GetComponentInParent<SaveandLoadMenu>();
         slm.menuFunction = SaveandLoadMenu.MenuFunction.Load;
         OpenPage(page);
+
+        if (GameObject.Find("DialogueSystem Controller") == null)
+            return;
+
+        if (DialogueSystem.instance.autoReader.isOn)
+            DialogueSystem.instance.autoReader.Disable();
     }
 
     public void Open_ConfigPage()
     {
         var page = GetPage(MenuPage.PageType.Config);
         OpenPage(page);
+
+        if (GameObject.Find("DialogueSystem Controller") == null)
+            return;
+
+        if (DialogueSystem.instance.autoReader.isOn)
+            DialogueSystem.instance.autoReader.Disable();
     }
 
     public void Open_HelpPage()
@@ -88,6 +107,7 @@ public class VNMenuManager : MonoBehaviour
         isOpen = false;
     }
 
+    
     public void Click_Home()
     {
         uiChoiceMenu.Show("Return to the main menu?",

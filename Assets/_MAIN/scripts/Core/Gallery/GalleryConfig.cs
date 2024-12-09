@@ -8,7 +8,7 @@ public class GalleryConfig
 {
     public static GalleryConfig activeConfig;
 
-    public const bool ENCRYPT = false; 
+    public const bool ENCRYPT = true; 
 
     public static string filePath => $"{FilePaths.root}gallery.vng";
 

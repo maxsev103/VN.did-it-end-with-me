@@ -43,7 +43,7 @@ public class FilePaths
             #if UNITY_EDITOR
                 return "Assets/appdata/";
             #else
-                return Application.persistentDataPath + "/appdata";
+                return Application.persistentDataPath + "/appdata/";
             #endif
         }
     }

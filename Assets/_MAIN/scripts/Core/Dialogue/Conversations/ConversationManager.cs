@@ -237,13 +237,19 @@ namespace DIALOGUE
                     break;
                 case DL_DialogueData.DialogueSegment.StartSignal.WC:
                     isWaitingOnAutoTimer = true;
-                    yield return new WaitForSeconds(segment.signalDelay);
+
+                    while (!userPrompt || !DialogueSystem.instance.autoReader.skip)
+                        yield return new WaitForSeconds(segment.signalDelay);
+
                     isWaitingOnAutoTimer = false;
                     dialogueSystem.OnSystemPrompt_Clear();
                     break;
                 case DL_DialogueData.DialogueSegment.StartSignal.WA:
                     isWaitingOnAutoTimer = true;
-                    yield return new WaitForSeconds(segment.signalDelay);
+
+                    while (!userPrompt || !DialogueSystem.instance.autoReader.skip)
+                        yield return new WaitForSeconds(segment.signalDelay);
+
                     isWaitingOnAutoTimer = false;
                     break;
                 default:

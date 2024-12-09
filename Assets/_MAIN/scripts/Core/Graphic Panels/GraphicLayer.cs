@@ -95,7 +95,6 @@ public class GraphicLayer
             else
                 currentGraphic.Destroy();
         }
-            
 
         foreach (var g in oldGraphics)
         {

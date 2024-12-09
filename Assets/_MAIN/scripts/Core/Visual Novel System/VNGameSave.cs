@@ -55,8 +55,21 @@ namespace VISUALNOVEL
             variables = GetVariableData();
 
             timestamp = DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
+
             // this expects all the chapter files to be written in this format "Chapter N - <Title>" and splits it by the '-' sign
-            chapter = DialogueSystem.instance.conversationManager.conversation.file.Split('-')[1].Trim();
+            Debug.Log($"File name to split: {DialogueSystem.instance.conversationManager.conversation.file}");
+
+            string chapterFile = DialogueSystem.instance.conversationManager.conversation.file;
+            int splitIndex = chapterFile.IndexOf('-');
+
+            if (splitIndex != -1 && splitIndex < chapterFile.Length - 1)
+            {
+                chapter = chapterFile.Substring(splitIndex + 1).Trim();
+            }
+            else
+            {
+                Debug.LogError($"Could not properly split string '{chapterFile}'");
+            }
 
             string saveJSON = JsonUtility.ToJson(this);
             FileManager.Save(filePath, saveJSON, ENCRYPT_FILES);

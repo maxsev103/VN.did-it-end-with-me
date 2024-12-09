@@ -40,20 +40,26 @@ public class VN_Configuration
         // GENERAL SETTINGS
         // set window size
         ConfigMenu.instance.ToggleFullscreen(display_fullscreen);
-        ui.SetButtonSelection(ui.fullscreen, ui.windowed, display_fullscreen);
 
         // set screen resolution
+        
         int resIndex = 0;
-        for (int i = 0; i < ui.resolutions.options.Count; i++)
+        if (ui.resolutions != null)
         {
-            string resolution = ui.resolutions.options[i].text;
-            if (resolution == displayResolution)
+            
+            for (int i = 0; i < ui.resolutions.options.Count; i++)
             {
-                resIndex = i;
-                break;
+                string resolution = ui.resolutions.options[i].text;
+                if (resolution == displayResolution)
+                {
+                    resIndex = i;
+                    break;
+                }
             }
         }
-        ui.resolutions.value = resIndex;
+
+        if (ui.resolutions != null)
+            ui.resolutions.value = resIndex;
 
         // set continue skipping after option
         ui.SetButtonSelection(ui.skippingContinue, ui.skippingStop, continueSkippingAfterChoice);

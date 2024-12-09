@@ -37,7 +37,8 @@ public class ConfigMenu : MenuPage
         toggles[0].interactable = true;
         toggles[0].isOn = true;
 
-        SetAvailableResolutions();
+        if (ui.resolutions != null)
+            SetAvailableResolutions();
 
         LoadConfig();
     }
@@ -164,7 +165,9 @@ public class ConfigMenu : MenuPage
     public void ToggleFullscreen(bool fullscreen)
     {
         Screen.fullScreen = fullscreen;
-        ui.SetButtonSelection(ui.fullscreen, ui.windowed, fullscreen);
+
+        if (ui.fullscreen != null && ui.windowed != null)
+            ui.SetButtonSelection(ui.fullscreen, ui.windowed, fullscreen);
     }
 
     public void SetDisplayResolution()

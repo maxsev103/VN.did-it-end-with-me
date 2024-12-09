@@ -33,6 +33,9 @@ namespace COMMANDS
 
             // system navigation
             database.AddCommand("returntomainmenu", new Func<string, IEnumerator>(ReturnToMainMenu));
+
+            // saving to autosave
+            database.AddCommand("save", new Action<string>(AutoSave));
         }
 
         private static void LoadNewDialogueFile(string[] data)
@@ -55,7 +58,7 @@ namespace COMMANDS
             }
 
             List<string> lines = FileManager.ReadTextAsset(file, includeBlankLines: true);
-            Conversation newConversation = new Conversation(lines);
+            Conversation newConversation = new Conversation(lines, file: fileName);
 
             if (enqueue)
                 DialogueSystem.instance.conversationManager.Enqueue(newConversation);
@@ -127,7 +130,7 @@ namespace COMMANDS
         {
             CanvasGroup main;
             CanvasGroupController mainCG;
-
+            
             main = GraphicPanelManager.instance.GetPanel("cg").rootPanel.transform.parent.GetComponentInParent<CanvasGroup>();
             mainCG = new CanvasGroupController(VNManager.instance, main);
 
@@ -138,8 +141,16 @@ namespace COMMANDS
                 yield return null;
 
             VN_Configuration.activeConfig.Save();
+
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "VisualNovel (Android)")
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu (Android)");
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
+
+        private static void AutoSave(string data)
+        {
             VNGameSave.activeFile.AutoSave();
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         }
 
         private static void SetDialogueBoxAlpha(string data)

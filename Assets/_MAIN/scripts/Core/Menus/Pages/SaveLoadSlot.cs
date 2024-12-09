@@ -44,7 +44,11 @@ public class SaveLoadSlot : MonoBehaviour
                 return;
             }
 
-            saveSlotButton.interactable = true;
+            if (function == SaveandLoadMenu.MenuFunction.Save)
+                saveSlotButton.interactable = true;
+            else
+                saveSlotButton.interactable = false;
+
             statusTitle.text = $"{fileNumber - 1}. Empty Slot";
             statusDateTime.text = "";
             deleteButton.gameObject.SetActive(false);
@@ -106,7 +110,10 @@ public class SaveLoadSlot : MonoBehaviour
 
         if (function == SaveandLoadMenu.MenuFunction.Load)
         {
-            saveSlotButton.interactable = true;
+            if (file == null)
+                saveSlotButton.interactable = false;
+            else
+                saveSlotButton.interactable = true;
 
             // add the listener for loading
             saveSlotButton.onClick.AddListener(Load);

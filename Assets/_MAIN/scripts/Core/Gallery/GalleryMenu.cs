@@ -58,6 +58,18 @@ public class GalleryMenu : MonoBehaviour
     private void GetAllGalleryImages()
     {
         galleryImages = Resources.LoadAll<Texture>(FilePaths.resources_gallery);
+
+        // sort the gallery images properly
+        galleryImages = galleryImages.OrderBy(texture =>
+        {
+            if (int.TryParse(texture.name, out int num))
+            {
+                return num;
+            }
+
+            // if parse fails, put the texture at the end
+            return int.MaxValue;
+        }).ToArray();
     }
 
     private void Initialize()

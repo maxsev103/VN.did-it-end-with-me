@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VISUALNOVEL;
 
@@ -15,6 +14,9 @@ public class MainMenu : MonoBehaviour
 
     private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
 
+    public GameObject loadGame;
+    public GameObject loadGameSpacer;
+
     private void Awake()
     {
         instance = this;
@@ -28,6 +30,13 @@ public class MainMenu : MonoBehaviour
         AudioManager.instance.StopAllTracks();
         AudioManager.instance.StopAllSoundEffects();
         AudioManager.instance.PlayTrack(menuMusic, channel: 0, startingVolume: 0.7f);
+
+        HideLoadOptionOnNoSaveFiles();
+    }
+
+    private void Update()
+    {
+        HideLoadOptionOnNoSaveFiles();
     }
 
     public void ClickStartNewGame()
@@ -80,5 +89,45 @@ public class MainMenu : MonoBehaviour
 
         VN_Configuration.activeConfig.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene("VisualNovel");
+    }
+
+    private void HideLoadOptionOnNoSaveFiles()
+    {
+        if (!HasSaveFiles())
+        {
+            loadGame.gameObject.SetActive(false);
+            loadGameSpacer.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (loadGame.gameObject.activeInHierarchy && loadGameSpacer.gameObject.activeInHierarchy)
+            {
+                return;
+            }
+
+            loadGame.gameObject.SetActive(true);
+            loadGameSpacer.gameObject.SetActive(true);
+        }
+    }
+
+    private bool HasSaveFiles()
+    { 
+        try
+        {
+            if (!System.IO.Directory.Exists(FilePaths.gameSaves))
+            {
+                FileManager.TryCreateDirectoryFromPath(FilePaths.gameSaves);
+                return false;
+            }
+
+            string[] saveFiles = System.IO.Directory.GetFiles(FilePaths.gameSaves, "*.vns");
+
+            return saveFiles.Length > 0;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error checking save files: {e.Message}");
+            return false;
+        }
     }
 }
