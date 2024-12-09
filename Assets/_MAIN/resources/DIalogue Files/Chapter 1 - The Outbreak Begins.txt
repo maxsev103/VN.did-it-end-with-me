@@ -1,30 +1,44 @@
 SetSPValue(0)
 PlaySong("SAD BGM 2" -v 0.5 -lp true)
 
+dbalpha(0.0)
+[wait]ShowGalleryImage(1), wait(0.5), [wait]ShowGalleryImage(19)
 Ysella as ??? "Mom! What's going on? I don't understand!"
 
+[wait]ShowGalleryImage(2), [wait]ShowGalleryImage(3), [wait]ShowGalleryImage(4)
 narrator "I cried, my heart racing as I watched her hastily pull out vial after vial from a cooler she had brought from work."
 "Sweat trickled down her forehead, and her hands shook with urgency."
 
+[wait]ShowGalleryImage(5)
 Ema as Mom "You will soon, my Mira. Sit, please,"
 
 narrator "She urged, her voice strained as she uncapped the vials, preparing her syringe."
+PlaySFX("Medical Syringe 1" -v 0.2)
 
 Ysella as ??? "Mom, what's that? Please, tell me!"
 
 narrator "I pleaded, my voice trembling as I sank into the dining chair.{c}I felt a chill run down my spine, sensing something was terribly wrong."
 
-Ema as Mom "I don't have time!"
+[wait]ShowGalleryImage(6)
+Ema as Mom "<size=60px>I don't have time!"
 
-narrator "She snapped, rolling the sleeves of my favorite pink 'Nirvana' shirt up.{c}The sight made my heart ache.{c}With swift movements, she began injecting the contents of each vial into me.{wc 0.3}Except for one."
+narrator "She snapped, rolling the sleeves of my favorite pink 'Nirvana' shirt up.{c}The sight made my heart ache."
 
+[wait]ShowGalleryImage(7), [wait]ShowGalleryImage(8)
+"With swift movements, she began injecting the contents of each vial into me.{c}Except for one."
+
+[wait]ShowGalleryImage(9)
 Ema as Mom "Keep this with you. Be careful not to break it, okay?"
 
+[wait]ShowGalleryImage(10)
 narrator "She pressed the last vial into my palm, her eyes locking onto mine, desperate and pleading."
 
+[wait]ShowGalleryImage(11)
 Ema as Mom "You have to trust me."
 
 narrator "Tears streamed down my cheeks as I nodded, my heart pounding in my chest.{c}I had a sinking feeling about what was going to happen next."
+
+[wait]ShowGalleryImage(12), wait(0.5), [wait]ShowGalleryImage(13)
 "Suddenly, I saw her grimace in pain, clutching her arm."
 
 Ysella as ??? "Mom, what's going on? Please!" 
@@ -33,12 +47,15 @@ narrator "I rushed to her side, panic surging through me."
 
 Ema as Mom "Just hold on, Mira. You know how to drive my car, right? Take this and go to that address on the paper." 
 
+[wait]ShowGalleryImage(14), wait(1), [wait]ShowGalleryImage(15)
 narrator "Her shaking hands reached into her pocket, and she handed me an envelope along with the keys to her Toyota Vios."
 
+[wait]ShowGalleryImage(16)
 Ysella as ??? "Mom, no! I can't leave you!" 
 
 narrator "I cried, my voice cracking, but she shook her head, urgency etched on her face."
 
+[wait]ShowGalleryImage(18)
 Ema as Mom "You have to! There's no time! This is bigger than us!" 
 
 narrator "Her voice was firm, but I saw the fear in her eyes."
@@ -47,304 +64,529 @@ Ema as Mom "Promise me you'll go."
 
 Ysella as ??? "I promise, but—"
 
+[wait]ShowGalleryImage(17)
 Ema as Mom "Go!" 
 
 narrator "She shouted, her voice cutting through my hesitation like a knife." 
+
+HideGalleryImage()
 "Desperation clawed at my heart as I watched her turn and run toward the backyard, screaming in pain." 
-"My breath caught in my throat as I stood frozen,{wa 0.3} heart racing,{wa 0.3} until her scream faded into silence."
+"My breath caught in my throat as I stood frozen, heart racing, until her scream faded into silence."
 
 narrator "With blurry vision from my tears, I stumbled toward the garage, adrenaline propelling me as I drove to the address on the piece of paper inside the envelope."
-hidedb()
+[wait]hidedb()
 
-StopSong()
+StopSong(), resetdbalpha()
 
 wait(1.5)
-SetLayerMedia(background BEDROOM -spd 0.8)
+SetLayerMedia(background BEDROOM -spd 0.8), PlayAmbience("SUSPENSE - Ambience 4" -v 0.5 -lp true)
 wait(1)
 
 [wait]CreateCharacter(Lyon), [wait]CreateCharacter(Ysella)
-Ysella.SetPosition(0.2), Lyon.SetPosition(0.4)
+Ysella.SetPosition(0.2), Lyon.SetPosition(0.44)
 Ysella.SetSprite(Ysella_halflidded -l 1 -i true), Lyon.SetSprite(Lyon_urgent -l 1 -i true)
 Show(Ysella Lyon)
 
-Ysella.Animate(Shake -st true)
+Ysella.Animate(Shake -st true), Highlight(Lyon)
 Lyon "Ysella, wake up. We need to leave!"
 
-Ysella.Animate(Shake -st false)
+Ysella.Animate(Shake -st false), Unhighlight(Lyon -o false)
 narrator "A hand shook me awake, and I blinked, disoriented."
 
-Ysella.SetSprite(Ysella_scaredshock -l 1), Ysella.Move(0.22), Lyon.Move(0.65)
+Ysella.SetSprite(Ysella_scaredshock -l 1), Ysella.Move(0.21), Lyon.Move(0.65)
+Highlight(Ysella)
 Ysella "Dad—what's happening?" 
 
 narrator "I stammered, my heart pounding."
 
+PlaySong(Doubts -v 0.7)
+Highlight(Lyon)
 Lyon.SetSprite(Lyon_alarmed -l 1)
 Lyon "The virus is spreading!" 
 
+Unhighlight(Lyon -o false)
 narrator "He shouted, urgency in his voice.{c}I felt a jolt of fear shoot through me."
 
-Hide(Ysella Lyon -spd 1.5)
-SetLayerMedia(cg "~/Graphics/Item Assets/Ysella_bag_with_glow"), wait(0.3), [wait]ClearLayerMedia(cg)
-narrator "I scrambled out of bed, gathering my emergency bag, strapping it on my back as I rushed outside."
+[wait]Lyon.Flip(), Lyon.Move(1.5 -spd 2)
+SetLayerMedia(cg "~/Graphics/Item Assets/ysella's bag")
+showdb()
+Highlight(Ysella)
+narrator "I scrambled out of bed, gathering my emergency bag and strapping it on my back as I rushed outside."
+[wait]ClearLayerMedia(cg -spd 1.5), Ysella.Move(1.5 -spd 1.6)
 
+Hide(Ysella Lyon)
 wait(1)
 
-SetLayerMedia(background "GARAGE WITH A SICK ASS VIOS" -b fade4)
-showdb()
+[wait]SetLayerMedia(background "GARAGE WITH A SICK ASS VIOS" -b fade4)
 narrator "I saw my dad ushering his wife and my little siblings to the car."
 
-Lyon.SetPosition(0.25), Lyon.Flip(), Lyon.Show()
+Lyon.SetPosition(0.25), Lyon.Show(), Highlight(Lyon)
 Lyon "Get in, now!" 
 
 narrator "He commanded, his eyes wild with fear."
 
 Hide(Lyon)
-SetLayerMedia(background "14. CAR SEAT BACK" -b fade4)
+[wait]SetLayerMedia(background "14. CAR SEAT BACK" -b fade4)
 [wait]Ysella.SetPosition(0.2), [wait]Ysella.SetSprite(Ysella_neutralopenmouth -l 1), Ysella.Show()
-PlaySFX(closing-car-door -v 0.1), wait(0.5)
+PlaySFX(closing-car-door -v 0.5), wait(0.5), Highlight(Ysella)
 Ysella "Where are we heading?" 
 
 narrator "I asked, breathless, as I climbed into the backseat."
 
 Lyon "To the evacuation site. It's up north," 
 
-narrator "He replied, determination etched into his features."
+narrator "Dad replied, determination etched into his features."
 
-PlayAmbience("Car Driving Ambience" -v 0.2 -lp true), Ysella.Hide()
+[wait]Ysella.Hide()
+PlayAmbience("Car Driving Ambience" -c 2 -v 0.5 -lp true)
 SetLayerMedia(background "8. ROAD OUTSIDE HOUSE" -spd 0.8 -b fade4)
 wait(1)
 
-PlaySFX("tuning-radio" -v 0.2)
+PlaySFX("tuning-radio" -v 0.5)
 narrator "As we drove, my aunt turned on the radio, and the panicked voice of the disc jockey filled the car."
 [wait]SetLayerMedia(background "9. CAR RADIO"), wait(0.5)
-StopSFX(tuning-radio)
+StopSFX(tuning-radio), [wait]dbalpha(0.0)
 
+PlaySFX(Static -v 0.3), 
 DJ "There have been hundreds of reported cases of this unnamed virus quickly spreading in our town."
 "This is not an ordinary cough and cold virus; this may be one of the ones we are all dreading.{c}It can turn the infected into the living dead."
 "The scientists are working on creating a cure fast. For now, we encourage all residents to evacuate and move up north.{c}The government has set up a relocation site—"
 
-PlaySFX(Static -v 0.2)
+[wait]hidedb(). resetdbalpha()
+PlaySFX(Static -v 0.7), PlaySFX(tuning-radio -v 0.5)
 narrator "Suddenly, the radio crackled with static, and the DJ's scream pierced the air, prompting my aunt to quickly turn it off."
-StopSFX(Static)
+StopSFX(Static), StopSFX(tuning-radio)
 
-Lyon "Shit!" 
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER" -spd 1.3)
+[wait]Lyon.SetPosition(0.25), [wait]Lyon.SetSprite(Lyon_alarmed -l 1), Lyon.Show(), Highlight(Lyon)
+Lyon "Shit!"
+Unhighlight(Lyon)
 
 narrator "Dad muttered, gripping the steering wheel tighter." 
 
-Lyon "We need to find fuel. This isn't good."
+Highlight(Lyon)
+Lyon [1:Lyon_alarmed] "We need to find fuel. This isn't good."
+Unhighlight(Lyon)
 
 Samantha "What? What's going on?" 
 
 narrator "Aunt asked, her voice trembling."
 
-Lyon "We ran out of gas, but I'm sure there's a fuel station nearby," he replied, trying to mask his panic."
+Highlight(Lyon)
+Lyon [1:Lyon_resigned] "We ran out of gas, but I'm sure there's a fuel station nearby." 
+Unhighlight(Lyon)
 
+narrator "He replied, trying to mask his panic."
+
+Hide(Lyon)
+[wait]ShowGalleryImage(20 -b fade4)
 Ysella "Dad, no! It's too risky to go out!" I begged, hugging my two little siblings, who were now crying beside me."
 
-Lyon "We have no choice!" He slammed the steering wheel in frustration, and I felt my heart drop."
+Lyon "We have no choice!"
+narrator "He slammed the steering wheel in frustration, and I felt my heart drop."
+HideGalleryImage()
+StopAmbience("SUSPENSE - Ambience 4"), StopSong(Doubts)
+
+[wait]SetLayerMedia(background "17. GAS STATION 1" -b fade4)
+[wait]PlaySFX("Car Arrive and Stop")
+[wait]StopAmbience("Car Driving Ambience"), PlayAmbience("Night Ambience" -v 0.6 -lp true)
 
 narrator "We pulled up to the nearest fuel station, the silence around us deafening. The place was empty; no one was there."
+PlaySFX("fluorescent light sound")
 "Even the convenience store inside seemed to have been ransacked. The neon sign flickers ominously, and the front doors were shattered."
 
-Lyon "Okay, here's the plan," 
+PlayAmbience("SUSPENSE - Ambience 1" -c 2 -v 0.6)
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER"), [wait]Lyon.SetSprite(Lyon_serious -l 1), Lyon.Show()
+Highlight(Lyon)
+Lyon "Okay, here's the plan." 
+Unhighlight(Lyon)
 
-narrator "Dad said, his voice steady but laced with urgency. 
+narrator "Dad said, his voice steady but laced with urgency.
 
-Lyon "Your aunt and I will go in. I'll get us some gasoline while she gathers the supplies we need." 
+Highlight(Lyon)
+Lyon "Your aunt and I will go in. I'll get us some gasoline while she gathers the supplies we need.
 "When we go out, you'll transfer to the driver's seat and strap the kids into the passenger seat.
 "It's easier to get inside from the backseat. Got it?" 
+Unhighlight(Lyon), wait(1)
 
+[wait]Lyon.Hide(), [wait]SetLayerMedia(background "14. CAR SEAT BACK")
 narrator "He looked at me, and I could see the fear in his eyes, mirroring my own."
 
-narrator "Tears brimmed in my eyes as I nodded, my heart racing. 
+[wait]Ysella.SetPosition(0.45), [wait]Ysella.SetSprite(Ysella_tears -l 1), Ysella.Show()
+narrator "Tears brimmed in my eyes as I nodded, my heart racing."
 
-Ysella "But what if something happens to you?" I whispered, the dread pooling in my stomach."
+Highlight(Ysella)
+Ysella "But what if something happens to you?" 
+Unhighlight(Ysella)
 
-Lyon "Nothing will happen. Just stay alert," he reassured me, though his voice wavered slightly."
+narrator "I whispered, the dread pooling in my stomach."
+Ysella.Hide()
 
-narrator "As they stepped out of the car, I watched them disappear into the shadows of the fuel station, my heart pounding in my chest."
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+[wait]Lyon.SetPosition(0.5), [wait]Lyon.SetSprite(Lyon_default -l 1), [wait]Lyon.Flip(), Lyon.Show()
 
-narrator "The silence was suffocating, and I clutched my siblings tightly, trying to keep them calm. 
+Highlight(Lyon)
+Lyon "Nothing will happen. Just stay alert." 
+Lyon.Hide()
 
-Ysella "It's going to be okay," 
+narrator "He reassured me, though his voice wavered slightly."
+
+[wait]SetLayerMedia(background "18. GAS STATION 1 WITH CAR" -spd 1.3)
+PlaySFX("Car Door Open and Close" -v 0.6)
+"As they stepped out of the car, I watched them disappear into the shadows of the fuel station, my heart pounding in my chest."
+
+[wait]SetLayerMedia(background "15. CAR WINDOW VIEW")
+"The silence was suffocating, and I clutched my siblings tightly, trying to keep them calm. 
+
+Ysella "It's going to be okay." 
 
 narrator "I whispered, though I wasn't sure I believed it."
 "Minutes felt like hours as I waited, my mind racing with worst-case scenarios." 
+
+[wait]SetLayerMedia(background "19. CONVENIENCE STORE (INTERIOR)" -spd 1.5)
+PlaySFX(crash -v 0.8), wait(2), StopSFX(crash)
 "Suddenly, I heard a loud crash from inside the station, and my heart dropped."
 
+[wait]SetLayerMedia(background "15. CAR WINDOW VIEW" -spd 1.5)
 Ysella "Dad?" 
 
 narrator "I called out, my voice trembling."
 
-Lyon "Stay in the car!" he shouted back, but his tone was strained, and I could hear the panic creeping in."
+[wait]SetLayerMedia(background "19. CONVENIENCE STORE (INTERIOR)" -spd 1.5)
+Lyon.SetPosition(0.5)
 
-Ysella "Please, hurry!" I begged, my voice breaking as I glanced at my siblings, who were now wide-eyed with fear."
+Highlight(Lyon)
+enter Lyon [1:Lyon_alarmed] "Stay in the car!"
+Lyon.Hide()
+
+narrator "He shouted back, but his tone was strained, and I could hear the panic creeping in."
+
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+Highlight(Ysella)
+enter Ysella [1:Ysella_shout] "Please, hurry!" 
+Unhighlight(Ysella)
+
+narrator "I begged, my voice breaking as I glanced at my siblings, who were now wide-eyed with fear."
+Ysella.Hide()
+
+[wait]SetLayerMedia(background "18. GAS STATION 1 WITH CAR")
 
 narrator "The silence in the car grew heavier as the minutes ticked by. 
 
 narrator "Just as I was about to lose hope, Dad and Aunt burst through the doors of the gas station, their faces pale and eyes wide with terror."
 
-Lyon "Get in! Now!" Dad yelled, and I scrambled to switch seats, my heart racing as I buckled my siblings in."
+[wait]SetLayerMedia(background "14. CAR SEAT BACK" -spd 1.5)
+Lyon "Get in! Now!" 
 
-Ysella "What happened?" 
+narrator "Dad yelled, and I scrambled to switch seats, my heart racing as I buckled my siblings in."
+
+Highlight(Ysella)
+enter Ysella [1:Ysella_troubled] "What happened?" 
+Unhighlight(Ysella), Ysella.Hide()
 
 narrator "I asked, my voice barely above a whisper."
 
-Lyon "They were infected inside! We need to go—now!" 
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+Lyon.SetPosition(0.45), [wait]Lyon.Flip()
+Highlight(Lyon)
+enter Lyon [1:Lyon_alarmed] "They were infected inside! We need to go—now!" 
+[wait]Unhighlight(Lyon)
 
+StopAmbience("SUSPENSE - Ambience 1"), StopAmbience("Night Ambience")
+
+Lyon.Hide()
 narrator "He slammed the door shut, and I could see the fear etched on his face as he turned the key in the ignition."
 
-narrator "The engine roared to life, and we sped away from the desolate fuel station, the world outside a blur. But as we drove, I could see the panic in Dad's eyes."
+[wait]SetLayerMedia(background "10. HIGHWAY VIEW" -b fade4)
+[wait]PlaySFX("Starting Car and Driving Off"), PlayAmbience("Car Driving Ambience" -c 2 -v 0.6), PlaySong(Doubts -v 0.7)
+narrator "The engine roared to life, and we sped away from the desolate fuel station, the world outside a blur.{c}But as we drove, I could see the panic in Dad's eyes."
 
-Ysella "Where to now?" I asked, my voice shaking."
+Ysella "Where to now?" 
+narrator "I asked, my voice shaking."
 
-Lyon "We need to find another gas station," 
+Lyon "We need to find another gas station"
 
-narrator "he replied, gripping the steering wheel tightly. 
+narrator "He replied, gripping the steering wheel tightly."
 
 Lyon "We can't risk running out of fuel again."
 
 narrator "As we drove further away from the chaos, I felt a mix of relief and dread."
+
+[wait]SetLayerMedia(background "9. CAR RADIO"), PlaySFX(tuning-radio -v 0.5)
 "The radio crackled to life, the DJ's frantic voice filling the car again. "
+StopSFX(tuning-radio), PlaySFX(Static -v 0.3), [wait]dbalpha(0.0)
+
 "We are receiving reports of chaos in the streets."
-'Residents are urged to stay indoors and avoid contact with anyone showing symptoms. The situation is escalating rapidly—"
+"Residents are urged to stay indoors and avoid contact with anyone showing symptoms. The situation is escalating rapidly—"
+[wait]hidedb(), [wait]resetdbalpha()
 
-Ysella "Turn it off!" 
+Ysella "<size=70px>TURN IT OFF!"
 
-narrator "I shouted, unable to bear the weight of the news. My dad complied, and the silence that followed was heavy with unspoken fears."
+narrator "I shouted, unable to bear the weight of the news."
+StopSFX(Static), StopSong(Doubts)
+[wait]SetLayerMedia(background "10. HIGHWAY VIEW")
 
-Lyon "Just keep driving north."
+"My dad complied, and the silence that followed was heavy with unspoken fears."
+
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+Lyon.SetPosition(0.5), h(Lyon)
+enter Lyon [1:Lyon_serious] "We just need to keep driving north."
+u(Lyon)
 
 narrator "He said, determination etched into his features. 
+Lyon.Hide()
 
+[wait]SetLayerMedia(background "16. CAR WINDOW VIEW FROM DRIVER")
 Lyon "There has to be another station not too far from here."
 
+[wait]SetLayerMedia(background "10. HIGHWAY VIEW" -spd 0.9)
 narrator "Minutes felt like hours, but eventually, we spotted the flickering lights of another gas station in the distance."
+
+PlaySFX("Car Arrive and Stop")
+[wait]SetLayerMedia(background "20. GAS STATION 2" -b fade4)
+StopAmbience("Car Driving Ambience")
 "My heart raced with hope as we pulled into the lot. This station looked more intact than the last, with the convenience store still standing and no signs of chaos outside."
 
-Lyon "Okay, same plan as before," 
+PlayAmbience("Night Ambience" -v 0.4)
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+h(Lyon)
+enter Lyon [1:Lyon_defaultopenmouth] "Okay, same plan as before." 
+u(Lyon)
 
 narrator "Dad said, his voice steady but urgent." 
 
+h(Lyon)
 Lyon "I'll go inside with your aunt, and you stay with the kids. If we're not back in ten minutes, drive away."
+u(Lyon), Lyon.Hide()
 
+[wait]SetLayerMedia(background "21. GAS STATION 2 WITH CAR" -b fade4)
 narrator "I nodded, my heart pounding in my chest. I didn't want to lose them, but I knew we had no choice."
+"As they stepped out of the car, I ushered my siblings to the front seat, strapping them in tightly." 
 
-narrator "As they stepped out of the car, I ushered my siblings to the front seat, strapping them in tightly." 
-"I kept my eyes glued to the entrance of the station, praying they would return quickly."
+[wait]SetLayerMedia(background "15. CAR WINDOW VIEW")
+"I kept my eyes glued to the entrance of the gas station, praying they would return quickly."
 
+[wait]SetLayerMedia(background "21. GAS STATION 2 WITH CAR")
+PlaySFX(heartbeat -v 0.3)
 narrator "With every passing second, my anxiety grew. The world outside felt too quiet, too still." 
 "I could feel the weight of my siblings' trust resting on my shoulders, and I was terrified of letting them down."
 
 narrator "5 minutes."
 
-narrator "I gripped the steering wheel tightly as I muttered a silent prayer for them. My knuckles are turning white and my heartbeat is racing." 
-"I strain to hear something, anything. I blink the tears that are starting to cloud my vision again. They have to come back. They have to."
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+PlaySFX(heartbeat -v 0.4)
+narrator "I gripped the steering wheel tightly as I muttered a silent prayer for them.{c}My knuckles are turning white and my heartbeat is racing." 
+"I strain to hear something,{wa 1} anything.{c}I blink away the tears that are starting to cloud my vision again.{c}They have to come back.{c}They have to."
 
+[wait]SetLayerMedia(background "21. GAS STATION 2 WITH CAR")
+PlaySFX(heartbeat -v 0.5)
 narrator "10 minutes."
 
-Ysella "Where are they? 
+[wait]SetLayerMedia(background "15. CAR WINDOW VIEW")
+PlaySFX(heartbeat -v 0.6)
 
-narrator "I squirmed in my seat as I let go of the steering and started to fidget. Sweat is trickling down from my forehead. 
+Ysella "Where are they?"
 
-narrator "The deafening silence outside is suffocating. Though I can't breathe properly from the anticipation, I can't let my siblings see how vulnerable I am."
+narrator "I squirmed in my seat as I let go of the steering and started to fidget. Sweat is trickling down from my forehead."
+"The deafening silence outside is suffocating.{c}Though I can't breathe properly from the anticipation, I can't let my siblings see how vulnerable I am."
+"My mind starts to race with images of what could have gone wrong—{wa 1}what if they're hurt?"
+"What if…{wa 0.5}No, I can't think about that."
 
-narrator "My mind starts to race with images of what could have gone wrong—what if they're hurt? What if… No, I can't think about that."
-
+[wait]SetLayerMedia(background "21. GAS STATION 2 WITH CAR")
+PlaySFX(heartbeat -v 0.7)
 narrator "15 minutes."
 
-narrator "Panic starts to rise as I see no signs of them still. I keep replaying my dad's words in my head,
+ClearLayerMedia(background)
+PlaySFX(heartbeat-fast -sv 0.7 -v 0.8 -lp true)
+narrator "Panic starts to rise as I see no signs of them still. I keep replaying my dad's words in my head,"
+"Be brave."
 
-narrator "Be brave."
+"But how can I be brave when I feel like I'm about to lose them?{c}I look at my siblings, tears welling up in their eyes, trusting me to protect them, to know what to do."
+"But I don't know what to do.{c}I don't want to leave.{c}I don't want to lose them."
+"My pulse is pounding in my ears now.{c}(Just a few more minutes.){c}(They'll come back. Won't they?)"
 
-narrator "But how can I be brave when I feel like I'm about to lose them? I look at my siblings, tears welling up in their eyes, trusting me to protect them, to know what to do.
+[wait]Ysella.SetPosition(0.5), [wait]Ysella.SetSprite(Ysella_unreadable -l 1), [wait]Ysella.Unhighlight()
+Ysella.Show(-spd 0.7)
+[wait]StopSFX(heartbeat-fast)
+PlaySFX(heartbeat-slow -sv 0.8 -v 0.0)
+narrator "Nothing.{c}I couldn't hear anything.{c}My siblings started to cry, I was on the verge of breaking down again but dad said that I had to be brave."
 
-narrator "But I don't know what to do. I don't want to leave. I don't want to lose them."
+h(Ysella)
+Ysella "Shhh, it's okay. They'll be back.{c}We'll stay for a couple minutes more, okay? They are coming back." 
+u(Ysella)
 
-narrator "My pulse is pounding in my ears now. Just a few more minutes. They'll come back. Won't they?"
+narrator "I assured them but I don't even know if they will be back."
 
-narrator "Nothing. I couldn't hear anything. My siblings started to cry, I was on the verge of breaking down again but dad said that I had to be brave."
+Ysella.Hide()
+[wait]SetLayerMedia(background "21. GAS STATION 2 WITH CAR")
+PlaySFX(heartbeat -v 0.6)
+"2 more minutes."
 
-Ysella "Shhh, it's okay. They'll be back. We'll stay for a couple minutes more, okay? They are coming back." I assured them but I don't even know if they will be back."
-
-narrator "2 more minutes."
-
+ClearLayerMedia(background)
+PlaySFX(heartbeat -v 0.6)
 narrator "My fingers trembled even more, sweating and couldn't even grip the steering wheel tightly. The only thing I could hear are our shaky breaths."
 
 narrator "I try to calm them but I know that I was calming myself more through them." 
 "I stare out at the fuel station, straining to catch a glimpse of them—anything, any sign of movement." 
 "They said they'd be back. Please, just come back."
 
+[wait]SetLayerMedia(background "15. CAR WINDOW VIEW")
+PlaySFX(heartbeat -v 0.6)
 narrator "5 more minutes."
 "I don't know how much longer I can wait. Every fiber of my being screams for me to leave, to do what dad told me."
-"But the idea of driving away, of abandoning them, of not knowing what happened—it feels like a weight pressing down on my chest, making it hard to breathe. 
+"But the idea of driving away, of abandoning them, of not knowing what happened—it feels like a weight pressing down on my chest, making it hard to breathe."
+
+[wait]SetLayerMedia(background "14. CAR SEAT BACK")
+[wait]Ysella.SetPosition(0.45), [wait]Ysella.SetSprite(Ysella_unreadable -l 1), Ysella.Show()
+PlaySFX(heartbeat -v 0.6)
 "Tears sting my eyes, but I bite my lip hard, trying to hold them back. I can't break. Not now. Not in front of the kids."
-"I looked up and saw two figures emerging from the convenience store, sprinting towards the car when Aunt accidentally stepped on a can, the sound echoing through the desolate station. 
+Ysella.Hide()
 
-Ysella "Come on, please." 
+[wait]SetLayerMedia(background "15. CAR WINDOW VIEW")
+PlaySFX(heartbeat -sv 0.6 -v 0.0)
+"I looked up and saw two figures emerging from the convenience store."
+[wait]PlaySFX("Soda Can Crush" -v 0.7)
+"They were sprinting towards the car when Aunt accidentally stepped on a can, the sound echoing through the desolate station. 
 
+StopAmbience("Night Ambience")
+PlaySong("HORROR - Chase BGM 3" -v 0.6)
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+h(Ysella)
+enter Ysella [1:Ysella_sad] "Come on, please." 
+[wait]u(Ysella)
+Ysella.Hide()
+
+PlaySFX("Zombie Horde 2" -v 0.2 -lp true)
 narrator "I whispered, desperation creeping into my voice as snarls filled the air, accompanied by the pounding of footsteps, frantic shouts, and the loud banging of objects."
 
+[wait]SetLayerMedia(background "CAR SEAT VIEW FROM THE BACK")
+PlaySFX(jumpscare -v 0.8)
 narrator "Before Dad could close the door, a hand shot out, grabbing it and yanking it open. 
 
-Infected Civilian "Let me in! Please, let me in!" a man pleaded, his eyes wide with fear as he tried to force his way inside."
+PlaySFX("CAR BANGING" -v 0.35 -lp true)
+Infected Civilian "Let me in! Please, let me in!" 
 
-Lyon "No, no. We're full. I'm sorry, but you need to find someone else who can help you," 
+narrator "A man pleaded, his eyes wide with fear as he tried to force his way inside."
 
-narrator "Dad argued, though the man was relentless. I caught a glimpse of the man's left arm, a bite-like wound turning grayish, the teeth marks and dried blood stark against his skin."
+[wait]Lyon.SetPosition(0.5)
+h(Lyon)
+enter Lyon [1:Lyon_mad] "No, no. We're full. I'm sorry, but you need to find someone else who can help you," 
+[wait]u(Lyon)
 
-Ysella "Dad, his left hand!" 
+Lyon.Hide()
+narrator "Dad argued, though the man was relentless."
+"I caught a glimpse of the man's left arm, a bite-like wound turning grayish, the teeth marks and dried blood stark against his skin."
+
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+
+h(Ysella)
+enter Ysella [1:Ysella_shout] "Dad, his left hand!" 
+u(Ysella)
 
 narrator "I screamed, and everyone turned to look."
 
-Infected Civilian "No, this is just a baby bite! My toddler bit me two days ago. Please, let me in! I need to get home to my babies,"
+Ysella.Hide()
+[wait]SetLayerMedia(background "CAR SEAT VIEW FROM THE BACK")
+Infected Civilian "No, this is just a baby bite!{c}My toddler bit me two days ago. Please, let me in! I need to get home to my babies!"
 
-narrator "he cried, tears streaming down his face as he begged again."
+narrator "He cried, tears streaming down his face as he begged again."
 
-Samantha "I'm sorry, but you're infected. I understand your fear, but we have kids inside too. We can't let you in," 
+Samantha "I'm sorry, but you're infected.{c}I understand your fear, but we have kids inside too.{c}We can't let you in." 
 
-narrator "Aunt reasoned, her voice steady yet sympathetic. The man, however, used all his strength to pull the door open."
+narrator "Aunt reasoned, her voice steady yet sympathetic."
 
+[wait]ClearLayerMedia(background -i true)
+PlaySFX("jumpscare 2" -v 0.8)
+"The man, however, used all his strength to pull the door open."
+
+PlaySFX(closing-car-door -v 0.8), wait(0.3)
+PlaySFX("MEAT NOISES" -v 0.6)
 narrator "Dad gripped it tighter, slamming it shut, causing the man's fingers to get wedged in the door, slicing through flesh and bone."
 
+StopSFX("Zombie Horde 2")
+PlaySFX("Zombie Horde 2" -sv 0.3 -v 0.6)
 narrator "He screamed, a sound that sent chills down my spine, and then the snarls grew louder."
 
-Lyon "Ysella, drive now!" 
+Lyon "Ysella, drive now!"
 
+PlaySFX("Starting Car and Driving Off"), PlaySFX("tire screech" -v 0.7)
 narrator "Dad commanded as I clicked the lock button, securing all the doors, and slammed my foot on the gas."
 
+[wait]SetLayerMedia(background "11. CAR VIEW FROM OUTSIDE FRONT" -b fade4)
+PlayAmbience("Car Driving Ambience")
 narrator "The man's cries for help echoed in my ears as the zombies descended upon him, their growls mingling with his screams."
 
-narrator "Aunt broke the tension with a dark quip, "Throw the damn fingers out the window, Lyon," which earned a nervous laugh from all of us."
+[wait]StopSFX("Zombie Horde 2"), [wait]StopSFX("CAR BANGING"), [wait]StopSong("HORROR - Chase BGM 3")
+narrator "Aunt broke the tension with a dark quip"
 
-Ysella "Careful, Dad. We're not touching blood or any fluids from that person," 
+Samantha "Throw the damn fingers out the window, Lyon." 
+
+narrator "Which earned a nervous laugh from all of us."
+
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+Ysella.SetPosition(0.5)
+h(Ysella)
+enter Ysella [1:Ysella_neutralopenmouth] "Careful, Dad. We're not touching blood or any fluids from that person," 
+u(Ysella)
 
 narrator "I warned as he picked up the severed fingers with a plastic bag and tossed them out the window with a grimace."
 
-narrator "On the next mile, Dad and I switched places, knowing he had a better sense of direction."
+Ysella.Hide()
+[wait]SetLayerMedia(background "11. CAR VIEW FROM OUTSIDE FRONT" -b fade4)
+"On the next mile, Dad and I switched places, knowing he had a better sense of direction."
+[wait]hidedb()
 
-Andy "Dad, I need to go to the bathroom," 
+wait(1)
 
-narrator "one of the twins piped up."
+Andy "Dad, I need to go to the bathroom." 
 
-Ashley "Me too, Dad," 
+narrator "One of the twins piped up."
 
-narrator "the other twin chimed in, their voices filled with urgency."
+Ashley "Me too, Dad." 
 
-Lyon "Okay, we're stopping at the next fuel station. I don't think the zombies have reached there yet," he replied."
+narrator "The other twin chimed in, their voices filled with urgency."
 
+[wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
+[wait]Lyon.SetPosition(0.5)
+h(Lyon)
+enter Lyon [1:Lyon_default] "Okay, we're stopping at the next fuel station. I don't think the zombies have reached there yet."
+u(Lyon)
+
+Lyon.Hide()
+[wait]SetLayerMedia(background "23. GAS STATION 3" -b fade4)
+[wait]PlaySFX("Car Arrive and Stop"), StopAmbience("Car Driving Ambience")
 narrator "After another mile, we pulled into a fuel station in the next town, where I could still see people moving about. It seemed like the zombies hadn't made it here yet."
 
-narrator "He ushered the kids outside, instructing Aunt to accompany the twins while he scouted the area. I stepped out too, drawn to the candy store adjacent to the fuel station."
+[wait]SetLayerMedia(background "24. GAS STATION 3 W CAR")
+PlaySFX("Car Door Open and Close"), wait(1), PlaySFX("Car Door Open and Close"), wait(1), PlaySFX("Car Door Open and Close")
+narrator "He ushered the kids outside, instructing Aunt to accompany the twins while he scouted the area."
+"I stepped out too, drawn to the candy store adjacent to the fuel station."
 
-narrator "I scanned the shelves and spotted my favorite nerd clusters." 
+PlayAmbience("Convenience Store Ambience" -v 0.6), PlaySFX("fluorescen light sound")
+[wait]SetLayerMedia(background "25. CONVENIENCE STORE (INTERIOR) 3" -b fade4), wait(1), [wait]SetLayerMedia(background "CANDY AISLE")
 
-narrator "Just as I reached for the only box, someone swiftly snatched it from the shelf." 
+[wait]SetLayerMedia(cg "~/Graphics/Item Assets/nerd clusters")
+showdb()
+narrator "I scanned the shelves and spotted my favorite nerd clusters right away." 
+[wait]ClearLayerMedia(cg)
 
-Calyx "Sorry, this one's mine," 
+"Just as I reached for the only box, someone swiftly snatched it from the shelf." 
 
-narrator "a guy's voice pulled me back to reality, and I glared at him, imagining how I would punish the thief."  
+[wait]CreateCharacter(Calyx)
+Calyx as ??? "Sorry, this one's mine." 
 
-Ysella "I saw that first," 
+narrator "A guy's voice pulled me back to reality, and I glared at him, imagining how I would punish the thief."  
 
+[wait]Ysella.SetPosition(0.2), [wait]Calyx.SetPosition(0.8), Calyx.SetColor(-c black -i true)
+enter Ysella [0:Ysella_base2 1:Ysella_pissed] "I saw that first."
+Calyx.Show()
+
+Ysella.SetSprite(Ysella_base -l 0), Ysella.SetSprite(Ysella_neutralopenmouth -l 1)
 narrator "I retorted, looking up to meet a pair of familiar eyes. Wait, I know this person."
+
+[wait]hidedb(), StopAmbience("Convenience Store Ambience")
+[wait]SetLayerMedia(foreground "CHAPTER 1 END")
+wait(1)
+ClearLayerMedia(foreground)
+Hide(Ysella Calyx)
+Load("Chapter 2 - Through The Horde")

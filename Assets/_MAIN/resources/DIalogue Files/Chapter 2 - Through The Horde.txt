@@ -1,0 +1,445 @@
+﻿[wait]PlayAmbience("Convenience Store Ambience" -v 0.7)
+Ysella "I saw that first."
+
+narrator "I retorted, looking up to meet a pair of familiar eyes. Wait, I know this person."
+
+PlaySFX("magic glitter")
+[wait]ShowGalleryImage(21)
+narrator "He raised an eyebrow, a smirk playing on his lips."
+
+Calyx "What?"
+
+Ysella "I know you. You look familiar." 
+
+narrator "I said, squinting as I tried to place him." 
+
+narrator "Then it clicked."
+
+Ysella "Calyx?!"
+
+hidedb()
+HideGalleryImage(), dbalpha(0.0)
+StopAmbience("Convenience Store Ambience")
+
+PlaySFX(flashback), SetLayerMedia(background "_FLASHBACK PARK TREE")
+
+PlayAmbience("DAY FOREST - Ambience" -v 0.6), PlaySong("FLASHBACK - BGM")
+
+narrator "​​The sun hung low in the sky, casting a golden glow over the sprawling park where laughter danced on the breeze."
+"Teenagers filled the space, but amidst the chatter and noise, Ysella and Calyx found their own little world beneath a sprawling oak tree, its branches providing a canopy of shade."
+
+"Calyx sprawled on the grass, his hands tucked behind his head, a carefree grin lighting up his face." 
+
+Calyx as Young Calyx "I dare you to climb to the top of that tree." 
+
+narrator "he challenged, nodding toward the towering oak."
+
+narrator "Ysella raised an eyebrow, a playful smirk forming on her lips." 
+
+Ysella as Young Ysella "You think I can’t do it?"
+
+Calyx as Young Calyx "Not a chance. You’re too scared of heights."
+
+narrator "He replied, mockingly shaking his head."
+
+Ysella as Young Ysella "Scared? Please." 
+
+narrator "She tossed her hair back, her competitive spirit ignited."
+
+Ysella as Young Ysella "Watch me."
+
+[wait]SetLayerMedia(background "_FLASHBACK PARK TREE CLOSE UP")
+PlaySFX("tree rustiling" -v 0.5)
+narrator "With a determined glint in her eyes, Ysella scrambled up the rough bark, her fingers finding familiar holds."
+"The world below shrank as she climbed higher, the thrill of the challenge coursing through her veins."
+
+StopSFX("tree rustling")
+"She reached a sturdy branch and paused, looking down at Calyx, who was now a tiny figure on the ground."
+
+Ysella as Young Ysella "See? Not scared at all!" 
+
+narrator "she called down, her voice filled with exhilaration."
+
+Calyx as Young Calyx "Okay, okay! You win!" 
+
+narrator "Calyx shouted back, laughter bubbling up as he shielded his eyes from the sun."
+
+Calyx as Young Calyx "Just don’t fall! I’m not ready to be a tree surgeon."
+
+[wait]SetLayerMedia(background "_FLASHBACK_TREEVIEW")
+narrator "Ysella laughed, her heart racing not just from the climb but from the joy of the moment." 
+"She felt invincible, suspended between childhood and the unknown future."
+"As she perched on the branch, the wind tousled her hair, and she felt a sense of freedom that was intoxicating."
+
+Ysella as Young Ysella "Come up here!" 
+
+narrator "She urged, gesturing for him to join her."
+
+Ysella as Young Ysella "It’s amazing!"
+
+Calyx as Young Calyx "Yeah, right! I’m not climbing that thing. I’d rather keep my feet on solid ground," 
+
+narrator "He replied, shaking his head, but his eyes sparkled with admiration."
+
+Ysella as Young Ysella "Chicken!" 
+
+Narrator "She teased, sticking her tongue out at him."
+"Calyx rolled his eyes but couldn’t help but smile." 
+
+Calyx as Young Calyx "Maybe I just have a better sense of self-preservation."
+
+Ysella as Young Ysella "Or maybe you’re just afraid I’ll beat you at everything!" 
+
+narrator "She shot back, laughing as she swung her legs playfully."
+
+Calyx as Young Calyx "Okay, you got me there." 
+
+narrator "he admitted, his expression turning serious for a moment."
+
+Calyx as Young Calyx "But seriously, be careful up there. I don’t want to have to explain to your parents how you got yourself stuck in a tree."
+
+narrator "Ysella felt a warmth spread through her at his concern." 
+
+Ysella as Young Ysella "You worry too much, Calyx. I’ll be fine."
+
+[wait]SetLayerMedia(background "_FLASHBACK PARK TREE CLOSE UP")
+PlaySFX("tree rustling" -v 0.6)
+narrator "She climbed a little higher, feeling the rush of adrenaline and the thrill of the challenge."
+
+PlaySFX("tree branch rustling" -v 0.7), StopSFX("tree rustling")
+"Just as she reached for another branch, her foot slipped, and she gasped, scrambling to regain her balance."
+
+Ysella as Young Ysella "Whoa!"
+
+[wait]SetLayerMedia(background "_FLASHBACK PARK TREE")
+narrator "Calyx’s eyes widened, and he sprang to his feet, his voice filled with urgency."
+
+Calyx as Young Calyx "Ysella! Hold on!"
+
+narrator "With a burst of instinct, she managed to grip the branch tighter, steadying herself."
+"Heart pounding, she looked down at him, and in that moment, their eyes locked."
+
+narrator "The world around them faded, and all that mattered was the connection they shared."
+
+Calyx as Young Calyx "You’re okay!" 
+
+narrator "He called, relief flooding his voice." 
+
+Calyx as Young Calyx "Just take your time!"
+
+narrator "After a few deep breaths, Ysella found her footing again and carefully made her way back down, her heart racing not just from the climb but from the intensity of their gaze."
+
+narrator "When she finally reached the ground, she was met with Calyx’s outstretched arms, ready to catch her if she fell."
+
+Ysella as Young Ysella "See? I told you I’d be fine," 
+
+narrator "she said, a triumphant grin spreading across her face."
+
+Calyx as Young Calyx "Yeah, but you scared the life out of me!" 
+
+narrator "He replied, his breath still shaky."
+
+Calyx as Young Calyx "You’re lucky I’m here to keep you out of trouble."
+
+Ysella as Young Ysella "Or maybe you’re just lucky to have me around,"
+
+narrator "She teased, nudging him playfully."
+
+hidedb(), [wait]resetdbalpha()
+PlaySFX(flashback), StopAmbience("DAY FOREST - Ambience"), StopSong("FLASHBACK - BGM")
+[wait]SetLayerMedia(background blank -spd 1.5), [wait]SetLayerMedia(background "25. CONVENIENCE STORE (INTERIOR) 3" -spd 2)
+
+PlayAmbience("Convenience Store Ambience" -v 0.7), PlaySFX("fluorescent light sound")
+[wait]CreateCharacter(Lyon)
+
+Lyon.SetPosition(0.5)
+h(Lyon)
+enter Lyon [1:Lyon_urgent] "Ysella! There you are, we need to go." 
+u(Lyon)
+
+narrator "Dad barged into the candy store, pulling me away from Calyx."
+
+Lyon.Move(0.8), Lyon.Flip(),
+
+h(Ysella)
+enter left Ysella at 0.2 [1:Ysella_shout] "Dad, wait—" 
+u(Ysella -o false)
+
+narrator "I protested, tugging him back."
+
+h(Lyon)
+Lyon [1:Lyon_urgent] "We don’t have time. They’re coming." 
+u(Lyon)
+
+[wait]hide(Ysella Lyon)
+
+Calyx.SetPosition(0.5), [wait]Calyx.Flip()
+h(Calyx)
+enter Calyx [1:Calyx_default_openmouth] "Can I go with you?"
+u(Calyx)
+
+narrator "I heard a voice behind me, and Dad turned to look at Calyx, surprise etched on his face."
+
+[wait]Hide(Calyx), Show(Ysella Lyon)
+h(Lyon)
+Lyon [1:Lyon_happy] "Calyx?"
+u(Lyon -o false)
+
+h(Lyon)
+Lyon [1:Lyon_calm] "Sure, come on. The car is this way." 
+u(Lyon -o false)
+
+[wait]hide(Ysella Lyon)
+StopAmbience("Convenience Store Ambience"), PlayAmbience("Night Ambience" -v 0.6)
+[wait]SetLayerMedia(background "26. GAS STATION 3 ZOMBIES W CAR" -b fade4)
+narrator "He led us outside, but when we reached the parking spot, our car was gone."
+
+PlaySFX("Zombie Horde 2" -v 0.5 -lp true)
+"In the distance, the sound of resounding footsteps echoed like an army marching, accompanied by snarls and the unmistakable stench of the living dead."
+
+PlaySong("Tense BGM" -v 0.6)
+
+Lyon "Shit!" 
+
+narrator "Dad muttered, panic creeping into his voice."
+
+[wait]Calyx.SetPosition(0.5)
+h(Calyx)
+enter Calyx [1:Calyx_default_openmouth] "My car is this way." 
+u(Calyx)
+
+narrator "Calyx said, but Dad was too busy scanning the area. I tugged at him, urgency rising in my chest."
+
+[wait]Calyx.Hide(), Ysella.SetPosition(0.45)
+h(Ysella)
+enter Ysella [1:Ysella_shout] "Dad! Dad!"
+u(Ysella)
+
+[wait]Ysella.Hide()
+narrator "He turned to me, his voice firm yet laced with an underlying panic."
+
+h(Lyon)
+enter Lyon [1:Lyon_scaredshock] "The twins, my wife, Ysella! We need to find them."
+u(Lyon)
+
+[wait]Lyon.Hide()
+h(Ysella)
+enter Ysella [1:Ysella_resigned] "We will find them, Dad. But for now, we need to get inside the car," 
+u(Ysella)
+
+narrator "I urged him, trying to keep him focused."
+Ysella.Hide()
+
+StopSFX("Zombie Horde 2"), PlaySFX("Zombie Horde 2" -v 0.3 -lp true), StopAmbience("Night Ambience"), StopSong("Tense BGM")
+[wait]PlaySFX(closing-car-door), PlayAmbience("SUSPENSE - Ambience 1" -v 0.5)
+narrator "We slid into Calyx’s car, and he immediately locked all the doors behind us."
+
+PlaySFX("Zombie Horde 2" -v 0.3 -lp true)
+narrator "The parade of footsteps grew louder, each second bringing the threat closer." 
+
+Lyon "We can’t leave, Calyx. I need to find them." 
+
+narrator "Dad insisted, his eyes darting out the window as he searched for any sign of them." 
+"I closed my eyes, whispering a prayer for their safety."
+
+[wait]SetLayerMedia(background "CAR GLOVE COMPARTMENT"), wait(1), [wait]SetLayerMedia(cg "~/Graphics/Item Assets/zombie perf")
+narrator "Calyx rummaged through his glove compartment and handed me a can. 
+
+Ysella "What is this?" 
+
+narrator "I asked, reading the label that said "Zombie Perf" in messy handwriting."
+
+Calyx "It makes you smell like zombies, so they won’t know you’re human and alive." 
+
+narrator "He explained, leaning back and massaging his temples, exhaustion evident on his face."
+
+narrator "I couldn’t help but chuckle. 
+
+Ysella "Why do we need this?"
+
+Calyx "Because I ran out of fuel and we need to transfer to another car."
+
+ClearLayerMedia(cg), [wait]SetLayerMedia(background "11. CAR VIEW FROM OUTSIDE FRONT")
+Ysella.SetPosition(0.2)
+h(Ysella)
+enter Ysella [1:Ysella_pissed] "Why didn’t you tell us? We could’ve gone straight to another car!" 
+u(Ysella)
+
+narrator "I replied, slumping back against the seat, frustration bubbling inside me."
+[wait]Ysella.Hide()
+
+Lyon.SetPosition(0.5)
+h(Lyon)
+enter Lyon [1:Lyon_urgent] "Calm down, you two." 
+u(Lyon)
+
+narrator "Dad interjected, placing his hands between us. He shot me a warning look before turning to Calyx."
+
+h(Lyon)
+Lyon "We need to stay focused."
+u(Lyon)
+
+[wait]Lyon.Hide()
+
+h(Ysella)
+enter Ysella "How am I supposed to calm down, Dad?{c}Aunt and the twins are missing, this car doesn’t even have any fuel, and we’re here thinking it could take us somewhere far from here."
+"Now we’re going to brave that horde of zombies while relying on this?" 
+u(Ysella)
+
+narrator "I raised the can in annoyance."
+
+[wait]Ysella.Hide()
+h(Lyon)
+enter Lyon [1:Lyon_pissed] "I know, Ysella. I’m with you on this.{c}I’m pissed, annoyed, and whatever else too, but being rash and not thinking it through can get us killed."
+
+Lyon [1:Lyon_default] "We need to calm down and plan." 
+u(Lyon)
+
+narrator "Dad replied, returning his watchful gaze to the window."
+
+[wait]Lyon.Hide(), [wait]Calyx.SetPosition(0.5)
+h(Calyx)
+enter Calyx [1:Calyx_shout] "I’m sorry, okay!? I panicked, so I got us here.{c}Would you rather go out there and search the whole place for your missing car than seek shelter elsewhere?"
+"If it bothered you so much that I didn’t tell you about my car running out of fuel, then I’ll just unlock these doors and go scavenging for your car, your aunt, and twins!" 
+"Go ahead, get yourself killed." 
+u(Calyx)
+
+[wait]Calyx.Hide()
+PlaySFX("CAR UNLOCKED")
+narrator "With a forceful click, he unlocked all the doors."
+
+[wait]Ysella.SetPosition(0.2)
+h(Ysella)
+enter Ysella [1:Ysella_pissed] "What the heck?!" 
+u(Ysella)
+
+narrator "I exclaimed, staring at him in disbelief."
+
+[wait]Ysella.Hide()
+h(Calyx)
+enter Calyx [1:Calyx_pissed] "Yes. What the heck, right? Get out." 
+
+narrator "he said flatly, exasperation evident in his tone."
+
+[wait]Calyx.Hide()
+h(Lyon)
+enter Lyon [1:Lyon_urgent] "Calm down, okay? Now is not the time for this," 
+u(Lyon)
+
+narrator "Dad interjected again, trying to diffuse the tension."
+
+[wait]Lyon.Hide()
+[wait]SetLayerMedia(background "13. CAR SEAT PASSENGER_")
+
+h(Ysella)
+enter Ysella [1:Ysella_resigned] "What are we gonna do now?" 
+
+narrator "I asked, panic rising as the snarls grew louder. I glanced at the back of the car and saw the herd of zombies parading the streets."
+
+[wait]SetLayerMedia(background "CAR GLOVE COMPARTMENT"), [wait]SetLayerMedia(cg "~/Graphics/Item Assets/zombie perf")
+narrator "Calyx instructed us to spray the perfume, handing me and Dad some gloves before putting one on himself."
+
+Calyx "Just spray the perfume now. Here, wear this."
+
+narrator "He said, urgency in his voice."
+
+Calyx "Trust me. I made that," 
+
+narrator "He added, nodding toward the can as he prepared himself."
+
+[wait]ClearLayerMedia(cg)
+[wait]SetLayerMedia(background "11. CAR VIEW FROM OUTSIDE FRONT")
+Ysella.SetPosition(0.2), Calyx.SetPosition(0.5), [wait]Lyon.SetPosition(0.75)
+
+show(Ysella Calyx Lyon), PlaySFX("Perfume Spray" -v 0.5)
+narrator "With a grunt, I sprayed the foul-smelling substance on myself, the stench overwhelming but necessary, and then passed it to them."
+
+narrator "I could see Dad grimace as he applied it, but we all knew it was our only chance.{c}As I looked out the window, the shadows of the zombies loomed closer, and I felt a surge of determination."
+
+h(Ysella)
+Ysella "Let’s do this," 
+u(Ysella -o false)
+
+narrator "I said, steeling myself for whatever lay ahead."
+
+[wait]hide(Lyon)
+narrator "As the foul stench settled on me, I felt my stomach churn. I pinched my nose and glared at Calyx."
+
+h(Ysella)
+Ysella [1:Ysella_mad] "This better work."
+u(Ysella)
+
+Calyx [1:Calyx_unsure] "Trust me, it will."
+u(Calyx -o false)
+
+narrator "Calyx said, though there was an edge in his voice."
+"He sounded unsure, but there was no time for doubt now."
+
+hide(Ysella Calyx), [wait]StopSFX("Zombie Horde 2"), [wait]StopSFX("Zombie Horde 2"), PlaySFX("Zombie Horde 2" -v 0.7)
+[wait]StopAmbience("SUSPENSE - Ambience 1")
+
+PlayAmbience("SUSPENSE - Ambience 4")
+[wait]SetLayerMedia(background "26. GAS STATION 3 ZOMBIES W CAR" -b fade4)
+"My dad opened the door cautiously, peeking out into the street."
+
+h(Lyon)
+enter Lyon [1:Lyon_serious] "Remember, slow movements. Act like them." 
+u(Lyon)
+
+narrator "His voice was calm, but I could see the tremor in his hand as he clutched the door handle."
+"The groaning of the undead grew louder, and my heart was thumping so fast I thought it might burst out of my chest.
+"I looked at the horde ahead of us—some were missing limbs, their faces distorted into expressions of hunger and pain."
+
+h(Lyon)
+Lyon "We’re going to walk through them." 
+u(Lyon)
+
+narrator "Dad whispered, his eyes focused ahead, not daring to look at me." 
+
+h(Lyon)
+Lyon "Head towards the alley across the street. We’ll look for another vehicle or shelter."
+u(Lyon)
+
+[wait]Lyon.Hide(), Calyx.Show(), u(Calyx)
+narrator "Calyx gave a stiff nod. 
+
+h(Calyx)
+Calyx [1:Calyx_default_openmouth] "Stick close. If one of them gets too close, just keep moving."
+u(Calyx)
+
+Show(Ysella Lyon), u(Ysella Calyx Lyon -o false), [wait]StopAmbience("SUSPENSE - Ambience 4"), PlayAmbience("SUSPENSE - Ambience 1" -v 0.6)
+narrator "I grabbed Dad’s hand and held on tightly.{c}I knew I had to be brave, but the sight of those lifeless creatures stumbling around made it almost impossible."
+
+narrator "Every step we took closer to them, I could feel the fear tightening in my chest."
+
+narrator "With every step, the stench of death kept getting stronger.{c}I tried to stay calm, breathing through my mouth to avoid gagging, but it was hard to pretend I was one of them.
+
+PlaySFX("FOOTSTEPS" -v 0.8 -lp true)
+narrator "My hands were shaking, my pulse racing with each step."
+
+hidedb()
+wait(1)
+
+[wait]ClearLayerMedia(background), PlaySFX("heartbeat-fast" -sv 0.3 -v 0.7 -lp true), wait(1)
+PlaySFX("jumpscare")
+[wait]SetLayerMedia(cg "ZOMBIE JUMPSCARE" -spd 2), PlaySFX("Zombie sound effect" -v 0.6), StopSFX("heartbeat-fast")
+narrator "One of the zombies shuffled right past me, its eyes lifeless, its mouth slightly agape. I could smell the decay, hear its ragged breathing.
+StopSFX("Zombie sound effect")
+
+narrator "The urge to run was overwhelming, but I forced myself to move slowly."
+[wait]Hide(Ysella Lyon Calyx)
+ClearLayerMedia(cg)
+
+[wait]SetLayerMedia(background "TRASH CAN KNOCKED")
+PlaySFX("Metal Trash Can" -v 0.8), PlaySFX("Zombie sound effect" -v 0.6)
+narrator "We were almost halfway through the horde when I heard a crash behind us."
+
+narrator "My heart froze, and I turned slowly to see a zombie knocking over a trash can. It snarled as its bloodshot eyes locked onto us."
+
+StopSFX("Zombie sound effect"), StopAmbience("SUSPENSE - Ambience 3"), StopSFX("Zombie Horde 2")
+StopSFX(FOOTSTEPS)
+hidedb(), [wait]ClearLayerMedia(background)
+wait(1)
+[wait]SetLayerMedia(foreground "CHAPTER 2 END")
+[wait]ClearLayerMedia(foreground)
+ReturnToMainMenu()

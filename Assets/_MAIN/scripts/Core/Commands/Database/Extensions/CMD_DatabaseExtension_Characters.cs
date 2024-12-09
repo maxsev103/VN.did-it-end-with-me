@@ -28,6 +28,8 @@ namespace COMMANDS
             database.AddCommand("hide", new Func<string[], IEnumerator>(HideAll));
             database.AddCommand("sort", new Action<string[]>(SortCharacters));
             database.AddCommand("highlight", new Func<string[], IEnumerator>(HighlightAll));
+            database.AddCommand("h", new Func<string[], IEnumerator>(HighlightAll));
+            database.AddCommand("u", new Func<string[], IEnumerator>(UnhighlightAll));
             database.AddCommand("unhighlight", new Func<string[], IEnumerator>(UnhighlightAll));
             database.AddCommand("flip", new Func<string[], IEnumerator>(FlipAll));
 

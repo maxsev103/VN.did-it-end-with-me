@@ -99,6 +99,17 @@ public class VNMenuManager : MonoBehaviour
             new UIConfirmationMenu.ConfirmationButton("No", null));
 
     }
+    public void Click_HomeMobile()
+    {
+        uiChoiceMenu.Show("Return to the main menu?",
+            new UIConfirmationMenu.ConfirmationButton("Yes", () =>
+            {
+                VN_Configuration.activeConfig.Save();
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu (Android)");
+            }),
+            new UIConfirmationMenu.ConfirmationButton("No", null));
+
+    }
 
     public void Click_Quit()
     {

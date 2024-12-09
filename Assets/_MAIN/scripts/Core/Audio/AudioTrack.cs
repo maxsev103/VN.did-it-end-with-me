@@ -42,6 +42,11 @@ public class AudioTrack
         return source;
     }
 
+    public void PlayDelayed(float delay)
+    {
+        source.PlayDelayed(delay);
+    }
+
     public void Play()
     {
         source.Play();

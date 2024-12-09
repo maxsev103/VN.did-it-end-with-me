@@ -1,3 +1,0 @@
-setlayermedia(background "10. HIGHWAY VIEW" -b fade6)
-playsong(Calm2 -v 0.2 -lp)
-

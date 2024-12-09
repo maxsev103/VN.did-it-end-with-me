@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VISUALNOVEL;
 
 namespace COMMANDS
 {
@@ -24,12 +25,14 @@ namespace COMMANDS
             // dialogue box controls
             database.AddCommand("showdb", new Func<string[], IEnumerator>(ShowDialogueBox));
             database.AddCommand("hidedb", new Func<string[], IEnumerator>(HideDialogueBox));
+            database.AddCommand("dbalpha", new Action<string>(SetDialogueBoxAlpha));
+            database.AddCommand("resetdbalpha", new Action<string>(ResetDialogueBoxAlpha));
 
             // file loading for branching paths
             database.AddCommand("load", new Action<string[]>(LoadNewDialogueFile));
 
             // system navigation
-            database.AddCommand("returntomainmenu", new Action<string[]>(ReturnToMainMenu));
+            database.AddCommand("returntomainmenu", new Func<string, IEnumerator>(ReturnToMainMenu));
         }
 
         private static void LoadNewDialogueFile(string[] data)
@@ -120,9 +123,49 @@ namespace COMMANDS
             yield return DialogueSystem.instance.Hide(speed, immediate);
         }
 
-        private static void ReturnToMainMenu(string[] data)
+        private static IEnumerator ReturnToMainMenu(string data)
         {
+            CanvasGroup main;
+            CanvasGroupController mainCG;
+
+            main = GraphicPanelManager.instance.GetPanel("cg").rootPanel.transform.parent.GetComponentInParent<CanvasGroup>();
+            mainCG = new CanvasGroupController(VNManager.instance, main);
+
+            mainCG.Hide(speed: 0.5f);
+            AudioManager.instance.StopTrack(0);
+
+            while (mainCG.isVisible)
+                yield return null;
+
+            VN_Configuration.activeConfig.Save();
+            VNGameSave.activeFile.AutoSave();
             UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
+
+        private static void SetDialogueBoxAlpha(string data)
+        {
+            float alpha;
+
+            if (float.TryParse(data, out alpha))
+            {
+                DialogueSystem.instance.dialogueContainer.SetDialogueBoxAlpha(alpha);
+                DialogueSystem.instance.dialogueContainer.nameContainer.SetNameBoxAlpha(alpha);
+                return;
+            }
+
+            Debug.LogError("Invalid value passed into command 'dbalpha'");
+        }
+
+        private static void ResetDialogueBoxAlpha(string data)
+        {
+            if (!(data == string.Empty))
+            {
+                Debug.LogError("Invalid parameters for command 'resetdbalpha'.");
+                return;
+            }
+
+            DialogueSystem.instance.dialogueContainer.ResetAlpha();
+            DialogueSystem.instance.dialogueContainer.nameContainer.ResetAlpha();
         }
     }
 }

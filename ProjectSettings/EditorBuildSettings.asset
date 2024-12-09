@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_MAIN/Scenes/MainMenu.unity
-    guid: fc85c9fe314e80341a876a67142d6591
+    path: Assets/_MAIN/Scenes/MainMenu (Android).unity
+    guid: 47e97e9b8c1be4e408297043b9b40ff5
   - enabled: 1
-    path: Assets/_MAIN/Scenes/VisualNovel.unity
-    guid: da0da72a62eb90242876fba31a9baf3b
+    path: Assets/_MAIN/Scenes/VisualNovel (Android).unity
+    guid: 7f0e8f8ad62ea394c9275bbeaf115b78
   m_configObjects: {}

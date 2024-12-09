@@ -141,7 +141,7 @@ public class GraphicObject
             panelManager.StopCoroutine(co_fadingIn);
 
         if (co_fadingOut != null)
-            return co_fadingIn;
+            return co_fadingOut;
 
         co_fadingOut = panelManager.StartCoroutine(Fading(0, speed, blend));
         

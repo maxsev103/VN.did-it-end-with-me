@@ -17,7 +17,7 @@ public class FilePaths
     public static readonly string resources_bgVideos = $"{resources_graphics}BG Videos/";
     public static readonly string resources_blendTextures = $"{resources_graphics}Transition Effects/";
     public static readonly string resources_uiElements = $"{resources_graphics}UI Elements/";
-    public static readonly string resources_gallery = $"{resources_graphics}Gallery";
+    public static readonly string resources_gallery = $"{resources_graphics}Gallery/";
 
     public static readonly string resources_audio = "Audio/";
     public static readonly string resources_sfx = $"{resources_audio}SFX/";

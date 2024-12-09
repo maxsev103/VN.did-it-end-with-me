@@ -8,7 +8,7 @@ public class ButtonBehaviors : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResources(FilePaths.resources_sfx, "switch sound 3"));
+        AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResources(FilePaths.resources_sfx, "switch sound 3"), volume: 0.7f);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -19,7 +19,7 @@ public class ButtonBehaviors : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
 
         anim.Play("Enter");
-        AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResources(FilePaths.resources_sfx, "switch sound 1"));
+        AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResources(FilePaths.resources_sfx, "switch sound 1"), volume: 0.7f);
         selectedButton = this;
     }
 

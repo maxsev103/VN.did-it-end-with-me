@@ -5,8 +5,14 @@ using VISUALNOVEL;
 
 public class AutoSaveManager : MonoBehaviour
 {
+    public static AutoSaveManager instance;
     public float saveInterval = 300f; // 5 minutes
     private bool isPaused = false;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {

@@ -35,10 +35,33 @@ public class MainMenu : MonoBehaviour
         uiChoiceMenu.Show("Do you want to start a new game?", new UIConfirmationMenu.ConfirmationButton("Yes", StartNewGame), new UIConfirmationMenu.ConfirmationButton("No", null));
     }
 
+    public void ClickStartNewGameMobile()
+    {
+        uiChoiceMenu.Show("Do you want to start a new game?", new UIConfirmationMenu.ConfirmationButton("Yes", StartNewGameMobile), new UIConfirmationMenu.ConfirmationButton("No", null));
+    }
+
     private void StartNewGame()
     {
         VNGameSave.activeFile = new VNGameSave();
         StartCoroutine(StartingGame());
+    }
+
+    public void StartNewGameMobile()
+    {
+        VNGameSave.activeFile = new VNGameSave();
+        StartCoroutine(StartingGameMobile());
+    }
+
+    private IEnumerator StartingGameMobile()
+    {
+        mainCG.Hide(speed: 0.5f);
+        AudioManager.instance.StopTrack(0);
+
+        while (mainCG.isVisible)
+            yield return null;
+
+        VN_Configuration.activeConfig.Save();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("VisualNovel (Android)");
     }
 
     public void LoadGame(VNGameSave file)
