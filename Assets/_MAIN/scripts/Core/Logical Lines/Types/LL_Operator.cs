@@ -34,6 +34,22 @@ namespace DIALOGUE.LogicalLines
             if (value == null)
                 yield break;
 
+            VariableStore.TryGetValue(variable, out object currentVal);
+            string variableType = currentVal.GetType().ToString();
+            
+            switch (variableType)
+            {
+                case "System.Int32":
+                    value = Convert.ToInt32(value);
+                    break;
+                case "System.Single":
+                    value = Convert.ToSingle(value);
+                    break;
+                default:
+                    Debug.Log($"Couldn't resolve type '{variableType}' to an accepted numeric variable type.");
+                    break;
+            }
+
             ProcessOperator(variable, op, value);
         }
 

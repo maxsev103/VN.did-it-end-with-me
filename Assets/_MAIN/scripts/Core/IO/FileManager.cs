@@ -119,8 +119,6 @@ public class FileManager
             sw.Close();
 
         }
-
-        Debug.Log($"Saved data to file '{filePath}'");
     }
 
     public static T Load<T>(string filePath, bool encrypt = false)

@@ -20,6 +20,8 @@ namespace HISTORY
         public Color speakerNameColor;
         public float speakerFontSize;
 
+        public float dialogueBoxAlpha;
+
         public static DialogueData Capture()
         {
             DialogueData data = new DialogueData();
@@ -38,6 +40,8 @@ namespace HISTORY
             data.speakerNameColor = nameText.color;
             data.speakerFontSize = nameText.fontSize;
 
+            data.dialogueBoxAlpha = ds.dialogueContainer.dialogueBoxAlpha;
+
             return data;
         }
 
@@ -50,6 +54,8 @@ namespace HISTORY
             ds.conversationManager.architect.SetText(data.currentDialogue);
             dialogueText.color = data.dialogueColor;
             dialogueText.fontSize = data.dialogueFontSize;
+
+            ds.dialogueContainer.SetDialogueBoxAlpha(data.dialogueBoxAlpha);
 
             nameText.text = data.currentSpeaker;
             if (nameText.text != string.Empty)

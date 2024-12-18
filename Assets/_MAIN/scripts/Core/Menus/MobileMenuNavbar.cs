@@ -5,17 +5,24 @@ using UnityEngine.UI;
 
 public class MobileMenuNavbar : MonoBehaviour
 {
+    public static MobileMenuNavbar instance;
+
     public Animator anim;
     public Button open;
     public Button close;
     public Button closeWholeScreen;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Open()
     {
         open.gameObject.SetActive(false);
         close.gameObject.SetActive(true);
         closeWholeScreen.gameObject.SetActive(true);
-        anim.Play("Open");
+        anim.SetTrigger("Open");
     }
 
     public void Close()
@@ -23,6 +30,6 @@ public class MobileMenuNavbar : MonoBehaviour
         close.gameObject.SetActive(false);
         closeWholeScreen.gameObject.SetActive(false);
         open.gameObject.SetActive(true);
-        anim.Play("Close");
+        anim.SetTrigger("Close");
     }
 }

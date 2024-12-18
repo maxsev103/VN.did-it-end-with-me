@@ -120,8 +120,6 @@ public class ConfigMenu : MenuPage
 
         public void SetButtonSelection(Button A, Button B, bool selectedA)
         {
-            Debug.Log($"SetButtonSelection called - A: {A.name}, B: {B.name}, selectedA: {selectedA}");
-
             if (A == null || B == null)
             {
                 Debug.LogError("Buttons are null!");
@@ -165,6 +163,8 @@ public class ConfigMenu : MenuPage
     public void ToggleFullscreen(bool fullscreen)
     {
         Screen.fullScreen = fullscreen;
+
+        VN_Configuration.activeConfig.display_fullscreen = fullscreen;
 
         if (ui.fullscreen != null && ui.windowed != null)
             ui.SetButtonSelection(ui.fullscreen, ui.windowed, fullscreen);

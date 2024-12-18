@@ -16,7 +16,7 @@ public class ChoicePanel : MonoBehaviour
     [SerializeField] private GameObject choiceButtonPrefab;
     [SerializeField] private VerticalLayoutGroup buttonLayoutGroup;
 
-    private CanvasGroupController cg = null;
+    public CanvasGroupController cg = null;
     private DialogueSystem dialogueSystem => DialogueSystem.instance;
     private List<ChoiceButton> buttons = new List<ChoiceButton>();
     public ChoicePanelDecision lastDecision { get; private set; } = null;

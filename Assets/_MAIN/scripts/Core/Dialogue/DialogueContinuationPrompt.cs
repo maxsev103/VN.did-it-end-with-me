@@ -36,7 +36,7 @@ namespace DIALOGUE
 
             Vector2 parentBottomRight = dialogueBoxRoot.rect.xMax * Vector2.right +
                       dialogueBoxRoot.rect.yMin * Vector2.up;
-            Vector2 offset = new Vector2(-70, 70);
+            Vector2 offset = new Vector2(-40, 50);
             float targetPosX = parentBottomRight.x + offset.x;
             float targetPosY = parentBottomRight.y + offset.y;
 

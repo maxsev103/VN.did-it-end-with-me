@@ -21,6 +21,7 @@ namespace COMMANDS
         {
             database.AddCommand("setlayermedia", new Func<string[], IEnumerator>(SetLayerMedia));
             database.AddCommand("clearlayermedia", new Func<string[], IEnumerator>(ClearLayerMedia));
+            database.AddCommand("setbg", new Func<string[], IEnumerator>(SetBackground));
         }
         
         private static IEnumerator SetLayerMedia(string[] data)
@@ -89,6 +90,92 @@ namespace COMMANDS
             }
 
             if (!immediate && blendTexName != string.Empty) {
+                blendtex = Resources.Load<Texture>(FilePaths.resources_blendTextures + blendTexName);
+            }
+
+            // try to get the layer to apply the media to
+            GraphicLayer graphicLayer = panel.GetLayer(layer, createIfNotExisting: true);
+
+            if (media is Texture)
+            {
+                if (!immediate)
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(() => { graphicLayer?.SetTexture(media as Texture, filePath: pathToMedia, immediate: true); });
+
+                yield return graphicLayer.SetTexture(media as Texture, transitionSpeed, blendtex, pathToMedia, immediate);
+            }
+            else
+            {
+                if (!immediate)
+                    CommandManager.instance.AddTerminationActionToCurrentProcess(() => { graphicLayer?.SetVideo(media as VideoClip, filePath: pathToMedia, immediate: true); });
+
+                yield return graphicLayer.SetVideo(media as VideoClip, transitionSpeed, useAudio, blendtex, pathToMedia, immediate);
+            }
+        }
+
+        private static IEnumerator SetBackground(string[] data)
+        {
+            int layer = 0;
+            string mediaName = "";
+            float transitionSpeed = 0;
+            bool immediate = false;
+            string blendTexName = "";
+            bool useAudio = false;
+
+            string pathToMedia = "";
+
+            UnityEngine.Object media = null;
+            Texture blendtex = null;
+
+            var parameters = ConvertDataToParameters(data);
+
+            GraphicPanel panel = GraphicPanelManager.instance.GetPanel("background");
+
+            if (panel == null)
+            {
+                Debug.LogError($"Unable to grab the background panel. Please check for any errors in assigning panels in the Graphic Panel Manager.");
+                yield break;
+            }
+
+            // try to get the layer to apply the graphic
+            parameters.TryGetValue(PARAM_LAYER, out layer, defaultValue: 0);
+
+            // try to get the media
+            parameters.TryGetValue(PARAM_MEDIA, out mediaName);
+
+            // try to get if this is an immediate effect or not
+            parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
+
+            //try to get the speed of the transition if it is not an immediate effect
+            if (!immediate)
+                parameters.TryGetValue(PARAM_SPEED, out transitionSpeed, defaultValue: 1f);
+
+            // try to get the blending texture for the media if provided
+            parameters.TryGetValue(PARAM_BLENDTEX, out blendTexName);
+
+            // if this is a video, try to get whether we use audio from the video or not
+            parameters.TryGetValue(PARAM_USEVIDEOAUDIO, out useAudio, defaultValue: false);
+
+            // run the logic to display this media
+            pathToMedia = FilePaths.GetPathToResources(FilePaths.resources_bgImages, mediaName);
+
+            // try to get the media as an image
+            media = Resources.Load<Texture>(pathToMedia);
+
+            if (media == null)
+            {
+                // if no image was found with that name, check if it is a video
+                pathToMedia = FilePaths.GetPathToResources(FilePaths.resources_bgVideos, mediaName);
+                media = Resources.Load<VideoClip>(pathToMedia);
+            }
+
+            if (media == null)
+            {
+                Debug.LogError($"Could not find media file called '{mediaName}' in the Resources directories. Please specify the full path within resources and make sure that the file exists!");
+                yield break;
+            }
+
+            if (!immediate && blendTexName != string.Empty)
+            {
                 blendtex = Resources.Load<Texture>(FilePaths.resources_blendTextures + blendTexName);
             }
 

@@ -13,7 +13,6 @@ namespace VISUALNOVEL
         private void Awake()
         {
             instance = this;
-            Debug.Log($"Starting file is called: {config.startingFile.name}");
             VNDatabaseLinkSetup linkSetup = GetComponent<VNDatabaseLinkSetup>();
             linkSetup.SetupExternalLinks();
 

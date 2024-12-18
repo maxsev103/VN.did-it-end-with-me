@@ -37,7 +37,7 @@ narrator "​​The sun hung low in the sky, casting a golden glow over the spra
 
 Calyx as Young Calyx "I dare you to climb to the top of that tree." 
 
-narrator "he challenged, nodding toward the towering oak."
+narrator "He challenged, nodding toward the towering oak."
 
 narrator "Ysella raised an eyebrow, a playful smirk forming on her lips." 
 
@@ -324,7 +324,7 @@ narrator "I exclaimed, staring at him in disbelief."
 h(Calyx)
 enter Calyx [1:Calyx_pissed] "Yes. What the heck, right? Get out." 
 
-narrator "he said flatly, exasperation evident in his tone."
+narrator "He said flatly, exasperation evident in his tone."
 
 [wait]Calyx.Hide()
 h(Lyon)
@@ -414,27 +414,25 @@ u(Calyx)
 
 Ysella.SetSprite(Ysella_scared -l 1)
 Show(Ysella Lyon), u(Ysella Calyx Lyon -o false), [wait]StopAmbience("SUSPENSE - Ambience 4"), PlayAmbience("SUSPENSE - Ambience 1" -v 0.6)
+PlaySFX("FOOTSTEPS" -v 0.8 -lp true)
 narrator "I grabbed Dad's hand and held on tightly.{c}I knew I had to be brave, but the sight of those lifeless creatures stumbling around made it almost impossible."
 
 narrator "Every step we took closer to them, I could feel the fear tightening in my chest."
 
 narrator "With every step, the stench of death kept getting stronger.{c}I tried to stay calm, breathing through my mouth to avoid gagging, but it was hard to pretend I was one of them."
 
-PlaySFX("FOOTSTEPS" -v 0.8 -lp true)
 narrator "My hands were shaking, my pulse racing with each step."
 
-hidedb()
-wait(1)
+hide(Calyx Ysella Lyon), hidedb()
 
-[wait]ClearLayerMedia(background), PlaySFX("heartbeat-fast" -sv 0.3 -v 0.7 -lp true), wait(5)
+[wait]ClearLayerMedia(background), PlaySFX("heartbeat-fast" -sv 0.3 -v 0.7 -lp true), wait(3)
 PlaySFX("jumpscare")
-[wait]SetLayerMedia(cg "ZOMBIE JUMPSCARE" -spd 2), PlaySFX("Zombie sound effect" -v 0.6), StopSFX("heartbeat-fast")
+[wait]SetLayerMedia(cg "ZOMBIE JUMPSCARE" -i true), PlaySFX("Zombie sound effect" -v 0.6), StopSFX("heartbeat-fast")
 narrator "One of the zombies shuffled right past me, its eyes lifeless, its mouth slightly agape. I could smell the decay, hear its ragged breathing."
 StopSFX("Zombie sound effect")
 
 narrator "The urge to run was overwhelming, but I forced myself to move slowly."
 Save()
-[wait]Hide(Ysella Lyon Calyx)
 ClearLayerMedia(cg)
 
 [wait]SetLayerMedia(background "TRASH CAN KNOCKED")
@@ -450,5 +448,5 @@ StopSFX(FOOTSTEPS)
 wait(3)
 ClearLayerMedia(foreground -spd 0.7)
 [wait]ClearLayerMedia(background -spd 0.7)
-
-ReturnToMainMenu()
+wait(1)
+Load("Chapter 3 - Tension in the Shadows")

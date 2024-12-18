@@ -1,6 +1,7 @@
 using DIALOGUE;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VNMenuManager : MonoBehaviour
 {
@@ -102,11 +103,13 @@ public class VNMenuManager : MonoBehaviour
 
     public void Close_Root()
     {
+        if (MobileMenuNavbar.instance != null)
+            MobileMenuNavbar.instance.Close();
+
         rootCG.Hide(speed: 2f);
         rootCG.SetInteractableState(false);
         isOpen = false;
     }
-
     
     public void Click_Home()
     {

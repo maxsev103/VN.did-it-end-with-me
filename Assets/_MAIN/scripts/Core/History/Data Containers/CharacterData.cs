@@ -62,8 +62,9 @@ namespace HISTORY
 
             foreach (var character in CharacterManager.instance.allCharacters)
             {
-                if (!character.isVisible)
-                    continue;
+                // why is this even here man
+                //if (!character.isVisible)
+                //    continue;
 
                 CharacterData entry = new CharacterData();
                 entry.characterName = character.name;

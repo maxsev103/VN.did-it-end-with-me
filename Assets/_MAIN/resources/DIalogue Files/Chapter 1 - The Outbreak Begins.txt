@@ -546,10 +546,11 @@ narrator "One of the twins piped up."
 
 Ashley "Me too, Dad." 
 
+PlaySFX("Car Arrive and Stop")
 narrator "The other twin chimed in, their voices filled with urgency."
 
 [wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
-[wait]Lyon.SetPosition(0.5), PlaySFX("Car Arrive and Stop")
+[wait]Lyon.SetPosition(0.5)
 h(Lyon)
 enter Lyon [1:Lyon_default] "Okay, we're stopping at the next fuel station. I don't think the zombies have reached there yet."
 u(Lyon)
@@ -564,6 +565,7 @@ PlaySFX("Car Door Open and Close" -v 0.6), wait(1), PlaySFX("Car Door Open and C
 narrator "He ushered the kids outside, instructing Aunt to accompany the twins while he scouted the area."
 "I stepped out too, drawn to the candy store adjacent to the fuel station."
 
+StopSFX("Car Arrive and Stop")
 PlayAmbience("Convenience Store Ambience" -v 0.6), PlaySFX("fluorescen light sound")
 [wait]SetLayerMedia(background "25. CONVENIENCE STORE (INTERIOR) 3" -b fade4), wait(1), [wait]SetLayerMedia(background "CANDY AISLE")
 
@@ -595,4 +597,4 @@ wait(3)
 ClearLayerMedia(foreground -spd 0.7)
 [wait]ClearLayerMedia(background -spd 0.7)
 wait(3)
-Load("Chapter 2 - Through The Horde")
+Load("Chapter 2 - Through the Horde")

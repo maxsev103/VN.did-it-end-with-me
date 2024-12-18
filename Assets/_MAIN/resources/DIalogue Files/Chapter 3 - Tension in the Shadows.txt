@@ -1,0 +1,570 @@
+PlaySFX("FOOTSTEPS" -v 0.8 -lp true), PlaySFX("Zombie Horde 2" -v 0.3), PlaySong("Tense BGM" -v 0.6)
+PlayAmbience("Night Ambience" -v 0.5)
+
+Calyx "Don't react."
+
+narrator "Calyx whispered harshly."
+
+Calyx "Keep walking."
+
+[wait]SetLayerMedia(cg "ZOMBIE JUMPSCARE")
+showdb()
+PlaySFX("Zombie sound effect" -v 0.3)
+narrator "But the zombie started to stumble towards us, its grotesque mouth open, teeth bared."
+"I gripped Dad's hand even tighter, my breaths coming out ragged as I tried to hold back the terror threatening to consume me."
+
+Save()
+choice "The zombie got closer, its groans getting louder as it sniffed the air around us."
+{
+	-Scream
+		$VN.SPValue = $VN.SPValue + 1
+		[wait]ClearLayerMedia(cg)
+		[wait]SetLayerMedia(background "ALLEYWAY WITH ZOMBIES")
+		StopSong("Tense BGM"), StopSFX("FOOTSTEPS"), StopSFX("Zombie sound effect"), StopSFX("Zombie Horde 2")
+
+		showdb()
+		narrator "I couldn't help it."
+		[wait]PlaySFX("GIRL SCREAM" -v 0.7)
+		"Panic surged through me, and before I could think, I let out a scream that echoed through the alley.{c}The sound pierced the air, and the zombie's head snapped in our direction, its eyes widening with hunger."
+
+		Ysella.SetSprite(Ysella_scaredshock -l 1)
+		Ysella.SetPosition(0.2), Calyx.SetPosition(0.75)
+		show(Ysella Calyx)
+
+		h(Calyx)
+		enter Calyx [1:Calyx_pissed] "Ysella!"
+		Calyx.Unhighlight()
+
+		narrator "Calyx hissed, his grip tightening on my arm."
+
+		h(Calyx)
+		Calyx "What are you doing?!"
+		Calyx.Unhighlight()
+
+		hide(Ysella Calyx)
+
+		PlaySFX("Zombie Horde 2" -v 0.5 -lp true)
+		narrator "But it was too late.{c}The horde, previously distracted, turned their attention toward us.{c}I could hear the guttural growls and shuffling footsteps growing louder.{c}My heart raced as I realized the danger I had just unleashed."
+
+		Calyx.SetPosition(0.5)
+		h(Calyx), [wait]Calyx.Show(), Calyx.Animate(Hop)
+		Calyx [1:Calyx_shout] "Run!"
+		u(Calyx)
+
+		Calyx.Hide()
+		PlaySFX("Group Run Sfx" -v 0.7 -lp true), PlaySong("HORROR - Chase BGM" -v 0.6)
+
+		[wait]SetLayerMedia(background "ALLEYWAY" -b fade11 -spd 1.5)
+
+		narrator "We sprinted down the alley, the sound of our footsteps drowned out by the chaos behind us."
+		"I could feel the heat of their breath on my neck as I glanced back, terror gripping me."
+
+		Calyx.SetPosition(0.2), Ysella.SetPosition(0.45), Lyon.SetPosition(0.8)
+		Ysella.SetSprite(Ysella_scared -l 1), Lyon.SetSprite(Lyon_scared -l 1)
+		Calyx.Flip(), Ysella.Flip()
+		show(Calyx Ysella Lyon)
+		
+		h(Calyx)
+		Calyx [1:Calyx_urging] "Why did you scream!? We had a chance!"
+		Calyx.Unhighlight()
+
+		narrator "Calyx yelled, glancing over his shoulder."
+
+		h(Ysella)
+		Ysella [1:Ysella_troubled] "I'm sorry! I couldn't help it!"
+		"What do we do now?"
+		u(Ysella -o false)
+
+		hide(Ysella Calyx Lyon)
+		[wait]SetLayerMedia(background "ALLEYWAY DOOR" -b fade11 -spd 1.5)
+		narrator "As we rounded a corner, I spotted a door slightly ajar."
+
+		Ysella "In there!"
+
+		narrator "I shouted, pointing."
+		StopSFX("Group Run Sfx"), StopAmbience("Night Ambience"), PlayAmbience("Room Ambience")
+		"We ducked inside, slamming the door behind us and leaning against it, breathless and terrified."
+
+		StopSong("HORROR - Chase BGM")
+		Calyx.SetPosition(1.5), Ysella.SetPosition(1.5), Lyon.SetPosition(1.5)
+		[wait]SetLayerMedia(background "RUNDOWN ROOM" -b fade11 -spd 1.5)
+
+		Lyon.Flip(), Ysella.Flip()
+		Ysella.Move(0.1 -spd 1.5), Lyon.Move(0.45 -spd 1.5), Calyx.Move(0.8 -spd 1.5)
+		Lyon.SetSprite(Lyon_serious -l 1), Ysella.SetSprite(Ysella_resigned -l 1)
+		show(Calyx Lyon Ysella), PlayAmbience("SUSPENSE - Ambience 1" -c 2 -v 0.5)
+
+		h(Calyx)
+		Calyx [1:Calyx_shock] "Now we wait."
+		u(Calyx -o false)
+
+		narrator "Calyx said, his voice low and steady despite the panic in his eyes."
+
+		h(Calyx)
+		Calyx [1:Calyx_resigned] "But we have to be ready to fight if they break through."
+		[wait]u(Calyx -o false)
+
+		StopSFX("Zombie Horde 2")
+		hide(Calyx Ysella Lyon)
+
+		[wait]ClearLayerMedia(background), wait(1)
+		[wait]SetLayerMedia(background "RUNDOWN ROOM" -b radialClock)
+		narrator "After a few tense moments, the sounds of the horde faded into the distance, replaced by an eerie silence.{c}I exchanged glances with my dad and Calyx, and I felt the weight of the moment settle around us."
+
+		[wait]Lyon.SetSprite(Lyon_default -l 1)
+		show(Calyx Ysella Lyon)
+
+		h(Ysella)
+		Ysella [1:Ysella_troubled] "Do you think they're gone?"
+		u(Ysella -o false)
+
+		narrator "I asked, my voice barely a whisper."
+		"Calyx nodded, his expression thoughtful."
+
+		h(Calyx)
+		Calyx [1:Calyx_calm] "Let's take a look. We can't stay cooped up forever."
+		u(Calyx -o false)
+
+		hide(Calyx Ysella Lyon)
+		[wait]SetLayerMedia(background "ALLEYWAY" -b fade4), [wait]StopAmbience("Room Ambience")
+		PlayAmbience("Night Ambience" -v 0.6), PlaySFX("METAL DOOR" -v 0.5)
+		narrator "My dad pushed against the door, peering out cautiously."
+
+		Lyon "I'll go first. Stay close behind me."
+
+		narrator "He instructed, stepping out into the dim light of the alley."
+		"As he scanned the area, I took a deep breath and followed, Calyx right beside me."
+		"The coast seemed clear, and I felt a flicker of hope."
+
+		Lyon "Okay, let's move."
+
+		narrator "My dad said, gesturing for us to follow him into the open."
+		Lyon.Flip()
+
+	-Don't react
+		$VN.SPValue = $VN.SPValue + 5
+		PlaySFX("heartbeat" -v 0.7 -lp true)
+		narrator "I felt the surge of panic rise within me, but I forced myself to breathe deeply. Calyx's calm presence steadied me, and I focused on his words."
+
+		"(Don't react.)"
+
+		narrator "I whispered to myself, willing my body to remain still."
+		
+		[wait]ClearLayerMedia(cg)
+		[wait]SetLayerMedia(background "ALLEYWAY WITH ZOMBIES"),
+		narrator "As the zombie snarled and lunged at the trash can, I kept my eyes forward, walking as if nothing was wrong."
+		"I could feel Calyx's presence beside me, his body tense but purposeful."
+		"We moved slowly, deliberately, as if we were merely passing through an ordinary alley."
+
+		[wait]SetLayerMedia(background "ALLEYWAY WITH DEADMA ZOMBIES_")
+		"The zombie's gaze lingered on us, but it seemed to lose interest, distracted by the noise of the overturned trash can."
+		StopSFX("heartbeat"), StopSFX("Zombie sound effect")
+		"I dared to glance at Calyx, who gave me a subtle nod, a flicker of pride in his eyes."
+
+		StopSFX("Zombie Horde 2"), StopSong("Tense BGM")
+		PlayAmbience("SUSPENSE - Ambience 4" -v 0.6 -c 2) 
+		
+		[wait]Calyx.Flip(), [wait]Ysella.Flip()
+		Calyx.SetPosition(0.2), Ysella.SetPosition(0.45), Lyon.SetPosition(0.8)
+		Lyon.SetSprite(Lyon_troubles -l 1), Ysella.SetSprite(Ysella_troubled -l 1)
+		show(Calyx Ysella Lyon)
+
+		h(Calyx)
+		Calyx [1:Calyx_default] "Good."
+		u(Calyx -o false)
+
+		narrator "He murmured, barely above a whisper."
+
+		h(Calyx)
+		Calyx [1:Calyx_halflidded_eyes] "Just keep walking."
+		u(Calyx -o false)
+		
+		hide(Calyx Ysella Lyon)
+
+		[wait]SetLayerMedia(background "ALLEYWAY")
+		showdb()
+		narrator "With each step, I felt the panic fade, replaced by a sense of resolve. We were a team, and I had to trust him."
+		"I focused on the path ahead, the flickering lights of the street beyond guiding us."
+
+		Calyx.SetPosition(0.8), Ysella.SetPosition(0.4), Lyon.SetPosition(0.15)
+		[wait]Ysella.Flip()
+
+		show(Calyx Ysella Lyon)
+		Calyx.SetSprite(Calyx_base2 -l 0), Lyon.SetSprite(Lyon_resigned -l 1)
+		"As we neared the end of the alley, I felt a rush of relief."
+
+		h(Ysella), StopSFX("FOOTSTEPS")
+		Ysella [1:Ysella_happy] "We made it."
+		u(Ysella -o false)
+
+		narrator "Calyx turned to me, a small smile breaking through the tension."
+
+		h(Calyx)
+		Calyx [1:Calyx_calm] "You did well, Ysella."
+		"Remember, staying calm is our best weapon."
+		u(Calyx -o false)
+
+		narrator "I nodded, feeling a newfound strength within me."
+
+		h(Ysella)
+		Ysella "Let's keep moving."
+		u(Ysella -o false)
+		StopAmbience("SUSPENSE - Ambience 4")
+}
+
+PlayAmbience("SUSPENSE - Ambience 5" -v 0.5 -c 2)
+hide(Calyx Ysella Lyon)
+[wait]SetLayerMedia(background "ALLEYWAY END" -b fade4)
+showdb()
+narrator "We barreled down the street, leaving the growls and screeches of the undead far behind us."
+
+Ysella "That was close." 
+
+narrator "I whispered, barely able to contain my relief."
+
+[wait]Lyon.Flip()
+show(Calyx Ysella Lyon)
+narrator "Dad nodded, his expression still taut with worry."
+
+Ysella.SetSprite(Ysella_troubled -l 1)
+h(Lyon)
+Lyon [1:Lyon_troubled] "Now what?"
+u(Lyon -o false)
+
+h(Calyx)
+Calyx [1:Calyx_halflidded_eyes] "We need another car, something with fuel. There should be a lot around here; this area wasn't hit as hard as the others,"
+u(Calyx -o false)
+
+narrator "Calyx replied, his voice low."
+
+Calyx.SetSprite(Calyx_base -l 0)
+"He wiped the sweat from his brow, his eyes scanning the dimly lit street ahead."
+
+h(Ysella)
+Ysella [1:Ysella_sad] "What about Aunt and the twins?" 
+u(Ysella -o false)
+
+narrator "I asked, my voice cracking as the weight of the situation settled over me again."
+"The thought of leaving them behind, of not knowing what had happened to them, gnawed at my insides."
+
+Calyx.SetSprite(Calyx_base2 -l 0)
+"Dad looked torn, his jaw clenched. He turned to me, his eyes filled with anguish." 
+
+h(Lyon)
+Lyon "We have to move forward, Ysella.{c}We'll find them, but we can't stay here."
+u(Lyon -o false)
+
+narrator "I nodded, biting back the tears threatening to spill again.{c}I didn't want to leave.{c}I didn't want to accept that they might be gone."
+"But there was no choice. Survival meant hard decisions."
+
+hide(Calyx Ysella Lyon)
+narrator "Calyx took the lead again, guiding us through the streets."
+
+[wait]SetBG("29. ABANDONED CITY" -b fade4)
+"We passed abandoned cars, their windows shattered, belongings scattered on the ground like remnants of a life that no longer existed."
+
+[wait]SetBG("30. GAS STATION W SUV" -b fade4)
+narrator "After a few tense minutes, Calyx stopped in front of a small SUV parked behind a gas station."
+
+[wait]SetBG("31. GAS STATION W SUV CLOSE UP" -b fade4)
+narrator "It looked relatively untouched. He tried the door-unlocked."
+
+PlaySFX(closing-car-door), Calyx.SetPosition(0.5), Calyx.Flip()
+[wait]SetBG("12. CAR SEAT DRIVER")
+enter Calyx [0:Calyx_base,1:Calyx_default] "We're in luck." 
+
+narrator "He said quietly. He opened the driver's side and slid in, checking the gas gauge."
+
+[wait]SetLayerMedia(cg "~/Graphics/Item Assets/gas gauge")
+Calyx "Half a tank. We'll make it far with this."
+[wait]ClearLayerMedia(cg)
+
+hide(Calyx)
+[wait]SetBG("SUV BACKSEAT")
+narrator "Dad ushered me into the backseat, and I buckled in, my body still trembling from the close encounter."
+
+PLaySFX("ENGINE START" -v 0.6), wait(1), PlayAmbience("Car Driving Ambience" -v 0.6)
+narrator "As Calyx started the engine, the low hum was a welcome sound amidst the chaos of snarls and footsteps fading in the distance."
+
+Save()
+PlaySFX("NOT ANGYYY DOG" -v 0.4), createcharacter(Coal), Coal.SetPosition(0.5)
+[wait]SetBG("30. GAS STATION W SUV" -b fade11 -spd 1.5)
+narrator "Just as we were about to pull away, a frantic barking echoed from the shadows."
+
+Coal.Show()
+narrator "I turned to see a large black dog darting toward us, its thick fur matted and eyes wide with fear."
+"It skidded to a stop beside the car, looking up at us with desperate hope."
+
+Ysella "Should we let it in?" 
+
+narrator "I asked, my heart aching at the sight of the frightened creature."
+"Calyx hesitated, glancing at the dog."
+
+Calyx "We can't just leave it here." 
+
+narrator "He said, his voice filled with urgency."
+
+PlaySFX("CAR OPEN DOOR")
+"Without waiting for a reply, he leaned over and opened the door."
+
+hide(Coal)
+[wait]SetBG("CAR FOOTWELL")
+narrator "The dog jumped in, panting heavily, as if it had been running for its life."
+
+show(Coal)
+narrator "It settled in the footwell, looking up at us with a mix of gratitude and fear."
+
+hide(coal)
+StopAmbience("SUSPENSE - Ambience 5"), PlaySong("Filaments" -v 0.4)
+[wait]ClearLayerMedia(background)
+narrator "We drove off into the night, leaving behind the wreckage, the screams, and the uncertainty."
+"My heart ached for Aunt and the twins, but I clung to the hope that somehow, we'd reunite."
+"For now, though, all I could do was be brave. Just like Dad told me."
+"At that moment, I promised myself I wouldn't let fear stop me.{c}Not from finding them, not from surviving, and not from fighting until the end."
+
+[wait]SetBG("BLURRY STREETLIGHT VIEW" -b fade4)
+narrator "The streets blurred by as we sped into the night, the car's headlights cutting through the darkness."
+"My thoughts were a chaotic jumble, replaying the events that had just unfolded."
+"I leaned my head against the cool window, seeking solace in the chill."
+
+Ysella "Where are we going?"
+
+narrator "I asked, breaking the silence."
+
+[wait]SetBG("12. CAR SEAT DRIVER")
+h(Calyx)
+enter Calyx [1:Calyx_default] "Anywhere but here."
+u(Calyx)
+
+narrator "Calyx replied, his grip tightening on the steering wheel."
+
+h(Calyx)
+Calyx [1:Calyx_openmouth] "We'll find a safe spot to regroup." 
+u(Calyx)
+
+narrator "I could see the determination in his eyes, mirroring the resolve building within me."
+"We were in this together, and I had to trust that we'd figure it out."
+
+hide(Calyx)
+narrator "The wind whipped past, carrying with it the scent of rain. I felt the weight of uncertainty settle on my shoulders."
+
+[wait]SetBG("15. CAR WINDOW VIEW")
+enter Ysella [1:Ysella_sad] "Do you think they're okay?" 
+
+narrator "I asked, my voice barely a whisper."
+
+narrator "Calyx glanced at me, his expression softening."
+
+hide(Ysella)
+[wait]SetBG("12. CAR SEAT DRIVER")
+enter Calyx [1:Calyx_happy] "We'll find them. I promise."
+
+hide(Calyx)
+[wait]SetBG("CAR FOOTWELL")
+
+Coal.Show()
+narrator "The dog sat quietly in the footwell, its massive head resting on its paws."
+"It seemed to understand the urgency of our situation, and a quiet calm settled over the car."
+"The tension in the air eased slightly, replaced by a sense of shared purpose."
+
+PlaySFX("Dog Happy Sound")
+narrator "I reached out and gently stroked the dog's head, offering a small comfort."
+"It turned its head to look at me, its black eyes filled with an unreadable depth."
+"The dog was a silent companion in our journey, a symbol of hope and resilience."
+
+hide(Coal)
+[wait]SetBG("BLURRY STREETLIGHT VIEW")
+narrator "In the darkness outside, the city was a maze of shadows and danger. But inside the car, there was a fragile sense of unity, of shared hardship and determination."
+"The dog, a stranger only moments before, had become a symbol of our own fight for survival. We were not alone."
+"The road ahead was uncertain, but for now, we were moving, and we were together."
+
+narrator "As we drove deeper into the night, the distant sounds of chaos faded, replaced by the steady rhythm of our breaths."
+
+[wait]ClearLayerMedia(background)
+"I closed my eyes for a moment, grounding myself in the promise of survival, the flickering hope that fueled my resolve."
+"The road eventually narrowed, leading us away from the town and into the dense embrace of the forest."
+
+PlaySFX("Car Arrive and Stop")
+[wait]SetBG("32. SMALL STORE" -b fade4)
+"Just as the buildings began to fade into the distance, I spotted a small, dilapidated store on the side of the road, its flickering neon sign barely illuminating the darkness."
+
+Calyx "Let's check it out."
+
+narrator "Calyx suggested, his voice laced with cautious optimism."
+
+Calyx "We might find some supplies."
+
+PlaySFX("Car Door Open and Close"), StopAmbience("Car Driving Ambience"), StopSong("Filaments"), StopSFX("Car Arrive and Stop")
+narrator "He slowed the car and parked, and we stepped out into the cool night air."
+
+narrator "Dad remained in the car to keep watch along with Coal- we decided to name the dog that."
+"He stared out the window, his dark eyes reflecting the flickering neon sign."
+"His presence was reassuring, a silent guardian against the encroaching darkness."
+
+Ysella.SetSprite(Ysella_default -l 1), Calyx.SetSprite(Calyx_default -l 1)
+Ysella.SetPosition(0.2), Calyx.SetPosition(0.8), [wait]Calyx.Flip()
+show(Ysella Calyx)
+
+"The forest was alive with the sounds of rustling leaves and distant chirps, but the store stood eerily silent, its windows dark and cracked."
+"My heart raced with both fear and curiosity." 
+
+h(Ysella)
+Ysella [1:Ysella_troubled] "What if they find us here?"
+u(Ysella)
+
+Calyx [1:Calyx_calm] "We'll be careful." 
+u(Calyx -o false)
+
+narrator "Calyx assured me, glancing around as we approached the entrance." 
+
+h(Calyx)
+Calyx "But we need to see what's inside."
+u(Calyx -o false)
+
+hide(Calyx Ysella)
+[wait]SetBG("33. SMALL STORE INTERIOR" -b fade4), PlaySFX("Glass Door Opening"), PlayAmbience("SUSPENSE - Ambience 4" -c 2 -v 0.6)
+StopAmbience("Night Ambience")
+narrator "As we pushed open the creaking door, the smell of dust and decay filled the air."
+PlaySFX("FOOTSTEPS" -v 0.3)
+"We stepped inside, the dim light revealing empty shelves and scattered debris."
+
+PlaySFX("Cloth Rustling"), StopSFX("FOOTSTEPS")
+"Just as I began to feel a sense of calm, a sudden rustling from the back of the store caught our attention."
+
+Calyx.SetSprite(Calyx_base2 -l 0), Calyx.SetSprite(Calyx_unsure -l 1), Ysella.SetSprite(Ysella_shock -l 1)
+show(Calyx Ysella)
+
+h(Ysella)
+Ysella "Did you hear that?" 
+u(Ysella -o false)
+
+narrator "Before we could react, a group of rough-looking survivors emerged from the shadows, their faces hardened and eyes cold."
+"They were armed, and the tension in the air became palpable."
+
+Calyx.Move(0.7), Ysella.Move(0.35), Calyx.SetPriority(5)
+
+h(Calyx)
+Calyx [1:Calyx_halflidded_eyes] "Looks like we're not alone."
+u(Calyx -o false)
+
+narrator "Calyx said, his body tensing as he positioned himself protectively in front of me."
+
+Survivor "Hey!" 
+
+narrator "One of the men called out, stepping forward, his voice dripping with hostility."
+
+Survivor "What are you doing here?"
+
+narrator "I felt a knot form in my stomach as I realized we were cornered. 
+
+h(Ysella)
+Ysella [1:Ysella_sad] "We're just passing through. We're looking for supplies."
+u(Ysella -o false)
+
+narrator "The man let out a harsh laugh, glancing at his companions."
+
+Survivor "Supplies? You think we're just going to let you waltz in and take what's ours?"
+
+narrator "Calyx stepped forward, his voice calm but firm." 
+
+h(Calyx)
+Calyx [1:Calyx_default_openmouth] "We don't want trouble. We're just trying to survive, like everyone else."
+"We've seen the chaos out there. We're all in the same boat."
+u(Calyx -o false)
+Calyx.SetSprite(Calyx_default -l 1)
+
+narrator "The man's expression shifted slightly, a flicker of understanding crossing his face."
+
+Survivor "And what makes you think we'll just let you take what you want?"
+
+h(Ysella)
+Ysella [1:Ysella_neutralopenmouth] "Because we know what it's like." 
+"We've lost people too. We're not here to fight or take what isn't ours. We just need enough to keep going."
+"If you let us take what we need, we can keep moving and avoid drawing attention to this place."
+u(Ysella -o false)
+Ysella.SetSprite(Ysella_default -l 1)
+
+narrator "Calyx nodded in agreement."
+
+h(Calyx)
+Calyx [1:Calyx_default_openmouth] "We're all trying to survive in this hellhole. If we can help each other, it's better for everyone."
+u(Calyx -o false), Calyx.SetSprite(Calyx_default -l 1)
+
+narrator "The leader of the group hesitated, looking at his companions. After a tense moment, he lowered his weapon slightly."
+
+Survivor "Alright. Take what you need, but be quick about it. We can't afford to attract any unwanted attention."
+
+narrator "Relief washed over me, but I remained cautious." 
+
+h(Ysella)
+Ysella [1:Ysella_calm] "Thank you. We won't be long."
+u(Ysella -o false)
+Ysella.SetSprite(Ysella_default -l 1)
+
+[wait]SetLayerMedia(cg "~/Graphics/Item Assets/supplies")
+narrator "We moved through the store, gathering what we could-canned food, a couple of water bottles, and a few first-aid supplies."
+[wait]ClearLayerMedia(cg)
+
+narrator "The other survivors watched us closely, their expressions a mix of wariness and reluctant acceptance."
+"Once we had what we needed, we returned to the front of the store."
+
+h(Calyx)
+Calyx [1:Calyx_calm] "We appreciate this.{c}We'll be on our way now."
+u(Calyx -o false)
+
+Survivor "Just remember, we're all in this together." 
+
+narrator "The leader replied, his voice softer now."
+
+Survivor "Stay safe out there."
+
+hide(Calyx Ysella)
+[wait]SetBG("32. SMALL STORE" -b fade4)
+PlaySFX("Glass Door Opening"), PlayAmbience("Night Ambience" -v 0.6), StopAmbience("SUSPENSE - Ambience 4")
+narrator "As we stepped back outside, the cool night air felt like a breath of fresh hope."
+"I glanced back at the store, gratitude swelling in my chest for the understanding we had found."
+
+[wait]PlaySFX("Car Door Open and Close"), PlaySFX(closing-car-door)
+[wait]SetBG("15. CAR WINDOW VIEW")
+Ysella.SetPosition(0.5), [wait]Ysella.Flip()
+narrator "As we climbed into the car, I allowed myself a small smile."
+
+h(Ysella)
+enter Ysella [1:Ysella_happy] "We did it."
+u(Ysella)
+
+PlaySFX("ENGINE START" -v 0.5), PlayAmbience("Car Driving Ambience" -c 2 -v 0.6)
+narrator "Calyx nodded, starting the engine."
+
+Calyx "But we need to stay vigilant. This world is unpredictable."
+hide(Ysella)
+
+[wait]SetBG("BLURRY STREETLIGHT VIEW" -b fade4)
+narrator "As we drove away from the store, the weight of our narrow escape hung in the air, mingling with the relief of having secured some supplies."
+"The road ahead was dark and winding, the trees looming like silent sentinels on either side."
+
+Calyx.SetPosition(0.5), Calyx.SetSprite(Calyx_base2 -l 0), Calyx.SetSprite(Calyx_default -l 1)
+[wait]SetBG("12. CAR SEAT DRIVER")
+Calyx.Show()
+"I stole a glance at Calyx, who was focused on the road, his jaw set in determination."
+hide(Calyx)
+
+Save()
+[wait]SetBG("BLURRY STREETLIGHT VIEW")
+Lyon "We should find a place to rest."
+
+narrator "Dad said after a few moments, breaking the silence."
+
+Lyon "Somewhere off the main road, away from prying eyes."
+
+narrator "I nodded, feeling the fatigue seep into my bones."
+
+Ysella "Agreed. Let's just keep moving until we find a good spot."
+[wait]ClearLayerMedia(background), hidedb()
+StopAmbience("Car Driving Ambience"), StopAmbience("Night Ambience")
+[wait]SetLayerMedia(foreground "CHAPTER 3 END" -spd 0.7)
+wait(3)
+[wait]ClearLayerMedia(foreground)
+wait(1)
+ReturnToMainMenu()
+

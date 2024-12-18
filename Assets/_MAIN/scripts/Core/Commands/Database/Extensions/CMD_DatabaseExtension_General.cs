@@ -178,5 +178,6 @@ namespace COMMANDS
             DialogueSystem.instance.dialogueContainer.ResetAlpha();
             DialogueSystem.instance.dialogueContainer.nameContainer.ResetAlpha();
         }
+
     }
 }

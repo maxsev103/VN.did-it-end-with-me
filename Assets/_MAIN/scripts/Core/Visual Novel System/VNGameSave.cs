@@ -57,7 +57,6 @@ namespace VISUALNOVEL
             timestamp = DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
 
             // this expects all the chapter files to be written in this format "Chapter N - <Title>" and splits it by the '-' sign
-            Debug.Log($"File name to split: {DialogueSystem.instance.conversationManager.conversation.file}");
 
             string chapterFile = DialogueSystem.instance.conversationManager.conversation.file;
             int splitIndex = chapterFile.IndexOf('-');
@@ -94,6 +93,9 @@ namespace VISUALNOVEL
             SetVariableData();
 
             SetConversationData();
+
+            if (DialogueSystem.instance.conversationManager.isOnLogicalLine && ChoicePanel.instance.cg.isVisible)
+                ChoicePanel.instance.Hide();
 
             DialogueSystem.instance.prompt.Hide();
         }

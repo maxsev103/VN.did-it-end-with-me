@@ -182,12 +182,17 @@ public class GraphicObject
 
         if (target == 0)
         {
-            Destroy();
+            if (renderer != null)
+                Destroy();
         } 
         else {
             DestroyBackgroundGraphicsOnLayer();
-            renderer.texture = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
-            renderer.material = null;
+
+            if (renderer != null)
+            {
+                renderer.texture = renderer.material.GetTexture(MATERIAL_FIELD_MAINTEX);
+                renderer.material = null;
+            }
         }
     }
 
