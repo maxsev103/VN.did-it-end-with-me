@@ -15,6 +15,7 @@ namespace DIALOGUE
         [SerializeField] private GameObject root;
         public Image nameBox;
         [field:SerializeField] public TextMeshProUGUI nameText { get; private set; }
+        public float nameBoxAlpha => nameBox.color.a;
 
         public void SetNameColor(Color color) => nameText.color = color;
         public void SetNameFont(TMP_FontAsset font) => nameText.font = font;

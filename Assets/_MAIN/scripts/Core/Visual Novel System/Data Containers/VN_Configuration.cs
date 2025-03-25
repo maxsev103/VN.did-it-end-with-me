@@ -1,10 +1,4 @@
-using DIALOGUE;
-using HISTORY;
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class VN_Configuration
@@ -42,11 +36,9 @@ public class VN_Configuration
         ConfigMenu.instance.ToggleFullscreen(display_fullscreen);
 
         // set screen resolution
-        
         int resIndex = 0;
         if (ui.resolutions != null)
         {
-            
             for (int i = 0; i < ui.resolutions.options.Count; i++)
             {
                 string resolution = ui.resolutions.options[i].text;

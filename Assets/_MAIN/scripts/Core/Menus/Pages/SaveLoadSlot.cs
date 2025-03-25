@@ -16,10 +16,11 @@ public class SaveLoadSlot : MonoBehaviour
 
     [HideInInspector] public int fileNumber = 0;
     [HideInInspector] public string filePath = "";
+    public int pageNumber;
 
     private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
 
-    private bool isAutoSaveSlot => fileNumber == 1;
+    private bool isAutoSaveSlot => pageNumber == 1 && fileNumber == 1;
 
     public void PopulateDetails(SaveandLoadMenu.MenuFunction function)
     {
@@ -36,7 +37,7 @@ public class SaveLoadSlot : MonoBehaviour
 
     private void PopulateDetailsFromFile(SaveandLoadMenu.MenuFunction function, VNGameSave file)
     {
-        if (file == null)
+        if (file == null) // if there is no save file
         {
             if (isAutoSaveSlot)
             {
@@ -102,7 +103,6 @@ public class SaveLoadSlot : MonoBehaviour
         deleteButton.gameObject.SetActive(false);
         saveSlotButton.onClick.RemoveAllListeners();
 
-        // never add the onClick Save listener so that players cant overwrite the autosave
         if (function == SaveandLoadMenu.MenuFunction.Save)
         {
             saveSlotButton.interactable = false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class SaveandLoadPageNavbar : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class SaveandLoadPageNavbar : MonoBehaviour
             var pageButton = pageNavigationButtons[i];
             var text = pageButton.GetComponentInChildren<TextMeshProUGUI>();
 
-            if ((i + 1) == selectedPage)
+            if (text.text == selectedPage.ToString())
             {
                 text.color = textSelectedColor;
                 continue;
@@ -85,16 +86,21 @@ public class SaveandLoadPageNavbar : MonoBehaviour
         menu.PopulateSaveSlotsForPage(selectedPage);
     }
 
+    // BUG: if-statement to increment and decrement navbar pages executes regardless and does not follow the logic stated
     public void ToNextPage()
     {
         if (selectedPage < maxPages)
+        {
             SelectSaveFilePage(selectedPage + 1);
+        }
     }
 
     public void ToPrevPage()
     {
         if (selectedPage > 1)
+        {
             SelectSaveFilePage(selectedPage - 1);
+        }
 
     }
 }

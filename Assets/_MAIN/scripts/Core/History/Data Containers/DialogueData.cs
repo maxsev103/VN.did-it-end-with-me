@@ -21,6 +21,10 @@ namespace HISTORY
         public float speakerFontSize;
 
         public float dialogueBoxAlpha;
+        public float nameBoxAlpha;
+
+        public bool isOnLogicalLine = false;
+        public bool isWaitingForUserChoice = false;
 
         public static DialogueData Capture()
         {
@@ -41,6 +45,9 @@ namespace HISTORY
             data.speakerFontSize = nameText.fontSize;
 
             data.dialogueBoxAlpha = ds.dialogueContainer.dialogueBoxAlpha;
+            data.nameBoxAlpha = ds.dialogueContainer.nameContainer.nameBoxAlpha;
+
+            data.isOnLogicalLine = ds.conversationManager.isOnLogicalLine;
 
             return data;
         }
@@ -56,6 +63,9 @@ namespace HISTORY
             dialogueText.fontSize = data.dialogueFontSize;
 
             ds.dialogueContainer.SetDialogueBoxAlpha(data.dialogueBoxAlpha);
+            ds.dialogueContainer.nameContainer.SetNameBoxAlpha(data.nameBoxAlpha);
+
+            ds.conversationManager.isOnLogicalLine = data.isOnLogicalLine;
 
             nameText.text = data.currentSpeaker;
             if (nameText.text != string.Empty)

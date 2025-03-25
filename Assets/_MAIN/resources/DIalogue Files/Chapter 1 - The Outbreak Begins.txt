@@ -377,7 +377,7 @@ narrator "5 minutes."
 
 [wait]SetLayerMedia(background "12. CAR SEAT DRIVER")
 narrator "I gripped the steering wheel tightly as I muttered a silent prayer for them.{c}My knuckles are turning white and my heartbeat is racing." 
-"I strain to hear something,{wa 1} anything.{c}I blink away the tears that are starting to cloud my vision again.{c}They have to come back.{c}They have to."
+"I strain to hear something...{a} anything.{c}I blink away the tears that are starting to cloud my vision again.{c}They have to come back.{c}They have to."
 
 [wait]SetLayerMedia(background "21. GAS STATION 2 WITH CAR")
 PlaySFX(heartbeat -v 0.5)

@@ -8,7 +8,7 @@ public class SaveandLoadMenu : MenuPage
 {
     public static SaveandLoadMenu instance { get; private set; }
 
-    public const int MAX_FILES = 99;
+    public const int MAX_FILES = 42;
 
     private int currentPage = 1;
     private bool loadedFilesForFirstTime = false;
@@ -65,6 +65,7 @@ public class SaveandLoadMenu : MenuPage
                 string filePath = $"{FilePaths.gameSaves}{fileNum}{VNGameSave.FILE_TYPE}";
                 slot.fileNumber = fileNum;
                 slot.filePath = filePath;
+                slot.pageNumber = currentPage;
                 slot.PopulateDetails(menuFunction);
             }
             else

@@ -94,10 +94,12 @@ namespace VISUALNOVEL
 
             SetConversationData();
 
-            if (DialogueSystem.instance.conversationManager.isOnLogicalLine && ChoicePanel.instance.cg.isVisible)
-                ChoicePanel.instance.Hide();
-
             DialogueSystem.instance.prompt.Hide();
+
+            if (!activeState.dialogue.isOnLogicalLine && ChoicePanel.instance.cg.isVisible)
+            {
+                ChoicePanel.instance.Hide();
+            }
         }
 
         public string[] GetConversationData()
