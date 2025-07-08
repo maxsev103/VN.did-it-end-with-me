@@ -116,7 +116,7 @@ namespace DIALOGUE
                 {
                     architect.ForceComplete();
 
-                    yield return new WaitForSeconds(0.5f);
+                    yield return null;
                 }
 
                 DialogueSystem.instance.OnSystemPrompt_Next();
